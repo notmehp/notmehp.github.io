@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Máy Tính Chi Phí Lát Đá Lối Đi</title>
+    <link rel="shortcut icon" href="favico.svg" type="image/svg+xml">
     <style>
         * {
             margin: 0;
@@ -269,12 +270,20 @@
                 transform: translateY(0);
             }
         }
+        
+        .fixed-size-img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover; /* Giữ ảnh đẹp mà không méo */
+            border: 1px solid #ccc;
+        }
+        
     </style>
 </head>
 <body>
     <div class="container animation-fade-in">
         <div class="header">
-            <h1>🏗️ Máy Tính Chi Phí Lát Đá Lối Đi</h1>
+            <h1>Máy Tính Chi Phí Lát Đá Lối Đi</h1>
             <p>Tính toán chi phí dự án lát đá lối đi một cách chính xác và nhanh chóng</p>
         </div>
 
@@ -345,7 +354,7 @@
                 </div>
 
                 <button class="calculate-btn" onclick="calculateCost()">
-                    🧮 Tính Toán Chi Phí
+                    Tính Toán Chi Phí
                 </button>
             </div>
 
@@ -374,7 +383,7 @@
                         <span class="cost-value" id="patternCost">0 VNĐ</span>
                     </div>
                 </div>
-
+                
                 <div class="total-cost">
                     <div class="label">Tổng Chi Phí Dự Án</div>
                     <div class="amount" id="totalCost">6,750,000 VNĐ</div>
@@ -384,6 +393,10 @@
                     <h4>💡 Lưu ý quan trọng</h4>
                     <p>Giá tính toán chỉ mang tính chất tham khảo. Chi phí thực tế có thể thay đổi tùy thuộc vào điều kiện địa hình, vị trí thi công và yêu cầu cụ thể của dự án.</p>
                 </div>
+
+                <h3 class="section-title" style="color: white;">Nhà tài trợ</h3>
+                    <div class="label"><img src="aricovn_logo.png" alt="aricovn logo" class="fixed-size-img"></div>
+                
             </div>
         </div>
     </div>
