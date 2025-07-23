@@ -1,83 +1,494 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Application Profile</title>
+    <title>Máy Tính Chi Phí Lát Đá Lối Đi</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
         .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
-        h1 {
+
+        .header {
             text-align: center;
-            color: #333;
+            margin-bottom: 40px;
         }
-        h2 {
-            color: #555;
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .section {
+
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .input-section {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            color: #2d3748;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        .form-group {
             margin-bottom: 20px;
         }
-        .contact-info {
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            width: auto;
+        }
+
+        .checkbox-item.checked {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .results-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .cost-breakdown {
+            margin-bottom: 25px;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cost-item:last-child {
+            border-bottom: none;
+        }
+
+        .cost-label {
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .cost-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .total-cost {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .total-cost .label {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .total-cost .amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .calculate-btn:hover {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(72, 187, 120, 0.3);
+        }
+
+        .info-box {
+            background: #e6fffa;
+            border: 1px solid #81e6d9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .info-box h4 {
+            color: #234e52;
             margin-bottom: 10px;
         }
-        .skills, .experience, .education {
-            list-style-type: none;
-            padding: 0;
+
+        .info-box p {
+            color: #2d5a68;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
-        .skills li, .experience li, .education li {
-            background: #e9ecef;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 4px;
+
+        @media (max-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .input-section, .results-section {
+                padding: 20px;
+            }
+        }
+
+        .animation-fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>John Doe</h1>
-        <div class="contact-info section">
-            <p>Email: johndoe@example.com</p>
-            <p>Phone: (123) 456-7890</p>
-            <p>LinkedIn: linkedin.com/in/johndoe</p>
+    <div class="container animation-fade-in">
+        <div class="header">
+            <h1>🏗️ Máy Tính Chi Phí Lát Đá Lối Đi</h1>
+            <p>Tính toán chi phí dự án lát đá lối đi một cách chính xác và nhanh chóng</p>
         </div>
-        <div class="summary section">
-            <h2>Professional Summary</h2>
-            <p>Dynamic and results-oriented professional with over 5 years of experience in software development. Proven track record of delivering high-quality solutions on time and within budget.</p>
-        </div>
-        <div class="skills section">
-            <h2>Skills</h2>
-            <ul class="skills">
-                <li>HTML, CSS, JavaScript</li>
-                <li>React, Node.js</li>
-                <li>Project Management</li>
-                <li>Agile Methodologies</li>
-            </ul>
-        </div>
-        <div class="experience section">
-            <h2>Work Experience</h2>
-            <ul class="experience">
-                <li><strong>Software Developer</strong> - ABC Company (2018 - Present)</li>
-                <li><strong>Junior Developer</strong> - XYZ Inc. (2016 - 2018)</li>
-            </ul>
-        </div>
-        <div class="education section">
-            <h2>Education</h2>
-            <ul class="education">
-                <li>Bachelor of Science in Computer Science - University of Example (2016)</li>
-            </ul>
+
+        <div class="calculator-grid">
+            <div class="input-section">
+                <h3 class="section-title">Thông Tin Dự Án</h3>
+                
+                <div class="form-group">
+                    <label for="length">Chiều dài lối đi (m):</label>
+                    <input type="number" id="length" value="10" min="1" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label for="width">Chiều rộng lối đi (m):</label>
+                    <input type="number" id="width" value="1.5" min="0.1" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label for="paverType">Loại đá lát:</label>
+                    <select id="paverType">
+                        <option value="concrete" data-price="250000">Đá bê tông (250,000 VNĐ/m²)</option>
+                        <option value="brick" data-price="350000">Gạch nung (350,000 VNĐ/m²)</option>
+                        <option value="natural" data-price="500000">Đá tự nhiên (500,000 VNĐ/m²)</option>
+                        <option value="granite" data-price="800000">Đá granite (800,000 VNĐ/m²)</option>
+                        <option value="marble" data-price="1200000">Đá marble (1,200,000 VNĐ/m²)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pattern">Kiểu lát:</label>
+                    <select id="pattern">
+                        <option value="straight" data-multiplier="1">Lát thẳng (x1.0)</option>
+                        <option value="herringbone" data-multiplier="1.2">Kiểu xương cá (x1.2)</option>
+                        <option value="diagonal" data-multiplier="1.15">Lát chéo (x1.15)</option>
+                        <option value="circular" data-multiplier="1.3">Kiểu tròn (x1.3)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Dịch vụ bổ sung:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="excavation" data-price="50000">
+                            <label for="excavation">Đào đất (50,000 VNĐ/m²)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="base" data-price="80000">
+                            <label for="base">Lót nền (80,000 VNĐ/m²)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sand" data-price="30000">
+                            <label for="sand">Lót cát (30,000 VNĐ/m²)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="edging" data-price="25000">
+                            <label for="edging">Viền đá (25,000 VNĐ/m²)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sealing" data-price="40000">
+                            <label for="sealing">Bảo vệ bề mặt (40,000 VNĐ/m²)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="laborRate">Chi phí nhân công (VNĐ/m²):</label>
+                    <input type="number" id="laborRate" value="200000" min="0" step="10000">
+                </div>
+
+                <button class="calculate-btn" onclick="calculateCost()">
+                    🧮 Tính Toán Chi Phí
+                </button>
+            </div>
+
+            <div class="results-section">
+                <h3 class="section-title" style="color: white;">Kết Quả Tính Toán</h3>
+                
+                <div class="cost-breakdown">
+                    <div class="cost-item">
+                        <span class="cost-label">Diện tích:</span>
+                        <span class="cost-value" id="totalArea">15.0 m²</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Chi phí vật liệu:</span>
+                        <span class="cost-value" id="materialCost">3,750,000 VNĐ</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Chi phí nhân công:</span>
+                        <span class="cost-value" id="laborCost">3,000,000 VNĐ</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Dịch vụ bổ sung:</span>
+                        <span class="cost-value" id="additionalCost">0 VNĐ</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="cost-label">Phụ phí kiểu lát:</span>
+                        <span class="cost-value" id="patternCost">0 VNĐ</span>
+                    </div>
+                </div>
+
+                <div class="total-cost">
+                    <div class="label">Tổng Chi Phí Dự Án</div>
+                    <div class="amount" id="totalCost">6,750,000 VNĐ</div>
+                </div>
+
+                <div class="info-box">
+                    <h4>💡 Lưu ý quan trọng</h4>
+                    <p>Giá tính toán chỉ mang tính chất tham khảo. Chi phí thực tế có thể thay đổi tùy thuộc vào điều kiện địa hình, vị trí thi công và yêu cầu cụ thể của dự án.</p>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Format number to Vietnamese currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'decimal',
+                minimumFractionDigits: 0
+            }).format(amount) + ' VNĐ';
+        }
+
+        // Format area
+        function formatArea(area) {
+            return area.toFixed(1) + ' m²';
+        }
+
+        // Calculate cost function
+        function calculateCost() {
+            // Get input values
+            const length = parseFloat(document.getElementById('length').value) || 0;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const paverSelect = document.getElementById('paverType');
+            const paverPrice = parseInt(paverSelect.selectedOptions[0].dataset.price) || 0;
+            const patternSelect = document.getElementById('pattern');
+            const patternMultiplier = parseFloat(patternSelect.selectedOptions[0].dataset.multiplier) || 1;
+            const laborRate = parseFloat(document.getElementById('laborRate').value) || 0;
+
+            // Calculate area
+            const totalArea = length * width;
+
+            // Calculate material cost with pattern multiplier
+            const baseMaterialCost = totalArea * paverPrice;
+            const materialCost = baseMaterialCost * patternMultiplier;
+
+            // Calculate labor cost
+            const laborCost = totalArea * laborRate;
+
+            // Calculate additional services cost
+            let additionalCost = 0;
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            checkboxes.forEach(checkbox => {
+                const price = parseInt(checkbox.dataset.price) || 0;
+                additionalCost += totalArea * price;
+            });
+
+            // Calculate pattern additional cost
+            const patternCost = baseMaterialCost * (patternMultiplier - 1);
+
+            // Calculate total cost
+            const totalCost = materialCost + laborCost + additionalCost;
+
+            // Update display
+            document.getElementById('totalArea').textContent = formatArea(totalArea);
+            document.getElementById('materialCost').textContent = formatCurrency(baseMaterialCost);
+            document.getElementById('laborCost').textContent = formatCurrency(laborCost);
+            document.getElementById('additionalCost').textContent = formatCurrency(additionalCost);
+            document.getElementById('patternCost').textContent = formatCurrency(patternCost);
+            document.getElementById('totalCost').textContent = formatCurrency(totalCost);
+
+            // Add animation effect
+            const resultSection = document.querySelector('.results-section');
+            resultSection.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                resultSection.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Add event listeners for real-time calculation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle checkbox styling
+            document.querySelectorAll('.checkbox-item').forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        item.classList.add('checked');
+                    } else {
+                        item.classList.remove('checked');
+                    }
+                    calculateCost();
+                });
+            });
+
+            // Add event listeners for real-time updates
+            const inputs = document.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                input.addEventListener('input', calculateCost);
+                input.addEventListener('change', calculateCost);
+            });
+
+            // Initial calculation
+            calculateCost();
+        });
+
+        // Add smooth transitions
+        document.querySelectorAll('input, select').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
 </body>
 </html>
