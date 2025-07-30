@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- Monthly Interest & Transaction Tracker -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monthly Interest Calculator</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { padding: 2rem; }
+    .table-container { max-height: 300px; overflow-y: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4">Monthly Interest & Transaction Tracker</h1>
+    <!-- Settings -->
+    <div class="mb-4">
+      <label for="interestRate" class="form-label">Annual Interest Rate (%)</label>
+      <input type="number" id="interestRate" class="form-control" placeholder="e.g. 6" step="0.01" value="6">
+      <small class="form-text text-muted">Enter annual nominal rate to calculate daily interest.</small>
+    </div>
+
+    <!-- Transaction Form -->
+    <form id="txnForm" class="row g-3 mb-4">
+      <div class="col-md-4">
+        <label for="txnDate" class="form-label">Date</label>
+        <input type="date" id="txnDate" class="form-control" required>
+      </div>
+      <div class="col-md-4">
+        <label for="txnType" class="form-label">Type</label>
+        <select id="txnType" class="form-select" required>
+          <option value="deposit">Deposit</option>
+          <option value="withdraw">Withdraw</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="txnAmount" class="form-label">Amount (VND)</label>
+        <input type="number" id="txnAmount" class="form-control" placeholder="e.g. 5500000000" required>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Add Transaction</button>
+      </div>
+    </form>
+
+    <!-- Transaction History -->
+    <div class="table-container mb-4">
+      <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount (VND)</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Results -->
+    <div class="mb-4">
+      <button id="calcBtn" class="btn btn-success">Calculate Interest & End Balance</button>
+    </div>
+    <div id="results" class="border p-3" style="display:none;">
+      <p><strong>Total Interest:</strong> <span id="totalInterest"></span> VND</p>
+      <p><strong>End-of-Month Balance:</strong> <span id="endBalance"></span> VND</p>
+    </div>
+  </div>
+
+  <!-- Bootstrap & Dependencies JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // State
+    const transactions = [];
+
+    // Helpers
+    function formatCurrency(num) {
+      return num.toLocaleString('vi-VN');
+    }
+
+    // Add transaction
+    document.getElementById('txnForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const date = document.getElementById('txnDate').value;
+      const type = document.getElementById('txnType').value;
+      const amount = parseFloat(document.getElementById('txnAmount').value);
+      transactions.push({ date: new Date(date), type, amount });
+      transactions.sort((a,b) => a.date - b.date);
+      renderHistory();
+      e.target.reset();
+    });
+
+    // Render history table
+    function renderHistory() {
+      const tbody = document.getElementById('historyBody');
+      tbody.innerHTML = '';
+      transactions.forEach(txn => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${txn.date.toISOString().slice(0,10)}</td>
+          <td>${txn.type}</td>
+          <td>${formatCurrency(txn.amount)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Calculate interest & end balance
+    document.getElementById('calcBtn').addEventListener('click', () => {
+      if (!transactions.length) return alert('Chưa có giao dịch.');
+      const rateAnnual = parseFloat(document.getElementById('interestRate').value) / 100;
+      const rateDaily = rateAnnual / 365;
+      const first = new Date(transactions[0].date);
+      const month = first.getMonth();
+      const year = first.getFullYear();
+      let totalInterest = 0;
+      let balance = 0;
+      // track from start of month
+      let prevDate = new Date(year, month, 1);
+
+      transactions.forEach(txn => {
+        const currDate = new Date(txn.date);
+        // If txn not in same month, ignore
+        if (currDate.getMonth() !== month || currDate.getFullYear() !== year) return;
+        const diffDays = Math.floor((currDate - prevDate) / (1000*60*60*24));
+        if (diffDays > 0) totalInterest += balance * diffDays * rateDaily;
+        // update balance, no interest on txn day
+        balance += (txn.type === 'deposit' ? txn.amount : -txn.amount);
+        prevDate = new Date(currDate);
+      });
+      // from last txn to end of month
+      const lastDay = new Date(year, month+1, 0);
+      const remDays = Math.floor((lastDay - prevDate) / (1000*60*60*24));
+      if (remDays > 0) totalInterest += balance * remDays * rateDaily;
+
+      // show results
+      document.getElementById('totalInterest').innerText = formatCurrency(Math.round(totalInterest));
+      document.getElementById('endBalance').innerText = formatCurrency(balance);
+      document.getElementById('results').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
