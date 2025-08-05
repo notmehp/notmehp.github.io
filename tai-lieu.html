@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Liệu Miễn Phí - ARICO Sống Xanh</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #2E7D32;
+            --primary-light: #81C784;
+            --secondary-color: #66BB6A;
+            --accent-color: #A5D6A7;
+            --text-dark: #1B5E20;
+            --text-light: #E8F5E8;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Custom Bootstrap Colors */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+
+        /* Header */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            margin: 0 0.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: white;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(76,175,80,0.95), rgba(102,187,106,0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23e8f5e8" width="1200" height="400"/><circle fill="%234CAF50" opacity="0.1" cx="200" cy="100" r="60"/><circle fill="%234CAF50" opacity="0.1" cx="800" cy="200" r="80"/><circle fill="%234CAF50" opacity="0.1" cx="1000" cy="80" r="50"/><path fill="%234CAF50" opacity="0.05" d="M0,300 Q300,250 600,300 T1200,280 L1200,400 L0,400 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .lead {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 1rem 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--primary-dark);
+        }
+
+        /* Document Cards */
+        .document-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .document-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .document-card .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .document-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .document-type {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .card-title {
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .download-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .download-info small {
+            color: #666;
+        }
+
+        .btn-download {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-download:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            color: var(--primary-dark);
+            font-weight: 700;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Categories Filter */
+        .filter-pills {
+            margin-bottom: 3rem;
+        }
+
+        .filter-pill {
+            background: #f8f9fa;
+            color: var(--primary-dark);
+            border: 2px solid #e9ecef;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .filter-pill:hover,
+        .filter-pill.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Newsletter Signup */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0;
+            margin: 4rem 0;
+            border-radius: 20px;
+        }
+
+        .newsletter-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form .form-control {
+            border: none;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .newsletter-form .btn {
+            border-radius: 25px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer h5 {
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--primary-color);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom utility classes */
+        .text-green {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-light-green {
+            background-color: #E8F5E8 !important;
+        }
+
+        .border-green {
+            border-color: var(--primary-color) !important;
+        }
+
+        /* Download Modal */
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .lead {
+                font-size: 1.1rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .filter-pill {
+                margin-right: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .document-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-leaf me-2"></i>
+                <span>ARICO</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gioi-thieu.html">Sống xanh là gì?</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Hướng dẫn
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="moi-truong.html">Môi trường</a></li>
+                            <li><a class="dropdown-item" href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                            <li><a class="dropdown-item" href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                            <li><a class="dropdown-item" href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                            <li><a class="dropdown-item" href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                            <li><a class="dropdown-item" href="loi-song-tieu-dung.html">Lối sống & tiêu dùng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="meo-hang-ngay.html">Mẹo hằng ngày</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cau-chuyen.html">Câu chuyện</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="diy.html">Tự làm (DIY)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="tai-lieu.html">Tài liệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-section">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Tài liệu miễn phí</li>
+                </ol>
+            </nav>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="display-4 fw-bold fade-in-up">Tài Liệu Miễn Phí</h1>
+                    <p class="lead fade-in-up">Tải xuống các checklist, eBook và hướng dẫn chi tiết để bắt đầu hành trình sống xanh của bạn</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Filter Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="text-center filter-pills">
+                    <a href="#" class="filter-pill active" data-filter="all">Tất cả</a>
+                    <a href="#" class="filter-pill" data-filter="checklist">Checklist</a>
+                    <a href="#" class="filter-pill" data-filter="ebook">eBook</a>
+                    <a href="#" class="filter-pill" data-filter="guide">Hướng dẫn</a>
+                    <a href="#" class="filter-pill" data-filter="template">Template</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documents Grid -->
+        <section class="pb-5">
+            <div class="container">
+                <div class="row g-4" id="documentsGrid">
+                    <!-- Checklist Documents -->
+                    <div class="col-lg-4 col-md-6 document-item" data-category="checklist">
+                        <div class="card document-card">
+                            <div class="card-header text-center">
+                                <i class="bi bi-check2-square document-icon"></i>
+                                <div class="document-type">CHECKLIST</div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Checklist Sống Xanh Hàng Ngày</h5>
+                                <p class="card-text">Danh sách kiểm tra 30 thói quen sống xanh đơn giản mà bạn có thể áp dụng ngay hôm nay.</p>
+                                <div class="download-info">
+                                    <small>
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> PDF • 2 trang • 1.2MB
+                                    </small>
+                                </div>
+                                <a href="#" class="btn-download w-100 text-center" onclick="downloadFile('checklist-song-xanh.pdf')">
+                                    <i class="bi bi-download"></i> Tải xuống miễn phí
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 document-item" data-category="checklist">
+                        <div class="card document-card">
+                            <div class="card-header text-center">
+                                <i class="bi bi-check2-square document-icon"></i>
+                                <div class="document-type">CHECKLIST</div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Checklist Mua Sắm Xanh</h5>
+                                <p class="card-text">Hướng dẫn lựa chọn sản phẩm thân thiện môi trường khi đi siêu thị và mua sắm online.</p>
+                                <div class="download-info">
+                                    <small>
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> PDF • 3 trang • 1.8MB
+                                    </small>
+                                </div>
+                                <a href="#" class="btn-download w-100 text-center" onclick="downloadFile('checklist-mua-sam-xanh.pdf')">
+                                    <i class="bi bi-download"></i> Tải xuống miễn phí
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- eBook Documents -->
+                    <div class="col-lg-4 col-md-6 document-item" data-category="ebook">
+                        <div class="card document-card">
+                            <div class="card-header text-center">
+                                <i class="bi bi-book document-icon"></i>
+                                <div class="document-type">EBOOK</div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">eBook: 100 Cách Sống Xanh</h5>
+                                <p class="card-text">Sách điện tử tổng hợp 100 cách thực hành sống xanh từ cơ bản đến nâng cao, phù hợp với mọi lứa tuổi.</p>
+                                <div class="download-info">
+                                    <small>
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> PDF • 85 trang • 12.5MB
+                                    </small>
+                                </div>
+                                <a href="#" class="btn-download w-100 text-center" onclick="downloadFile('ebook-100-cach-song-xanh.pdf')">
+                                    <i class="bi bi-download"></i> Tải xuống miễn phí
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 document-item" data-category="ebook">
+                        <div class="card document-card">
+                            <div class="card-header text-center">
+                                <i class="bi bi-book document-icon"></i>
+                                <div class="document-type">EBOOK</div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">eBook: Zero Waste Cho Người Mới Bắt Đầu</h5>
+                                <p class="card-text">Hướng dẫn từng bước để giảm thiểu rác thải trong cuộc sống hàng ngày, phù hợp cho người mới.</p>
+                                <div class="download-info">
+                                    <small>
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> PDF • 45 trang • 8.2MB
+                                    </small>
+                                </div>
+                                <a href="#" class="btn-download w-100 text-center" onclick="downloadFile('ebook-zero-waste.pdf')">
+                                    <i class="bi bi-download"></i> Tải xuống miễn phí
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Guide Documents -->
+                    <div class="col-lg-4 col-md-6 document-item" data-category="guide">
+                        <div class="card document-card">
+                            <div class="card-header text-center">
+                                <i class="bi bi-file-text document-icon"></i>
+                                <div class="document-type">HƯỚNG DẪN</div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Hướng Dẫn Làm Vườn Xanh Tại Nhà</h5>
+                                <p class="card-text">Cách tạo khu vườn nhỏ trong nhà, trồng rau sạch và chăm sóc cây xanh hiệu quả.</p>
+                                <div class="download-info">
+                                    <small>
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> PDF • 25 trang • 5.6MB
+                                    </small>
+                                </div>
+                                <a href="#" class="btn-download w-100 text-center" onclick="downloadFile('huong-dan-lam-vuon-xanh.pdf')">
+                                    <i class="bi bi-download"></i> Tải xuống miễn phí
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 document-item" data-category="guide">
+                        <div class="card document-card">
+                            <div class="card-header text-center">
+                                <i class="bi bi-file-text document-icon"></i>
+                                <div class="document-type">HƯỚNG DẪN</div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Hướng Dẫn Tiết Kiệm Năng Lượng</h5>
+                                <p class="card-text">Các cách thực tế để giảm hóa đơn điện và sử dụng năng lượng hiệu quả trong gia đình.</p>
+                                <div class="download-info">
+                                    <small>
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> PDF • 18 trang • 3.8MB
+                                    </small>
+                                </div>
+                                <a href="#" class="btn-download w-100 text-center" onclick="downloadFile('huong-dan-tiet-kiem-nang-luong.pdf')">
+                                    <i class="bi bi-download"></i> Tải xuống miễn phí
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Template Documents -->
+                    <div class="col-lg-4 col-md-6 document-item" data-category="template">
+                        <div class="card document-card">
+                            <div class="card-header text-center">
+                                <i class="bi bi-file-spreadsheet document-icon"></i>
+                                <div class="document-type">TEMPLATE</div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Template Theo Dõi Carbon Footprint</h5>
+                                <p class="card-text">Bảng tính Excel để theo dõi và tính toán lượng khí thải carbon cá nhân hàng tháng.</p>
+                                <div class="download-info">
+                                    <small>
+                                        <i class="bi bi-file-earmark-excel me-1"></i> XLSX • 1 file • 856KB
+                                    </small>
+                                </div>
+                                <a href="#" class="btn-download w-100 text-center" onclick="downloadFile('template-carbon-footprint.xlsx')">
+                                    <i class="bi bi-download"></i> Tải xuống miễn phí
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 document-item" data-category="template">
+                        <div class="card document-card">
+                            <div class="card-header text-center">
+                                <i class="bi bi-file-spreadsheet document-icon"></i>
+                                <div class="document-type">TEMPLATE</div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Template Kế Hoạch Sống Xanh 30 Ngày</h5>
+                                <p class="card-text">Mẫu lịch trình 30 ngày để xây dựng thói quen sống xanh bền vững và theo dõi tiến độ.</p>
+                                <div class="download-info">
+                                    <small>
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> PDF • 4 trang • 2.1MB
+                                    </small>
+                                </div>
+                                <a href="#" class="btn-download w-100 text-center" onclick="downloadFile('template-ke-hoach-30-ngay.pdf')">
+                                    <i class="bi bi-download"></i> Tải xuống miễn phí
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 document-item" data-category="ebook">
+                        <div class="card document-card">
+                            <div class="card-header text-center">
+                                <i class="bi bi-book document-icon"></i>
+                                <div class="document-type">EBOOK</div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">eBook: DIY Sản Phẩm Làm Đẹp Tự Nhiên</h5>
+                                <p class="card-text">50+ công thức làm mỹ phẩm tự nhiên từ nguyên liệu có sẵn, an toàn và tiết kiệm.</p>
+                                <div class="download-info">
+                                    <small>
+                                        <i class="bi bi-file-earmark-pdf me-1"></i> PDF • 62 trang • 9.8MB
+                                    </small>
+                                </div>
+                                <a href="#" class="btn-download w-100 text-center" onclick="downloadFile('ebook-diy-lam-dep.pdf')">
+                                    <i class="bi bi-download"></i> Tải xuống miễn phí
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="container text-center">
+                <h3 class="fw-bold mb-3">Nhận tài liệu mới nhất qua email</h3>
+                <p class="lead mb-4">Đăng ký để được thông báo khi có tài liệu mới và nhận tips sống xanh hàng tuần</p>
+                <form class="newsletter-form">
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Nhập email của bạn...">
+                        <button class="btn btn-light" type="submit">
+                            <i class="bi bi-envelope me-2"></i>Đăng ký
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5>
+                        <i class="bi bi-leaf me-2"></i>
+                        Về ARICO
+                    </h5>
+                    <p>ARICO là thương hiệu truyền cảm hứng sống xanh cho thế hệ trẻ Việt Nam. Chúng tôi tin rằng những thay đổi nhỏ hàng ngày có thể tạo nên tác động lớn cho môi trường.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-facebook fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-instagram fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-youtube fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-tiktok fs-4"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                    <h5>Chủ đề</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="moi-truong.html">Môi trường</a></li>
+                        <li><a href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                        <li><a href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                        <li><a href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                        <li><a href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Hữu ích</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="meo-hang-ngay.html">Mẹo hằng ngày</a></li>
+                        <li><a href="diy.html">Hướng dẫn tự làm</a></li>
+                        <li><a href="tai-lieu.html">Tài liệu miễn phí</a></li>
+                        <li><a href="cau-chuyen.html">Câu chuyện thực tế</a></li>
+                        <li><a href="gioi-thieu.html">Về sống xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="bi bi-envelope me-2"></i>
+                            hello@arico.vn
+                        </li>
+                        <li>
+                            <i class="bi bi-telephone me-2"></i>
+                            (+84) 123 456 789
+                        </li>
+                        <li>
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Hà Nội, Việt Nam
+                        </li>
+                        <li>
+                            <i class="bi bi-globe me-2"></i>
+                            www.arico.vn
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="mb-0">
+                    &copy; 2025 ARICO. Được tạo với 
+                    <i class="bi bi-heart-fill text-danger"></i> 
+                    cho một tương lai xanh hơn.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Download Modal -->
+    <div class="modal fade" id="downloadModal" tabindex="-1" aria-labelledby="downloadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="downloadModalLabel">
+                        <i class="bi bi-download me-2"></i>Tải xuống tài liệu
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mb-4">
+                        <i class="bi bi-file-earmark-check text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h5 class="mb-3">Cảm ơn bạn đã quan tâm!</h5>
+                    <p class="text-muted mb-4" id="downloadFileName">Tài liệu đang được chuẩn bị để tải xuống...</p>
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-primary" id="confirmDownload">
+                            <i class="bi bi-download me-2"></i>Tải xuống ngay
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active state
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter documents
+                const filter = this.getAttribute('data-filter');
+                const documents = document.querySelectorAll('.document-item');
+                
+                documents.forEach(doc => {
+                    if (filter === 'all' || doc.getAttribute('data-category') === filter) {
+                        doc.style.display = 'block';
+                        doc.classList.add('fade-in-up');
+                    } else {
+                        doc.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Download functionality
+        function downloadFile(filename) {
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('downloadModal'));
+            document.getElementById('downloadFileName').textContent = `Đang chuẩn bị tải: ${filename}`;
+            
+            // Set up download button
+            document.getElementById('confirmDownload').onclick = function() {
+                // Simulate download (in real app, this would trigger actual download)
+                console.log(`Downloading: ${filename}`);
+                
+                // Show success message
+                this.innerHTML = '<i class="bi bi-check2 me-2"></i>Đã tải xuống!';
+                this.classList.remove('btn-primary');
+                this.classList.add('btn-success');
+                this.disabled = true;
+                
+                // Track download (analytics)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'download', {
+                        'file_name': filename,
+                        'file_type': filename.split('.').pop()
+                    });
+                }
+                
+                // Auto-close modal after 2 seconds
+                setTimeout(() => {
+                    modal.hide();
+                    // Reset button
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="bi bi-download me-2"></i>Tải xuống ngay';
+                        this.classList.remove('btn-success');
+                        this.classList.add('btn-primary');
+                        this.disabled = false;
+                    }, 500);
+                }, 2000);
+            };
+            
+            modal.show();
+        }
+
+        // Newsletter form
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            if (email) {
+                // Simulate subscription
+                const button = this.querySelector('button');
+                button.innerHTML = '<i class="bi bi-check2 me-2"></i>Đã đăng ký!';
+                button.classList.remove('btn-light');
+                button.classList.add('btn-success');
+                button.disabled = true;
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    button.innerHTML = '<i class="bi bi-envelope me-2"></i>Đăng ký';
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-light');
+                    button.disabled = false;
+                    this.querySelector('input[type="email"]').value = '';
+                }, 3000);
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe document cards
+        document.querySelectorAll('.document-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Active nav link highlighting
+        const currentLocation = location.pathname.split('/').pop() || 'index.html';
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // Auto-close navbar on mobile after clicking
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarToggler = document.querySelector('.navbar-toggler');
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click();
+                }
+            });
+        });
+
+        // Search functionality (optional enhancement)
+        function searchDocuments(query) {
+            const documents = document.querySelectorAll('.document-item');
+            query = query.toLowerCase();
+            
+            documents.forEach(doc => {
+                const title = doc.querySelector('.card-title').textContent.toLowerCase();
+                const description = doc.querySelector('.card-text').textContent.toLowerCase();
+                
+                if (title.includes(query) || description.includes(query)) {
+                    doc.style.display = 'block';
+                } else {
+                    doc.style.display = 'none';
+                }
+            });
+        }
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.3s ease';
+        });
+    </script>
+</body>
+</html>

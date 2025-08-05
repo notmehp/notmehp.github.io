@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng Dẫn Tự Làm (DIY) - ARICO Sống Xanh</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #2E7D32;
+            --primary-light: #81C784;
+            --secondary-color: #66BB6A;
+            --accent-color: #A5D6A7;
+            --text-dark: #1B5E20;
+            --text-light: #E8F5E8;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Custom Bootstrap Colors */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+
+        /* Header */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            margin: 0 0.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: white;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(76,175,80,0.95), rgba(102,187,106,0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23e8f5e8" width="1200" height="400"/><circle fill="%234CAF50" opacity="0.1" cx="200" cy="100" r="60"/><circle fill="%234CAF50" opacity="0.1" cx="800" cy="200" r="80"/><circle fill="%234CAF50" opacity="0.1" cx="1000" cy="80" r="50"/><path fill="%234CAF50" opacity="0.05" d="M0,300 Q300,250 600,300 T1200,280 L1200,400 L0,400 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .lead {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 1rem 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--primary-dark);
+        }
+
+        /* DIY Cards */
+        .diy-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .diy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .diy-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .diy-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .difficulty-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .difficulty-easy {
+            background: linear-gradient(45deg, #4CAF50, #66BB6A);
+        }
+
+        .difficulty-medium {
+            background: linear-gradient(45deg, #FF9800, #FFB74D);
+        }
+
+        .difficulty-hard {
+            background: linear-gradient(45deg, #F44336, #EF5350);
+        }
+
+        .time-badge {
+            background: rgba(76,175,80,0.9);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .ingredients-list {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1rem 0;
+        }
+
+        .ingredients-list h6 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .ingredients-list ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+
+        .ingredients-list li {
+            margin-bottom: 0.3rem;
+            color: #666;
+        }
+
+        /* Steps */
+        .steps-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .step-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h6 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: #666;
+            margin: 0;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            color: var(--primary-dark);
+            font-weight: 700;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Categories Filter */
+        .filter-pills {
+            margin-bottom: 3rem;
+        }
+
+        .filter-pill {
+            background: #f8f9fa;
+            color: var(--primary-dark);
+            border: 2px solid #e9ecef;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .filter-pill:hover,
+        .filter-pill.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Modal Enhancements */
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+
+        .modal-body .diy-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer h5 {
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--primary-color);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom utility classes */
+        .text-green {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-light-green {
+            background-color: #E8F5E8 !important;
+        }
+
+        .border-green {
+            border-color: var(--primary-color) !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .lead {
+                font-size: 1.1rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .filter-pill {
+                margin-right: 0.5rem;
+            }
+
+            .steps-container {
+                padding: 1.5rem;
+            }
+
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+                margin-right: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .diy-card .card-img-top {
+                height: 180px;
+            }
+
+            .steps-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-leaf me-2"></i>
+                <span>ARICO</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gioi-thieu.html">Sống xanh là gì?</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Hướng dẫn
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="moi-truong.html">Môi trường</a></li>
+                            <li><a class="dropdown-item" href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                            <li><a class="dropdown-item" href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                            <li><a class="dropdown-item" href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                            <li><a class="dropdown-item" href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                            <li><a class="dropdown-item" href="loi-song-tieu-dung.html">Lối sống & tiêu dùng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="meo-hang-ngay.html">Mẹo hằng ngày</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cau-chuyen.html">Câu chuyện</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="diy.html">Tự làm (DIY)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tai-lieu.html">Tài liệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-section">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Hướng dẫn tự làm (DIY)</li>
+                </ol>
+            </nav>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="display-4 fw-bold fade-in-up">Hướng Dẫn Tự Làm (DIY)</h1>
+                    <p class="lead fade-in-up">Tự tay làm những sản phẩm xanh, an toàn và tiết kiệm cho gia đình bạn</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Filter Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="text-center filter-pills">
+                    <a href="#" class="filter-pill active" data-filter="all">Tất cả</a>
+                    <a href="#" class="filter-pill" data-filter="beauty">Làm đẹp</a>
+                    <a href="#" class="filter-pill" data-filter="cleaning">Vệ sinh nhà cửa</a>
+                    <a href="#" class="filter-pill" data-filter="garden">Làm vườn</a>
+                    <a href="#" class="filter-pill" data-filter="craft">Thủ công</a>
+                    <a href="#" class="filter-pill" data-filter="food">Thực phẩm</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIY Projects Grid -->
+        <section class="pb-5">
+            <div class="container">
+                <div class="row g-4" id="diyGrid">
+                    <!-- Beauty DIY Projects -->
+                    <div class="col-lg-4 col-md-6 diy-item" data-category="beauty">
+                        <div class="card diy-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'><rect fill='%23E8F5E8' width='400' height='200'/><circle fill='%234CAF50' opacity='0.3' cx='100' cy='80' r='30'/><circle fill='%234CAF50' opacity='0.2' cx='300' cy='120' r='40'/><text x='200' y='105' text-anchor='middle' fill='%232E7D32' font-family='Arial' font-size='16' font-weight='bold'>Mặt nạ tự nhiên</text></svg>" class="card-img-top" alt="Mặt nạ tự nhiên">
+                                <span class="difficulty-badge difficulty-easy">Dễ</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="time-badge">
+                                        <i class="bi bi-clock me-1"></i>15 phút
+                                    </span>
+                                    <small class="text-muted">
+                                        <i class="bi bi-eye me-1"></i>1.2k lượt xem
+                                    </small>
+                                </div>
+                                <h5 class="card-title">Mặt nạ dưỡng ẩm từ bơ và mật ong</h5>
+                                <p class="card-text">Tự làm mặt nạ dưỡng ẩm tự nhiên từ bơ chín và mật ong nguyên chất, giúp da mềm mại và sáng khỏe.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showDIYDetail('mask-avocado-honey')">
+                                    <i class="bi bi-play-circle me-2"></i>Xem hướng dẫn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 diy-item" data-category="beauty">
+                        <div class="card diy-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'><rect fill='%23FFF3E0' width='400' height='200'/><circle fill='%23FF9800' opacity='0.3' cx='120' cy='70' r='25'/><circle fill='%23FF9800' opacity='0.2' cx='280' cy='130' r='35'/><text x='200' y='105' text-anchor='middle' fill='%23E65100' font-family='Arial' font-size='16' font-weight='bold'>Tẩy tế bào chết</text></svg>" class="card-img-top" alt="Tẩy tế bào chết">
+                                <span class="difficulty-badge difficulty-easy">Dễ</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="time-badge">
+                                        <i class="bi bi-clock me-1"></i>10 phút
+                                    </span>
+                                    <small class="text-muted">
+                                        <i class="bi bi-eye me-1"></i>850 lượt xem
+                                    </small>
+                                </div>
+                                <h5 class="card-title">Tẩy tế bào chết từ đường và dầu dừa</h5>
+                                <p class="card-text">Công thức đơn giản với đường nâu và dầu dừa nguyên chất, loại bỏ tế bào chết và nuôi dưỡng da.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showDIYDetail('scrub-sugar-coconut')">
+                                    <i class="bi bi-play-circle me-2"></i>Xem hướng dẫn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cleaning DIY Projects -->
+                    <div class="col-lg-4 col-md-6 diy-item" data-category="cleaning">
+                        <div class="card diy-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'><rect fill='%23E3F2FD' width='400' height='200'/><circle fill='%232196F3' opacity='0.3' cx='150' cy='90' r='30'/><circle fill='%232196F3' opacity='0.2' cx='250' cy='110' r='25'/><text x='200' y='105' text-anchor='middle' fill='%230D47A1' font-family='Arial' font-size='16' font-weight='bold'>Nước rửa chén</text></svg>" class="card-img-top" alt="Nước rửa chén tự nhiên">
+                                <span class="difficulty-badge difficulty-easy">Dễ</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="time-badge">
+                                        <i class="bi bi-clock me-1"></i>20 phút
+                                    </span>
+                                    <small class="text-muted">
+                                        <i class="bi bi-eye me-1"></i>2.1k lượt xem
+                                    </small>
+                                </div>
+                                <h5 class="card-title">Nước rửa chén từ xà phòng dừa</h5>
+                                <p class="card-text">Tự pha chế nước rửa chén an toàn từ xà phòng dừa, chanh và tinh dầu thiên nhiên.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showDIYDetail('dish-soap-natural')">
+                                    <i class="bi bi-play-circle me-2"></i>Xem hướng dẫn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 diy-item" data-category="cleaning">
+                        <div class="card diy-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'><rect fill='%23F3E5F5' width='400' height='200'/><circle fill='%239C27B0' opacity='0.3' cx='130' cy='80' r='28'/><circle fill='%239C27B0' opacity='0.2' cx='270' cy='120' r='32'/><text x='200' y='105' text-anchor='middle' fill='%234A148C' font-family='Arial' font-size='16' font-weight='bold'>Nước lau sàn</text></svg>" class="card-img-top" alt="Nước lau sàn tự nhiên">
+                                <span class="difficulty-badge difficulty-easy">Dễ</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="time-badge">
+                                        <i class="bi bi-clock me-1"></i>15 phút
+                                    </span>
+                                    <small class="text-muted">
+                                        <i class="bi bi-eye me-1"></i>1.8k lượt xem
+                                    </small>
+                                </div>
+                                <h5 class="card-title">Nước lau sàn từ giấm và tinh dầu</h5>
+                                <p class="card-text">Công thức lau sàn tự nhiên với giấm trắng và tinh dầu bạc hà, khử trùng và thơm mát.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showDIYDetail('floor-cleaner-vinegar')">
+                                    <i class="bi bi-play-circle me-2"></i>Xem hướng dẫn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Garden DIY Projects -->
+                    <div class="col-lg-4 col-md-6 diy-item" data-category="garden">
+                        <div class="card diy-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'><rect fill='%23E8F5E8' width='400' height='200'/><circle fill='%234CAF50' opacity='0.4' cx='100' cy='60' r='20'/><circle fill='%234CAF50' opacity='0.3' cx='200' cy='100' r='25'/><circle fill='%234CAF50' opacity='0.2' cx='300' cy='140' r='30'/><text x='200' y='105' text-anchor='middle' fill='%231B5E20' font-family='Arial' font-size='16' font-weight='bold'>Phân bón hữu cơ</text></svg>" class="card-img-top" alt="Phân bón hữu cơ">
+                                <span class="difficulty-badge difficulty-medium">Trung bình</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="time-badge">
+                                        <i class="bi bi-clock me-1"></i>45 phút
+                                    </span>
+                                    <small class="text-muted">
+                                        <i class="bi bi-eye me-1"></i>3.2k lượt xem
+                                    </small>
+                                </div>
+                                <h5 class="card-title">Phân bón hữu cơ từ vỏ trứng và cà phê</h5>
+                                <p class="card-text">Hướng dẫn làm phân bón tự nhiên từ vỏ trứng, bã cà phê và vỏ chuối cho cây xanh.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showDIYDetail('organic-fertilizer')">
+                                    <i class="bi bi-play-circle me-2"></i>Xem hướng dẫn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Craft DIY Projects -->
+                    <div class="col-lg-4 col-md-6 diy-item" data-category="craft">
+                        <div class="card diy-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'><rect fill='%23FFF8E1' width='400' height='200'/><circle fill='%23FFC107' opacity='0.3' cx='120' cy='70' r='25'/><circle fill='%23FFC107' opacity='0.2' cx='280' cy='130' r='35'/><text x='200' y='105' text-anchor='middle' fill='%23F57F17' font-family='Arial' font-size='16' font-weight='bold'>Túi vải tái chế</text></svg>" class="card-img-top" alt="Túi vải tái chế">
+                                <span class="difficulty-badge difficulty-medium">Trung bình</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="time-badge">
+                                        <i class="bi bi-clock me-1"></i>60 phút
+                                    </span>
+                                    <small class="text-muted">
+                                        <i class="bi bi-eye me-1"></i>1.5k lượt xem
+                                    </small>
+                                </div>
+                                <h5 class="card-title">Túi vải từ áo cũ không dùng</h5>
+                                <p class="card-text">Biến những chiếc áo cũ thành túi vải thời trang, giảm thiểu rác thải và tiết kiệm chi phí.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showDIYDetail('fabric-bag-upcycle')">
+                                    <i class="bi bi-play-circle me-2"></i>Xem hướng dẫn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Food DIY Projects -->
+                    <div class="col-lg-4 col-md-6 diy-item" data-category="food">
+                        <div class="card diy-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'><rect fill='%23E8F5E8' width='400' height='200'/><circle fill='%234CAF50' opacity='0.4' cx='150' cy='80' r='30'/><circle fill='%234CAF50' opacity='0.3' cx='250' cy='120' r='25'/><text x='200' y='105' text-anchor='middle' fill='%231B5E20' font-family='Arial' font-size='16' font-weight='bold'>Giấm táo tự nhiên</text></svg>" class="card-img-top" alt="Giấm táo tự nhiên">
+                                <span class="difficulty-badge difficulty-hard">Khó</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="time-badge">
+                                        <i class="bi bi-clock me-1"></i>30 ngày
+                                    </span>
+                                    <small class="text-muted">
+                                        <i class="bi bi-eye me-1"></i>4.8k lượt xem
+                                    </small>
+                                </div>
+                                <h5 class="card-title">Giấm táo từ vỏ táo và lõi táo</h5>
+                                <p class="card-text">Hướng dẫn lên men giấm táo tự nhiên từ phần thừa của táo, tốt cho sức khỏe và môi trường.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showDIYDetail('apple-cider-vinegar')">
+                                    <i class="bi bi-play-circle me-2"></i>Xem hướng dẫn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 diy-item" data-category="food">
+                        <div class="card diy-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'><rect fill='%23FFF3E0' width='400' height='200'/><circle fill='%23FF9800' opacity='0.3' cx='100' cy='90' r='35'/><circle fill='%23FF9800' opacity='0.2' cx='300' cy='110' r='28'/><text x='200' y='105' text-anchor='middle' fill='%23E65100' font-family='Arial' font-size='16' font-weight='bold'>Nước ép detox</text></svg>" class="card-img-top" alt="Nước ép detox">
+                                <span class="difficulty-badge difficulty-easy">Dễ</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="time-badge">
+                                        <i class="bi bi-clock me-1"></i>10 phút
+                                    </span>
+                                    <small class="text-muted">
+                                        <i class="bi bi-eye me-1"></i>2.7k lượt xem
+                                    </small>
+                                </div>
+                                <h5 class="card-title">Nước detox từ trái cây và rau củ</h5>
+                                <p class="card-text">5 công thức nước detox tự nhiên giúp thanh lọc cơ thể và tăng cường sức khỏe.</p>
+                                <button class="btn btn-outline-primary w-100" onclick="showDIYDetail('detox-water-recipes')">
+                                    <i class="bi bi-play-circle me-2"></i>Xem hướng dẫn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="py-5 bg-primary text-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h3 class="fw-bold mb-3">Chia sẻ dự án DIY của bạn!</h3>
+                        <p class="lead mb-0">Gửi ảnh và video về các sản phẩm tự làm của bạn để truyền cảm hứng cho cộng đồng ARICO</p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a href="mailto:diy@arico.vn" class="btn btn-light btn-lg me-2">
+                            <i class="bi bi-envelope me-2"></i>Gửi dự án
+                        </a>
+                        <a href="tai-lieu.html" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-download me-2"></i>Tài liệu DIY
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5>
+                        <i class="bi bi-leaf me-2"></i>
+                        Về ARICO
+                    </h5>
+                    <p>ARICO là thương hiệu truyền cảm hứng sống xanh cho thế hệ trẻ Việt Nam. Chúng tôi tin rằng những thay đổi nhỏ hàng ngày có thể tạo nên tác động lớn cho môi trường.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-facebook fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-instagram fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-youtube fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-tiktok fs-4"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                    <h5>Chủ đề</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="moi-truong.html">Môi trường</a></li>
+                        <li><a href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                        <li><a href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                        <li><a href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                        <li><a href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Hữu ích</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="meo-hang-ngay.html">Mẹo hằng ngày</a></li>
+                        <li><a href="diy.html">Hướng dẫn tự làm</a></li>
+                        <li><a href="tai-lieu.html">Tài liệu miễn phí</a></li>
+                        <li><a href="cau-chuyen.html">Câu chuyện thực tế</a></li>
+                        <li><a href="gioi-thieu.html">Về sống xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="bi bi-envelope me-2"></i>
+                            hello@arico.vn
+                        </li>
+                        <li>
+                            <i class="bi bi-telephone me-2"></i>
+                            (+84) 123 456 789
+                        </li>
+                        <li>
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Hà Nội, Việt Nam
+                        </li>
+                        <li>
+                            <i class="bi bi-globe me-2"></i>
+                            www.arico.vn
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="mb-0">
+                    &copy; 2025 ARICO. Được tạo với 
+                    <i class="bi bi-heart-fill text-danger"></i> 
+                    cho một tương lai xanh hơn.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DIY Detail Modal -->
+    <div class="modal fade" id="diyDetailModal" tabindex="-1" aria-labelledby="diyDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="diyDetailModalLabel">
+                        <i class="bi bi-tools me-2"></i>Hướng dẫn chi tiết
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="diyDetailContent">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="shareDIY()">
+                        <i class="bi bi-share me-2"></i>Chia sẻ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // DIY Project Data
+        const diyProjects = {
+            'mask-avocado-honey': {
+                title: 'Mặt nạ dưỡng ẩm từ bơ và mật ong',
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%23E8F5E8' width='400' height='300'/><circle fill='%234CAF50' opacity='0.3' cx='150' cy='120' r='40'/><circle fill='%234CAF50' opacity='0.2' cx='250' cy='180' r='50'/><text x='200' y='155' text-anchor='middle' fill='%232E7D32' font-family='Arial' font-size='18' font-weight='bold'>Mặt nạ bơ mật ong</text></svg>",
+                difficulty: 'Dễ',
+                time: '15 phút',
+                ingredients: [
+                    '1/2 quả bơ chín',
+                    '2 thìa cà phê mật ong nguyên chất',
+                    '1 thìa cà phê dầu dừa (tùy chọn)'
+                ],
+                tools: [
+                    'Chén nhỏ',
+                    'Nĩa để nghiền',
+                    'Khăn mặt sạch'
+                ],
+                steps: [
+                    {
+                        title: 'Chuẩn bị nguyên liệu',
+                        content: 'Lấy thịt bơ ra chén, loại bỏ hạt. Chọn bơ chín vừa phải, không quá mềm.'
+                    },
+                    {
+                        title: 'Nghiền bơ',
+                        content: 'Dùng nĩa nghiền nhuyễn thịt bơ cho đến khi có kết cấu mịn, không còn cục.'
+                    },
+                    {
+                        title: 'Thêm mật ong',
+                        content: 'Cho mật ong vào và trộn đều. Nếu da khô, có thể thêm 1 thìa dầu dừa.'
+                    },
+                    {
+                        title: 'Thoa lên mặt',
+                        content: 'Làm sạch mặt trước khi thoa. Thoa đều hỗn hợp lên mặt, tránh vùng mắt.'
+                    },
+                    {
+                        title: 'Thư giãn và rửa sạch',
+                        content: 'Để 15-20 phút rồi rửa sạch bằng nước ấm. Thoa kem dưỡng ẩm như thường lệ.'
+                    }
+                ],
+                tips: [
+                    'Nên làm mặt nạ 2-3 lần/tuần để có hiệu quả tốt nhất',
+                    'Có thể bảo quản hỗn hợp trong tủ lạnh 2-3 ngày',
+                    'Nếu bị dị ứng với mật ong, có thể thay bằng sữa chua không đường'
+                ]
+            },
+            'scrub-sugar-coconut': {
+                title: 'Tẩy tế bào chết từ đường và dầu dừa',
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect fill='%23FFF3E0' width='400' height='300'/><circle fill='%23FF9800' opacity='0.3' cx='150' cy='120' r='40'/><circle fill='%23FF9800' opacity='0.2' cx='250' cy='180' r='50'/><text x='200' y='155' text-anchor='middle' fill='%23E65100' font-family='Arial' font-size='18' font-weight='bold'>Tẩy tế bào chết</text></svg>",
+                difficulty: 'Dễ', 
+                time: '10 phút',
+                ingredients: [
+                    '1/2 cốc đường nâu',
+                    '3 thìa canh dầu dừa nguyên chất',
+                    '5-10 giọt tinh dầu (lavender hoặc tea tree)'
+                ],
+                tools: [
+                    'Chén trộn',
+                    'Thìa gỗ hoặc nhựa',
+                    'Hộp đựng có nắp'
+                ],
+                steps: [
+                    {
+                        title: 'Pha trộn nguyên liệu khô',
+                        content: 'Cho đường nâu vào chén, trộn đều để tránh vón cục.'
+                    },
+                    {
+                        title: 'Thêm dầu dừa',
+                        content: 'Từ từ cho dầu dừa vào đường, trộn đều cho đến khi có độ ẩm vừa phải.'
+                    },
+                    {
+                        title: 'Thêm tinh dầu',
+                        content: 'Nhỏ tinh dầu vào và trộn đều. Tinh dầu giúp thư giãn và kháng khuẩn.'
+                    },
+                    {
+                        title: 'Sử dụng',
+                        content: 'Thoa lên da ẩm, massage nhẹ nhàng theo chuyển động tròn trong 2-3 phút.'
+                    },
+                    {
+                        title: 'Rửa sạch',
+                        content: 'Rửa sạch bằng nước ấm. Da sẽ mềm mại và được dưỡng ẩm tự nhiên.'
+                    }
+                ],
+                tips: [
+                    'Sử dụng 1-2 lần/tuần để tránh kích ứng da',
+                    'Có thể bảo quản trong hộp kín 1-2 tháng',
+                    'Không dùng cho da bị tổn thương hoặc viêm'
+                ]
+            }
+            // Add more projects as needed
+        };
+
+        // Filter functionality
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active state
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter DIY projects
+                const filter = this.getAttribute('data-filter');
+                const projects = document.querySelectorAll('.diy-item');
+                
+                projects.forEach(project => {
+                    if (filter === 'all' || project.getAttribute('data-category') === filter) {
+                        project.style.display = 'block';
+                        project.classList.add('fade-in-up');
+                    } else {
+                        project.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Show DIY Detail Modal
+        function showDIYDetail(projectId) {
+            const project = diyProjects[projectId];
+            if (!project) {
+                console.error('Project not found:', projectId);
+                return;
+            }
+
+            const modalTitle = document.getElementById('diyDetailModalLabel');
+            const modalContent = document.getElementById('diyDetailContent');
+            
+            modalTitle.innerHTML = `<i class="bi bi-tools me-2"></i>${project.title}`;
+            
+            modalContent.innerHTML = `
+                <img src="${project.image}" alt="${project.title}" class="diy-image">
+                
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="bi bi-speedometer2 fs-4 text-primary"></i>
+                            <div class="fw-bold">Độ khó</div>
+                            <div class="text-muted">${project.difficulty}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="bi bi-clock fs-4 text-primary"></i>
+                            <div class="fw-bold">Thời gian</div>
+                            <div class="text-muted">${project.time}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="bi bi-heart fs-4 text-primary"></i>
+                            <div class="fw-bold">Độ yêu thích</div>
+                            <div class="text-muted">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ingredients-list">
+                    <h6><i class="bi bi-list-ul me-2"></i>Nguyên liệu cần thiết:</h6>
+                    <ul>
+                        ${project.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="ingredients-list">
+                    <h6><i class="bi bi-tools me-2"></i>Dụng cụ cần có:</h6>
+                    <ul>
+                        ${project.tools.map(tool => `<li>${tool}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="steps-container">
+                    <h5 class="text-primary mb-4"><i class="bi bi-list-ol me-2"></i>Các bước thực hiện:</h5>
+                    ${project.steps.map((step, index) => `
+                        <div class="step-item">
+                            <div class="step-number">${index + 1}</div>
+                            <div class="step-content">
+                                <h6>${step.title}</h6>
+                                <p>${step.content}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="alert alert-success">
+                    <h6><i class="bi bi-lightbulb me-2"></i>Mẹo hay:</h6>
+                    <ul class="mb-0">
+                        ${project.tips.map(tip => `<li>${tip}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('diyDetailModal'));
+            modal.show();
+        }
+
+        // Share DIY function
+        function shareDIY() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'ARICO DIY - Hướng dẫn tự làm',
+                    text: 'Khám phá các hướng dẫn tự làm sản phẩm xanh tại ARICO!',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Đã sao chép link chia sẻ!');
+                });
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe DIY cards
+        document.querySelectorAll('.diy-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Active nav link highlighting
+        const currentLocation = location.pathname.split('/').pop() || 'index.html';
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // Auto-close navbar on mobile after clicking
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarToggler = document.querySelector('.navbar-toggler');
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click();
+                }
+            });
+        });
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.3s ease';
+        });
+    </script>
+</body>
+</html>
