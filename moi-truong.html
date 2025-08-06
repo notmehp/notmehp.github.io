@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Môi Trường - ARICO Sống Xanh</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #2E7D32;
+            --primary-light: #81C784;
+            --secondary-color: #66BB6A;
+            --accent-color: #A5D6A7;
+            --text-dark: #1B5E20;
+            --text-light: #E8F5E8;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Custom Bootstrap Colors */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+
+        /* Header */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            margin: 0 0.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: white;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(76,175,80,0.95), rgba(102,187,106,0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e8f5e8" width="1200" height="600"/><circle fill="%234CAF50" opacity="0.1" cx="200" cy="150" r="80"/><circle fill="%234CAF50" opacity="0.1" cx="800" cy="300" r="120"/><circle fill="%234CAF50" opacity="0.1" cx="1000" cy="100" r="60"/><path fill="%234CAF50" opacity="0.05" d="M0,400 Q300,350 600,400 T1200,380 L1200,600 L0,600 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .lead {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .card-text {
+            color: #666;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            color: var(--primary-dark);
+            font-weight: 700;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Custom Environment Styles */
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-card {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .solution-card {
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-color));
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tip-card {
+            background: #f8f9fa;
+            border-left: 5px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .impact-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer h5 {
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--primary-color);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom utility classes */
+        .text-green {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-light-green {
+            background-color: #E8F5E8 !important;
+        }
+
+        .border-green {
+            border-color: var(--primary-color) !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .lead {
+                font-size: 1.2rem;
+            }
+            
+            .hero {
+                padding: 4rem 0;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .card-icon {
+                font-size: 2.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-leaf me-2"></i>
+                <span>ARICO</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gioi-thieu.html">Sống xanh là gì?</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Hướng dẫn
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item active" href="moi-truong.html">Môi trường</a></li>
+                            <li><a class="dropdown-item" href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                            <li><a class="dropdown-item" href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                            <li><a class="dropdown-item" href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                            <li><a class="dropdown-item" href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                            <li><a class="dropdown-item" href="loi-song-tieu-dung.html">Lối sống & tiêu dùng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="meo-hang-ngay.html">Mẹo hằng ngày</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cau-chuyen.html">Câu chuyện</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="diy.html">Tự làm (DIY)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tai-lieu.html">Tài liệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="display-3 fw-bold fade-in-up">
+                        <i class="bi bi-globe me-3"></i>
+                        Bảo Vệ Môi Trường
+                    </h1>
+                    <p class="lead fade-in-up">Hành động nhỏ hàng ngày, tác động lớn cho hành tinh</p>
+                    <div class="fade-in-up">
+                        <a href="#challenges" class="btn btn-light btn-lg me-3 shadow">
+                            <i class="bi bi-arrow-down me-2"></i>Tìm hiểu thách thức
+                        </a>
+                        <a href="#solutions" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-lightbulb me-2"></i>Khám phá giải pháp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Statistics Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-heading display-5">Thực trạng môi trường hiện tại</h2>
+                        <p class="lead text-muted">Những con số đáng báo động về tình trạng môi trường toàn cầu</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card fade-in-up">
+                            <i class="bi bi-thermometer-high fs-1 mb-3"></i>
+                            <div class="stat-number">+1.1°C</div>
+                            <h5>Tăng nhiệt độ toàn cầu</h5>
+                            <p class="mb-0">So với thời kỳ tiền công nghiệp</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card fade-in-up">
+                            <i class="bi bi-bag-x fs-1 mb-3"></i>
+                            <div class="stat-number">8M</div>
+                            <h5>Tấn rác thải nhựa</h5>
+                            <p class="mb-0">Đổ ra đại dương mỗi năm</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card fade-in-up">
+                            <i class="bi bi-tree fs-1 mb-3"></i>
+                            <div class="stat-number">10M</div>
+                            <h5>Hecta rừng</h5>
+                            <p class="mb-0">Bị phá hủy mỗi năm</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card fade-in-up">
+                            <i class="bi bi-droplet fs-1 mb-3"></i>
+                            <div class="stat-number">2B</div>
+                            <h5>Người thiếu nước sạch</h5>
+                            <p class="mb-0">Trên toàn thế giới</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Plan Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-heading display-5">Kế hoạch hành động 30 ngày</h2>
+                        <p class="lead text-muted">Thử thách bản thân với lối sống thân thiện môi trường</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="solution-card fade-in-up">
+                            <h4><i class="bi bi-calendar-week text-white me-2"></i>Tuần 1: Khởi đầu</h4>
+                            <ul class="list-unstyled mt-3 mb-0">
+                                <li><i class="bi bi-check2 text-success me-2"></i>Mang túi vải khi mua sắm</li>
+                                <li><i class="bi bi-check2 text-success me-2"></i>Sử dụng cốc/chai nước riêng</li>
+                                <li><i class="bi bi-check2 text-success me-2"></i>Tắt đèn khi ra khỏi phòng</li>
+                                <li><i class="bi bi-check2 text-success me-2"></i>Đi bộ/xe đạp cho quãng đường ngắn</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="solution-card fade-in-up">
+                            <h4><i class="bi bi-calendar2-week text-white me-2"></i>Tuần 2-3: Nâng cao</h4>
+                            <ul class="list-unstyled mt-3 mb-0">
+                                <li><i class="bi bi-check2 text-success me-2"></i>Phân loại rác tại nguồn</li>
+                                <li><i class="bi bi-check2 text-success me-2"></i>Giảm thời gian tắm 2 phút</li>
+                                <li><i class="bi bi-check2 text-success me-2"></i>Chọn thực phẩm địa phương</li>
+                                <li><i class="bi bi-check2 text-success me-2"></i>Sử dụng giấy tái chế</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="solution-card fade-in-up">
+                            <h4><i class="bi bi-calendar-month text-white me-2"></i>Tuần 4: Thành thạo</h4>
+                            <ul class="list-unstyled mt-3 mb-0">
+                                <li><i class="bi bi-check2 text-success me-2"></i>Trồng cây trong nhà</li>
+                                <li><i class="bi bi-check2 text-success me-2"></i>Tự làm sản phẩm làm sạch</li>
+                                <li><i class="bi bi-check2 text-success me-2"></i>Chia sẻ kiến thức với bạn bè</li>
+                                <li><i class="bi bi-check2 text-success me-2"></i>Lập kế hoạch dài hạn</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-12 text-center">
+                        <div class="p-4 bg-primary text-white rounded-3">
+                            <h4><i class="bi bi-trophy me-2"></i>Thành tựu sau 30 ngày</h4>
+                            <div class="row mt-4">
+                                <div class="col-md-3">
+                                    <h3>50kg</h3>
+                                    <p class="mb-0">CO₂ tiết kiệm</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h3>200L</h3>
+                                    <p class="mb-0">Nước tiết kiệm</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h3>30%</h3>
+                                    <p class="mb-0">Giảm rác thải</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h3>1000₫</h3>
+                                    <p class="mb-0">Tiết kiệm chi phí</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIY & Resources Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-heading display-5">Tự làm sản phẩm xanh</h2>
+                        <p class="lead text-muted">Hướng dẫn làm những sản phẩm thân thiện môi trường tại nhà</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start">
+                                    <i class="bi bi-soap card-icon me-3"></i>
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title">Nước rửa chén tự nhiên</h5>
+                                        <p class="card-text text-muted mb-3">Nguyên liệu: Baking soda, giấm táo, tinh dầu chanh</p>
+                                        <div class="mb-3">
+                                            <span class="badge bg-success me-2">15 phút</span>
+                                            <span class="badge bg-info">Dễ làm</span>
+                                        </div>
+                                        <a href="diy.html#nuoc-rua-chen" class="btn btn-outline-primary btn-sm">
+                                            Xem hướng dẫn <i class="bi bi-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start">
+                                    <i class="bi bi-bag card-icon me-3"></i>
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title">Túi vải từ áo cũ</h5>
+                                        <p class="card-text text-muted mb-3">Tái chế áo thun cũ thành túi mua sắm tiện dụng</p>
+                                        <div class="mb-3">
+                                            <span class="badge bg-success me-2">30 phút</span>
+                                            <span class="badge bg-warning">Trung bình</span>
+                                        </div>
+                                        <a href="diy.html#tui-vai" class="btn btn-outline-primary btn-sm">
+                                            Xem hướng dẫn <i class="bi bi-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start">
+                                    <i class="bi bi-flower2 card-icon me-3"></i>
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title">Vườn mini từ chai nhựa</h5>
+                                        <p class="card-text text-muted mb-3">Trồng rau xanh tại nhà từ vật liệu tái chế</p>
+                                        <div class="mb-3">
+                                            <span class="badge bg-success me-2">45 phút</span>
+                                            <span class="badge bg-info">Dễ làm</span>
+                                        </div>
+                                        <a href="diy.html#vuon-mini" class="btn btn-outline-primary btn-sm">
+                                            Xem hướng dẫn <i class="bi bi-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start">
+                                    <i class="bi bi-droplet card-icon me-3"></i>
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title">Hệ thống lọc nước đơn giản</h5>
+                                        <p class="card-text text-muted mb-3">Lọc nước tại nhà bằng cát, sỏi và than hoạt tính</p>
+                                        <div class="mb-3">
+                                            <span class="badge bg-success me-2">60 phút</span>
+                                            <span class="badge bg-danger">Khó</span>
+                                        </div>
+                                        <a href="diy.html#loc-nuoc" class="btn btn-outline-primary btn-sm">
+                                            Xem hướng dẫn <i class="bi bi-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="py-5 bg-primary text-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h3 class="fw-bold mb-3">
+                            <i class="bi bi-heart-fill me-2"></i>
+                            Cùng nhau bảo vệ hành tinh xanh
+                        </h3>
+                        <p class="lead mb-0">Mỗi hành động nhỏ của bạn đều góp phần tạo nên sự thay đổi lớn cho môi trường</p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a href="meo-hang-ngay.html" class="btn btn-light btn-lg me-2 mb-2">
+                            <i class="bi bi-lightbulb me-2"></i>Mẹo hàng ngày
+                        </a>
+                        <a href="tai-lieu.html" class="btn btn-outline-light btn-lg mb-2">
+                            <i class="bi bi-download me-2"></i>Tải tài liệu
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5>
+                        <i class="bi bi-leaf me-2"></i>
+                        Về ARICO
+                    </h5>
+                    <p>ARICO là thương hiệu truyền cảm hứng sống xanh cho thế hệ trẻ Việt Nam. Chúng tôi tin rằng những thay đổi nhỏ hàng ngày có thể tạo nên tác động lớn cho môi trường.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-facebook fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-instagram fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-youtube fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-tiktok fs-4"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                    <h5>Chủ đề</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="moi-truong.html">Môi trường</a></li>
+                        <li><a href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                        <li><a href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                        <li><a href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                        <li><a href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Hữu ích</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="meo-hang-ngay.html">Mẹo hằng ngày</a></li>
+                        <li><a href="diy.html">Hướng dẫn tự làm</a></li>
+                        <li><a href="tai-lieu.html">Tài liệu miễn phí</a></li>
+                        <li><a href="cau-chuyen.html">Câu chuyện thực tế</a></li>
+                        <li><a href="gioi-thieu.html">Về sống xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="bi bi-envelope me-2"></i>
+                            hello@arico.vn
+                        </li>
+                        <li>
+                            <i class="bi bi-telephone me-2"></i>
+                            (+84) 123 456 789
+                        </li>
+                        <li>
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Hà Nội, Việt Nam
+                        </li>
+                        <li>
+                            <i class="bi bi-globe me-2"></i>
+                            www.arico.vn
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="mb-0">
+                    &copy; 2025 ARICO. Được tạo với 
+                    <i class="bi bi-heart-fill text-danger"></i> 
+                    cho một tương lai xanh hơn.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe cards and feature items
+        document.querySelectorAll('.card, .stat-card, .challenge-card, .solution-card, .tip-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Page transition effect
+        function navigateWithTransition(url) {
+            document.body.style.opacity = '0.8';
+            setTimeout(() => {
+                window.location.href = url;
+            }, 200);
+        }
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.3s ease';
+        });
+
+        // Active nav link highlighting
+        const currentLocation = location.pathname.split('/').pop() || 'moi-truong.html';
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link, .dropdown-item');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // Auto-close navbar on mobile after clicking
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarToggler = document.querySelector('.navbar-toggler');
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click();
+                }
+            });
+        });
+
+        // Environmental impact counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = counter.innerText;
+                const numericValue = parseFloat(target.replace(/[^0-9.-]+/g, ''));
+                const suffix = target.replace(/[0-9.-]+/g, '');
+                
+                if (!isNaN(numericValue)) {
+                    let current = 0;
+                    const increment = numericValue / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= numericValue) {
+                            counter.innerText = target;
+                            clearInterval(timer);
+                        } else {
+                            counter.innerText = Math.floor(current) + suffix;
+                        }
+                    }, 40);
+                }
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stat-card');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
+
+        <!-- Environmental Challenges -->
+        <section id="challenges" class="py-5 bg-light-green">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-heading display-5">Thách thức môi trường lớn</h2>
+                        <p class="lead text-muted">Những vấn đề cấp bách cần được giải quyết ngay hôm nay</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="challenge-card fade-in-up">
+                            <h4><i class="bi bi-fire me-2"></i>Biến đổi khí hậu</h4>
+                            <p>Khí thải nhà kính tăng cao, gây ra hiệu ứng nóng lên toàn cầu, tan băng ở hai cực và mực nước biển dâng cao.</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark">CO₂ tăng</span>
+                                <span class="badge bg-light text-dark">Nhiệt độ tăng</span>
+                                <span class="badge bg-light text-dark">Thời tiết cực đoan</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="challenge-card fade-in-up">
+                            <h4><i class="bi bi-water me-2"></i>Ô nhiễm đại dương</h4>
+                            <p>Rác thải nhựa, hóa chất độc hại và dầu thải đang phá hủy hệ sinh thái biển và đe dọa sinh vật biển.</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark">Rác thải nhựa</span>
+                                <span class="badge bg-light text-dark">Hóa chất độc</span>
+                                <span class="badge bg-light text-dark">Cá chết hàng loạt</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="challenge-card fade-in-up">
+                            <h4><i class="bi bi-cloud-haze me-2"></i>Ô nhiễm không khí</h4>
+                            <p>Khói bụi, khí thải từ xe cộ và công nghiệp gây ra ô nhiễm không khí nghiêm trọng, ảnh hưởng đến sức khỏe.</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark">PM2.5</span>
+                                <span class="badge bg-light text-dark">Khí thải xe</span>
+                                <span class="badge bg-light text-dark">Bệnh hô hấp</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="challenge-card fade-in-up">
+                            <h4><i class="bi bi-trash me-2"></i>Rác thải quá tải</h4>
+                            <p>Lượng rác thải gia tăng nhanh chóng, đặc biệt là rác thải nhựa không thể phân hủy, gây ô nhiễm đất và nước.</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-light text-dark">Rác nhựa</span>
+                                <span class="badge bg-light text-dark">Bãi rác quá tải</span>
+                                <span class="badge bg-light text-dark">Ô nhiễm đất</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions Section -->
+        <section id="solutions" class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-heading display-5">Giải pháp sống xanh</h2>
+                        <p class="lead text-muted">Những hành động cụ thể mà bạn có thể thực hiện ngay hôm nay</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 text-center p-4">
+                            <div class="card-body">
+                                <i class="bi bi-recycle card-icon"></i>
+                                <h5 class="card-title">Tái chế & Giảm rác thải</h5>
+                                <p class="card-text">Phân loại rác, tái sử dụng đồ cũ và hạn chế sử dụng đồ dùng một lần.</p>
+                                <span class="impact-badge">Giảm 70% rác thải</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 text-center p-4">
+                            <div class="card-body">
+                                <i class="bi bi-bicycle card-icon"></i>
+                                <h5 class="card-title">Giao thông xanh</h5>
+                                <p class="card-text">Sử dụng xe đạp, giao thông công cộng hoặc xe điện thay vì xe máy xăng.</p>
+                                <span class="impact-badge">Giảm 60% khí thải</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 text-center p-4">
+                            <div class="card-body">
+                                <i class="bi bi-lightning card-icon"></i>
+                                <h5 class="card-title">Tiết kiệm năng lượng</h5>
+                                <p class="card-text">Sử dụng đèn LED, tắt điện khi không dùng và chọn thiết bị tiết kiệm năng lượng.</p>
+                                <span class="impact-badge">Giảm 40% tiền điện</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 text-center p-4">
+                            <div class="card-body">
+                                <i class="bi bi-bag-check card-icon"></i>
+                                <h5 class="card-title">Mua sắm thông minh</h5>
+                                <p class="card-text">Chọn sản phẩm thân thiện môi trường, địa phương và có bao bì tái chế được.</p>
+                                <span class="impact-badge">Hỗ trợ kinh tế xanh</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 text-center p-4">
+                            <div class="card-body">
+                                <i class="bi bi-droplet card-icon"></i>
+                                <h5 class="card-title">Bảo vệ nguồn nước</h5>
+                                <p class="card-text">Sử dụng nước tiết kiệm, không xả rác xuống cống và lọc nước tại nhà.</p>
+                                <span class="impact-badge">Tiết kiệm 50% nước</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card h-100 text-center p-4">
+                            <div class="card-body">
+                                <i class="bi bi-tree card-icon"></i>
+                                <h5 class="card-title">Trồng cây xanh</h5>
+                                <p class="card-text">Tham gia trồng cây, làm vườn tại nhà và bảo vệ không gian xanh hiện có.</p>
+                                <span class="impact-badge">Tăng O₂ sạch</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Tips Section -->
+        <section class="py-5 bg-light-green">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="section-heading display-5">Mẹo hàng ngày bảo vệ môi trường</h2>
+                        <p class="lead text-muted">Những thói quen nhỏ tạo nên sự khác biệt lớn</p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="tip-card fade-in-up">
+                            <h5><i class="bi bi-cup-hot text-primary me-2"></i>Sáng</h5>
+                            <p class="mb-2">Mang cốc/chai nước riêng thay vì mua nước đóng chai</p>
+                            <p class="mb-0"><small class="text-muted">💡 Tiết kiệm 365 chai nhựa/năm</small></p>
+                        </div>
+                        
+                        <div class="tip-card fade-in-up">
+                            <h5><i class="bi bi-brightness-high text-primary me-2"></i>Trưa</h5>
+                            <p class="mb-2">Tận dụng ánh sáng tự nhiên, tắt đèn và điều hòa khi ra ngoài</p>
+                            <p class="mb-0"><small class="text-muted">💡 Giảm 30% hóa đơn điện</small></p>
+                        </div>
+                        
+                        <div class="tip-card fade-in-up">
+                            <h5><i class="bi bi-moon text-primary me-2"></i>Tối</h5>
+                            <p class="mb-2">Rút phích cắm các thiết bị không sử dụng trước khi ngủ</p>
+                            <p class="mb-0"><small class="text-muted">💡 Tiết kiệm 10% điện năng</small></p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="tip-card fade-in-up">
+                            <h5><i class="bi bi-basket text-primary me-2"></i>Mua sắm</h5>
+                            <p class="mb-2">Mang túi vải riêng, chọn sản phẩm ít bao bì</p>
+                            <p class="mb-0"><small class="text-muted">💡 Giảm 1000 túi nilon/năm</small></p>
+                        </div>
+                        
+                        <div class="tip-card fade-in-up">
+                            <h5><i class="bi bi-car-front text-primary me-2"></i>Di chuyển</h5>
+                            <p class="mb-2">Đi bộ, xe đạp cho quãng đường ngắn dưới 2km</p>
+                            <p class="mb-0"><small class="text-muted">💡 Giảm 2 tấn CO₂/năm</small></p>
+                        </div>
+                        
+                        <div class="tip-card fade-in-up">
+                            <h5><i class="bi bi-trash3 text-primary me-2"></i>Xử lý rác</h5>
+                            <p class="mb-2">Phân loại rác tại nguồn: hữu cơ, vô cơ, tái chế</p>
+                            <p class="mb-0"><small class="text-muted">💡 Tăng 80% hiệu quả tái chế</small></p>
+                        </div>
+                    </div>

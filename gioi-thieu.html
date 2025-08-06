@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sống Xanh Là Gì? - ARICO</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #2E7D32;
+            --primary-light: #81C784;
+            --secondary-color: #66BB6A;
+            --accent-color: #A5D6A7;
+            --text-dark: #1B5E20;
+            --text-light: #E8F5E8;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Custom Bootstrap Colors */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+
+        /* Header */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            margin: 0 0.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: white;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(76,175,80,0.95), rgba(102,187,106,0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23e8f5e8" width="1200" height="400"/><circle fill="%234CAF50" opacity="0.1" cx="150" cy="100" r="80"/><circle fill="%23FF6F00" opacity="0.1" cx="600" cy="180" r="60"/><circle fill="%234CAF50" opacity="0.15" cx="900" cy="120" r="100"/><circle fill="%23FFC107" opacity="0.1" cx="1050" cy="250" r="70"/><path fill="%234CAF50" opacity="0.1" d="M0,250 Q300,200 600,250 T1200,230 L1200,400 L0,400 Z"/><g fill="%234CAF50" opacity="0.08"><circle cx="300" cy="80" r="15"/><circle cx="800" cy="60" r="20"/><circle cx="400" cy="300" r="18"/></g></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .lead {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Definition Section */
+        .definition-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .definition-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .definition-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        /* Core Values Section */
+        .values-section {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .value-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .value-title {
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .benefit-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 5rem 0;
+            background-color: #f8f9fa;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--primary-color);
+            border: 4px solid white;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item.left {
+            left: 0;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        .timeline-item.right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: white;
+            padding: 4rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-text {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Action Steps */
+        .action-steps {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 5rem 0;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-color);
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .card-text {
+            color: #666;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            color: var(--primary-dark);
+            font-weight: 700;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer h5 {
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--primary-color);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom utility classes */
+        .text-green {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-light-green {
+            background-color: #E8F5E8 !important;
+        }
+
+        .border-green {
+            border-color: var(--primary-color) !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .lead {
+                font-size: 1.2rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .timeline-item.right {
+                left: 0%;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .definition-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .card-icon, .value-icon, .definition-icon {
+                font-size: 2.5rem;
+            }
+            
+            .step-card, .definition-card, .benefit-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-leaf me-2"></i>
+                <span>ARICO</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="gioi-thieu.html">Sống xanh là gì?</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Hướng dẫn
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="moi-truong.html">Môi trường</a></li>
+                            <li><a class="dropdown-item" href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                            <li><a class="dropdown-item" href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                            <li><a class="dropdown-item" href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                            <li><a class="dropdown-item" href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                            <li><a class="dropdown-item" href="loi-song-tieu-dung.html">Lối sống & tiêu dùng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="meo-hang-ngay.html">Mẹo hằng ngày</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cau-chuyen.html">Câu chuyện</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="diy.html">Tự làm (DIY)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tai-lieu.html">Tài liệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 fw-bold fade-in-up">
+                        <i class="bi bi-globe-asia-australia me-3"></i>
+                        Sống Xanh Là Gì?
+                    </h1>
+                    <p class="lead fade-in-up">Khám phá triết lý sống hài hòa với thiên nhiên, tạo ra tác động tích cực cho môi trường và xã hội thông qua những lựa chọn có ý thức trong cuộc sống hàng ngày</p>
+                    <div class="fade-in-up">
+                        <a href="#definition" class="btn btn-light btn-lg me-3 shadow">
+                            <i class="bi bi-arrow-down me-2"></i>Tìm hiểu ngay
+                        </a>
+                        <a href="#action-steps" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-play-circle me-2"></i>Bắt đầu hành trình
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Definition Section -->
+    <section id="definition" class="definition-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="definition-card text-center">
+                        <i class="bi bi-leaf definition-icon"></i>
+                        <h2 class="display-5 text-primary mb-4">Định Nghĩa Sống Xanh</h2>
+                        <p class="lead mb-4">
+                            <strong>Sống xanh (Green Living)</strong> là lối sống có ý thức nhằm giảm thiểu tác động tiêu cực lên môi trường thông qua việc thay đổi thói quen tiêu dùng, lựa chọn sản phẩm thân thiện với môi trường và áp dụng các nguyên tắc phát triển bền vững trong cuộc sống hàng ngày.
+                        </p>
+                        <div class="row mt-5">
+                            <div class="col-md-4">
+                                <i class="bi bi-heart-pulse text-primary fs-1 mb-3"></i>
+                                <h5 class="text-primary">Cho Bản Thân</h5>
+                                <p>Cải thiện sức khỏe và chất lượng cuộc sống</p>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="bi bi-people text-primary fs-1 mb-3"></i>
+                                <h5 class="text-primary">Cho Cộng Đồng</h5>
+                                <p>Tạo ra tác động tích cực cho xã hội</p>
+                            </div>
+                            <div class="col-md-4">
+                                <i class="bi bi-globe text-primary fs-1 mb-3"></i>
+                                <h5 class="text-primary">Cho Hành Tinh</h5>
+                                <p>Bảo vệ môi trường cho thế hệ tương lai</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-heading display-5">Giá Trị Cốt Lõi</h2>
+                    <p class="lead text-muted">Những nguyên tắc định hướng lối sống xanh</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="value-item">
+                        <i class="bi bi-recycle value-icon"></i>
+                        <h4 class="value-title">Tính Bền Vững</h4>
+                        <p>Sử dụng tài nguyên một cách có trách nhiệm, đảm bảo không cạn kiệt nguồn tài nguyên cho thế hệ tương lai.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="value-item">
+                        <i class="bi bi-shield-check value-icon"></i>
+                        <h4 class="value-title">Trách Nhiệm</h4>
+                        <p>Nhận thức được tác động của hành vi cá nhân lên môi trường và xã hội, từ đó có những lựa chọn có ý thức.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="value-item">
+                        <i class="bi bi-lightbulb value-icon"></i>
+                        <h4 class="value-title">Sáng Tạo</h4>
+                        <p>Tìm kiếm những giải pháp thông minh, sáng tạo để giải quyết vấn đề môi trường trong cuộc sống hàng ngày.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="value-item">
+                        <i class="bi bi-heart value-icon"></i>
+                        <h4 class="value-title">Tình Yêu Thiên Nhiên</h4>
+                        <p>Trân trọng và bảo vệ vẻ đẹp tự nhiên, tạo nên sự kết nối sâu sắc giữa con người và thiên nhiên.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-heading display-5 text-white">Lợi Ích Của Sống Xanh</h2>
+                    <p class="lead text-white-50">Tại sao bạn nên lựa chọn lối sống xanh?</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card">
+                        <i class="bi bi-heart-pulse benefit-icon"></i>
+                        <h4 class="mb-3">Tốt Cho Sức Khỏe</h4>
+                        <p>Giảm tiếp xúc với hóa chất độc hại, cải thiện chất lượng không khí, nước uống và thực phẩm. Tăng cường sức khỏe tổng thể.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card">
+                        <i class="bi bi-piggy-bank benefit-icon"></i>
+                        <h4 class="mb-3">Tiết Kiệm Chi Phí</h4>
+                        <p>Giảm hóa đơn điện nước, mua sắm thông minh, tận dụng tối đa tài nguyên. Tiết kiệm 20-30% chi phí sinh hoạt.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card">
+                        <i class="bi bi-globe-americas benefit-icon"></i>
+                        <h4 class="mb-3">Bảo Vệ Môi Trường</h4>
+                        <p>Giảm lượng khí thải carbon, bảo vệ đa dạng sinh học, ngăn chặn ô nhiễm và biến đổi khí hậu.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card">
+                        <i class="bi bi-emoji-smile benefit-icon"></i>
+                        <h4 class="mb-3">Cải Thiện Tâm Trạng</h4>
+                        <p>Cảm giác hài lòng khi đóng góp tích cực, kết nối với thiên nhiên, sống có ý nghĩa và mục đích rõ ràng.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card">
+                        <i class="bi bi-people benefit-icon"></i>
+                        <h4 class="mb-3">Xây Dựng Cộng Đồng</h4>
+                        <p>Kết nối với những người có cùng quan điểm, tạo ra phong trào tích cực trong cộng đồng địa phương.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="benefit-card">
+                        <i class="bi bi-trophy benefit-icon"></i>
+                        <h4 class="mb-3">Làm Gương Tích Cực</h4>
+                        <p>Truyền cảm hứng cho gia đình, bạn bè và thế hệ trẻ về lối sống bền vững và có trách nhiệm.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-heading display-5">Tác Động Tích Cực</h2>
+                    <p class="lead text-muted">Con số ấn tượng về sống xanh</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <span class="stat-number">30%</span>
+                        <span class="stat-text">Giảm lượng rác thải</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <span class="stat-number">25%</span>
+                        <span class="stat-text">Tiết kiệm điện năng</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <span class="stat-number">40%</span>
+                        <span class="stat-text">Cải thiện sức khỏe</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-item">
+                        <span class="stat-number">2.5x</span>
+                        <span class="stat-text">Tăng tuổi thọ sản phẩm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-heading display-5">Hành Trình Sống Xanh</h2>
+                    <p class="lead text-muted">Từ ý tưởng đến hành động cụ thể</p>
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4 class="text-primary">Nhận Thức Vấn Đề</h4>
+                        <p class="mb-2"><strong>Hiểu rõ tác động môi trường</strong></p>
+                        <p>Tìm hiểu về biến đổi khí hậu, ô nhiễm, và những thách thức môi trường hiện tại. Nhận ra tầm quan trọng của hành động cá nhân.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4 class="text-primary">Thay Đổi Tư Duy</h4>
+                        <p class="mb-2"><strong>Từ tiêu dùng sang bền vững</strong></p>
+                        <p>Chuyển đổi từ tư duy "mua - dùng - vứt" sang "giảm thiểu - tái sử dụng - tái chế". Ưu tiên chất lượng hơn số lượng.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4 class="text-primary">Hành Động Nhỏ</h4>
+                        <p class="mb-2"><strong>Bắt đầu từ những việc đơn giản</strong></p>
+                        <p>Tắt đèn khi ra khỏi phòng, mang túi vải đi chợ, phân loại rác, giảm sử dụng nhựa một lần.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4 class="text-primary">Mở Rộng Phạm Vi</h4>
+                        <p class="mb-2"><strong>Áp dụng toàn diện</strong></p>
+                        <p>Thay đổi cách ăn uống, lựa chọn thời trang, thiết kế nhà ở, phương tiện di chuyển theo hướng bền vững.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4 class="text-primary">Lan Tỏa Tích Cực</h4>
+                        <p class="mb-2"><strong>Truyền cảm hứng cho người khác</strong></p>
+                        <p>Chia sẻ kinh nghiệm, kêu gọi gia đình và bạn bè tham gia, tạo ra sự thay đổi tích cực trong cộng đồng.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4 class="text-primary">Lối Sống Bền Vững</h4>
+                        <p class="mb-2"><strong>Trở thành thói quen tự nhiên</strong></p>
+                        <p>Sống xanh không còn là "cố gắng" mà trở thành phần tự nhiên của cuộc sống, đem lại hạnh phúc và ý nghĩa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Steps Section -->
+    <section id="action-steps" class="action-steps">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-heading display-5">5 Bước Bắt Đầu Sống Xanh</h2>
+                    <p class="lead text-muted">Hướng dẫn cụ thể để bạn bắt đầu hành trình</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h4 class="text-primary mb-3">Đánh Giá Hiện Tại</h4>
+                        <p class="mb-3">Xem xét thói quen tiêu dùng hiện tại của bạn</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Tính toán dấu chân carbon</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Kiểm tra lượng rác thải hàng ngày</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Đo lường tiêu thụ năng lượng</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Phân tích thói quen mua sắm</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h4 class="text-primary mb-3">Đặt Mục Tiêu</h4>
+                        <p class="mb-3">Thiết lập những mục tiêu cụ thể và khả thi</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Giảm 20% lượng rác thải</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Tiết kiệm 15% điện năng</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Tăng 30% sản phẩm tái chế</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Giảm sử dụng nhựa một lần</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h4 class="text-primary mb-3">Thay Đổi Từng Bước</h4>
+                        <p class="mb-3">Bắt đầu với những thay đổi nhỏ, dễ thực hiện</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Thay thế 1-2 thói quen/tuần</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Mua sắm có ý thức hơn</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Sử dụng năng lượng hiệu quả</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Lựa chọn thực phẩm xanh</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h4 class="text-primary mb-3">Học Hỏi & Cải Thiện</h4>
+                        <p class="mb-3">Không ngừng tìm hiểu và hoàn thiện</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Đọc sách về môi trường</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Tham gia khóa học online</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Theo dõi các chuyên gia</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Cập nhật xu hướng mới</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <h4 class="text-primary mb-3">Lan Tỏa & Chia Sẻ</h4>
+                        <p class="mb-3">Truyền cảm hứng cho người khác cùng tham gia</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Chia sẻ trên mạng xã hội</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Tổ chức hoạt động nhóm</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Làm gương cho con em</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>Tham gia cộng đồng xanh</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="step-card bg-primary text-white">
+                        <i class="bi bi-trophy fs-1 mb-3"></i>
+                        <h4 class="mb-3">Kết Quả Đạt Được</h4>
+                        <p class="mb-3">Những thành tựu tích cực từ sống xanh</p>
+                        <ul class="list-unstyled text-start">
+                            <li><i class="bi bi-star-fill me-2"></i>Cải thiện sức khỏe</li>
+                            <li><i class="bi bi-star-fill me-2"></i>Tiết kiệm chi phí</li>
+                            <li><i class="bi bi-star-fill me-2"></i>Tâm trạng tích cực</li>
+                            <li><i class="bi bi-star-fill me-2"></i>Đóng góp cho hành tinh</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Myths vs Facts Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-heading display-5">Hiểu Lầm Phổ Biến</h2>
+                    <p class="lead text-muted">Làm rõ những quan niệm sai lầm về sống xanh</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card border-danger">
+                        <div class="card-header bg-danger text-white">
+                            <h5 class="mb-0"><i class="bi bi-x-circle me-2"></i>Quan Niệm Sai</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="bi bi-x text-danger me-2"></i><strong>Sống xanh rất tốn kém</strong><br>
+                                <small class="text-muted">Nhiều người nghĩ cần đầu tư lớn</small></li>
+                                <li class="mb-3"><i class="bi bi-x text-danger me-2"></i><strong>Phức tạp và khó thực hiện</strong><br>
+                                <small class="text-muted">Cần thay đổi toàn bộ cuộc sống</small></li>
+                                <li class="mb-3"><i class="bi bi-x text-danger me-2"></i><strong>Chỉ dành cho người giàu</strong><br>
+                                <small class="text-muted">Các sản phẩm xanh đắt đỏ</small></li>
+                                <li class="mb-0"><i class="bi bi-x text-danger me-2"></i><strong>Không tạo ra tác động lớn</strong><br>
+                                <small class="text-muted">Hành động cá nhân không quan trọng</small></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="card border-success">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="bi bi-check-circle me-2"></i>Sự Thật</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="bi bi-check text-success me-2"></i><strong>Tiết kiệm chi phí lâu dài</strong><br>
+                                <small class="text-muted">Giảm hóa đơn điện, nước, mua sắm thông minh</small></li>
+                                <li class="mb-3"><i class="bi bi-check text-success me-2"></i><strong>Bắt đầu từ những việc nhỏ</strong><br>
+                                <small class="text-muted">Thay đổi từng bước, dễ dàng thực hiện</small></li>
+                                <li class="mb-3"><i class="bi bi-check text-success me-2"></i><strong>Phù hợp mọi thu nhập</strong><br>
+                                <small class="text-muted">Nhiều lựa chọn giá phải chăng</small></li>
+                                <li class="mb-0"><i class="bi bi-check text-success me-2"></i><strong>Tác động tích lũy rất lớn</strong><br>
+                                <small class="text-muted">Mỗi người thay đổi tạo hiệu ứng lan tỏa</small></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h3 class="fw-bold mb-3">Sẵn Sàng Bắt Đầu Hành Trình Sống Xanh?</h3>
+                    <p class="lead mb-0">Tham gia cộng đồng ARICO để nhận hướng dẫn chi tiết và cảm hứng mỗi ngày</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="meo-hang-ngay.html" class="btn btn-light btn-lg me-2">
+                        <i class="bi bi-lightbulb me-2"></i>Mẹo hàng ngày
+                    </a>
+                    <a href="tai-lieu.html" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-download me-2"></i>Tài liệu miễn phí
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Topics -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-heading display-6">Khám Phá Thêm</h2>
+                    <p class="lead text-muted">Các chủ đề sống xanh cụ thể</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 text-center p-3">
+                        <div class="card-body">
+                            <i class="bi bi-globe card-icon"></i>
+                            <h5 class="card-title">Bảo Vệ Môi Trường</h5>
+                            <p class="card-text">Học cách giảm thiểu tác động tiêu cực lên hệ sinh thái</p>
+                            <a href="moi-truong.html" class="btn btn-outline-primary">
+                                Tìm hiểu <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 text-center p-3">
+                        <div class="card-body">
+                            <i class="bi bi-recycle card-icon"></i>
+                            <h5 class="card-title">Tiêu Dùng Thông Minh</h5>
+                            <p class="card-text">Thay đổi thói quen mua sắm và sử dụng có ý thức</p>
+                            <a href="loi-song-tieu-dung.html" class="btn btn-outline-primary">
+                                Tìm hiểu <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 text-center p-3">
+                        <div class="card-body">
+                            <i class="bi bi-house-heart card-icon"></i>
+                            <h5 class="card-title">Nhà Ở Xanh</h5>
+                            <p class="card-text">Tạo không gian sống thân thiện với môi trường</p>
+                            <a href="nha-o-xanh.html" class="btn btn-outline-primary">
+                                Tìm hiểu <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5>
+                        <i class="bi bi-leaf me-2"></i>
+                        Về ARICO
+                    </h5>
+                    <p>ARICO là thương hiệu truyền cảm hứng sống xanh cho thế hệ trẻ Việt Nam. Chúng tôi tin rằng những thay đổi nhỏ hàng ngày có thể tạo nên tác động lớn cho môi trường.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-facebook fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-instagram fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-youtube fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-tiktok fs-4"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                    <h5>Chủ đề</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="moi-truong.html">Môi trường</a></li>
+                        <li><a href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                        <li><a href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                        <li><a href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                        <li><a href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Hữu ích</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="meo-hang-ngay.html">Mẹo hằng ngày</a></li>
+                        <li><a href="diy.html">Hướng dẫn tự làm</a></li>
+                        <li><a href="tai-lieu.html">Tài liệu miễn phí</a></li>
+                        <li><a href="cau-chuyen.html">Câu chuyện thực tế</a></li>
+                        <li><a href="gioi-thieu.html">Về sống xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="bi bi-envelope me-2"></i>
+                            hello@arico.vn
+                        </li>
+                        <li>
+                            <i class="bi bi-telephone me-2"></i>
+                            (+84) 123 456 789
+                        </li>
+                        <li>
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Hà Nội, Việt Nam
+                        </li>
+                        <li>
+                            <i class="bi bi-globe me-2"></i>
+                            www.arico.vn
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="mb-0">
+                    &copy; 2025 ARICO. Được tạo với 
+                    <i class="bi bi-heart-fill text-danger"></i> 
+                    cho một tương lai xanh hơn.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe cards and sections
+        document.querySelectorAll('.card, .value-item, .benefit-card, .step-card, .timeline-content').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, suffix = '') {
+            let current = 0;
+            const isPercentage = suffix === '%';
+            const isMultiplier = target.toString().includes('x');
+            
+            if (isMultiplier) {
+                const value = parseFloat(target);
+                let currentValue = 0;
+                const increment = value / 100;
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= value) {
+                        currentValue = value;
+                        clearInterval(timer);
+                    }
+                    element.textContent = currentValue.toFixed(1) + 'x';
+                }, 20);
+            } else {
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current) + suffix;
+                }, 20);
+            }
+        }
+
+        // Animate stats when they come into view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target.querySelector('.stat-number');
+                    const value = statNumber.textContent;
+                    
+                    if (value.includes('%')) {
+                        animateCounter(statNumber, parseInt(value), '%');
+                    } else if (value.includes('x')) {
+                        animateCounter(statNumber, value);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-item').forEach(stat => {
+            statsObserver.observe(stat);
+        });
+
+        // Timeline animation
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            timelineObserver.observe(item);
+        });
+
+        // Page transition effect
+        function navigateWithTransition(url) {
+            document.body.style.opacity = '0.8';
+            setTimeout(() => {
+                window.location.href = url;
+            }, 200);
+        }
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.3s ease';
+        });
+
+        // Active nav link highlighting
+        const currentLocation = location.pathname.split('/').pop() || 'index.html';
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // Auto-close navbar on mobile after clicking
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarToggler = document.querySelector('.navbar-toggler');
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click();
+                }
+            });
+        });
+
+        // Interactive step cards
+        document.querySelectorAll('.step-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add parallax effect to hero background
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < hero.offsetHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Progressive disclosure for definition section
+        const definitionCard = document.querySelector('.definition-card');
+        if (definitionCard) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                        setTimeout(() => {
+                            const icons = entry.target.querySelectorAll('.fs-1');
+                            icons.forEach((icon, index) => {
+                                setTimeout(() => {
+                                    icon.style.transform = 'scale(1.1)';
+                                    setTimeout(() => {
+                                        icon.style.transform = 'scale(1)';
+                                    }, 200);
+                                }, index * 200);
+                            });
+                        }, 500);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            observer.observe(definitionCard);
+        }
+
+        // Value items hover effect
+        document.querySelectorAll('.value-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.value-icon');
+                icon.style.transform = 'rotateY(360deg)';
+                icon.style.transition = 'transform 0.6s ease';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.value-icon');
+                icon.style.transform = 'rotateY(0deg)';
+            });
+        });
+
+        // Benefits card animation
+        document.querySelectorAll('.benefit-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.benefit-icon');
+                icon.style.animation = 'bounce 0.6s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.benefit-icon');
+                icon.style.animation = 'none';
+            });
+        });
+
+        // Add bounce keyframe
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                40% { transform: translateY(-10px); }
+                60% { transform: translateY(-5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+                
