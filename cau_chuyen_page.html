@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Câu Chuyện Sống Xanh - ARICO Sống Xanh</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #2E7D32;
+            --primary-light: #81C784;
+            --secondary-color: #66BB6A;
+            --accent-color: #A5D6A7;
+            --text-dark: #1B5E20;
+            --text-light: #E8F5E8;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Custom Bootstrap Colors */
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+
+        /* Header */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 25px;
+            margin: 0 0.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: white;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(76,175,80,0.95), rgba(102,187,106,0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23e8f5e8" width="1200" height="400"/><circle fill="%234CAF50" opacity="0.1" cx="200" cy="100" r="60"/><circle fill="%234CAF50" opacity="0.1" cx="800" cy="200" r="80"/><circle fill="%234CAF50" opacity="0.1" cx="1000" cy="80" r="50"/><path fill="%234CAF50" opacity="0.05" d="M0,300 Q300,250 600,300 T1200,280 L1200,400 L0,400 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .lead {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 1rem 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--primary-dark);
+        }
+
+        /* Story Cards */
+        .story-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+            background: white;
+        }
+
+        .story-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .story-card .card-img-top {
+            height: 280px;
+            object-fit: cover;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .story-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .story-category {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(76,175,80,0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .story-author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 3px solid var(--primary-light);
+        }
+
+        .author-info h6 {
+            margin: 0;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .author-info small {
+            color: #666;
+        }
+
+        .story-content {
+            padding: 1.5rem;
+        }
+
+        .story-title {
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .story-excerpt {
+            color: #555;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .story-meta {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .story-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .story-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .story-tag {
+            background: #f8f9fa;
+            color: var(--primary-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .story-tag:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .read-more-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* Featured Story */
+        .featured-story {
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary-color));
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-story::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .featured-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Categories Filter */
+        .filter-pills {
+            margin-bottom: 3rem;
+        }
+
+        .filter-pill {
+            background: #f8f9fa;
+            color: var(--primary-dark);
+            border: 2px solid #e9ecef;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-pill:hover,
+        .filter-pill.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Section Headings */
+        .section-heading {
+            color: var(--primary-dark);
+            font-weight: 700;
+            position: relative;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Share Story Section */
+        .share-story-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0;
+            border-radius: 20px;
+            margin: 4rem 0;
+        }
+
+        .share-story-section h3 {
+            margin-bottom: 1rem;
+        }
+
+        .share-story-section .btn-light {
+            border-radius: 25px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .share-story-section .btn-light:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Modal Enhancements */
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .story-modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-modal-content {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .story-modal-author {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer h5 {
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--primary-color);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        /* Animations */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Custom utility classes */
+        .text-green {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-light-green {
+            background-color: #E8F5E8 !important;
+        }
+
+        .border-green {
+            border-color: var(--primary-color) !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .lead {
+                font-size: 1.1rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .filter-pill {
+                margin-right: 0.5rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .story-card .card-img-top {
+                height: 220px;
+            }
+
+            .story-content {
+                padding: 1rem;
+            }
+
+            .featured-story {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .story-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .author-avatar {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="bi bi-leaf me-2"></i>
+                <span>ARICO</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gioi-thieu.html">Sống xanh là gì?</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Hướng dẫn
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="moi-truong.html">Môi trường</a></li>
+                            <li><a class="dropdown-item" href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                            <li><a class="dropdown-item" href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                            <li><a class="dropdown-item" href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                            <li><a class="dropdown-item" href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                            <li><a class="dropdown-item" href="loi-song-tieu-dung.html">Lối sống & tiêu dùng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="meo-hang-ngay.html">Mẹo hằng ngày</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="cau-chuyen.html">Câu chuyện</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="diy.html">Tự làm (DIY)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tai-lieu.html">Tài liệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-section">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Câu chuyện sống xanh</li>
+                </ol>
+            </nav>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="display-4 fw-bold fade-in-up">Câu Chuyện Sống Xanh</h1>
+                    <p class="lead fade-in-up">Những câu chuyện thật, những trải nghiệm thực tế từ cộng đồng ARICO về hành trình sống xanh</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Featured Story -->
+        <section class="py-5">
+            <div class="container">
+                <div class="featured-story fade-in-up">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <div class="featured-badge">
+                                <i class="bi bi-star me-1"></i>Câu chuyện nổi bật
+                            </div>
+                            <h2 class="fw-bold mb-3">Từ Zero Waste đến thương hiệu xanh của chị Linh Hà Nội</h2>
+                            <p class="mb-4">Hành trình 3 năm từ một người mẹ trẻ lo lắng về môi trường đến việc xây dựng thương hiệu sản phẩm zero waste đầu tiên tại Hà Nội. Câu chuyện truyền cảm hứng về sự thay đổi từ nhỏ tạo nên tác động lớn.</p>
+                            <a href="#" class="btn btn-light btn-lg" onclick="showStoryDetail('featured-story')">
+                                <i class="bi bi-book me-2"></i>Đọc câu chuyện
+                            </a>
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect fill='%23ffffff' opacity='0.2' width='300' height='200' rx='15'/><circle fill='%23ffffff' opacity='0.3' cx='150' cy='100' r='60'/><text x='150' y='110' text-anchor='middle' fill='%23ffffff' font-family='Arial' font-size='16' font-weight='bold'>Chị Linh - Zero Waste</text></svg>" alt="Featured Story" class="img-fluid" style="border-radius: 15px; max-width: 250px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="pb-3">
+            <div class="container">
+                <div class="text-center filter-pills">
+                    <a href="#" class="filter-pill active" data-filter="all">Tất cả câu chuyện</a>
+                    <a href="#" class="filter-pill" data-filter="personal">Cá nhân</a>
+                    <a href="#" class="filter-pill" data-filter="family">Gia đình</a>
+                    <a href="#" class="filter-pill" data-filter="business">Doanh nghiệp</a>
+                    <a href="#" class="filter-pill" data-filter="community">Cộng đồng</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stories Grid -->
+        <section class="pb-5">
+            <div class="container">
+                <div class="row g-4" id="storiesGrid">
+                    <!-- Personal Stories -->
+                    <div class="col-lg-4 col-md-6 story-item" data-category="personal">
+                        <div class="card story-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><rect fill='%23E8F5E8' width='400' height='280'/><circle fill='%234CAF50' opacity='0.3' cx='150' cy='140' r='50'/><circle fill='%234CAF50' opacity='0.2' cx='250' cy='100' r='30'/><text x='200' y='150' text-anchor='middle' fill='%232E7D32' font-family='Arial' font-size='16' font-weight='bold'>Vườn mini</text></svg>" class="card-img-top" alt="Khu vườn mini">
+                                <div class="story-category">Cá nhân</div>
+                            </div>
+                            <div class="story-content">
+                                <div class="story-author">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><circle fill='%234CAF50' cx='25' cy='25' r='25'/><circle fill='%23ffffff' cx='25' cy='20' r='8'/><path fill='%23ffffff' d='M10,40 Q10,30 25,30 Q40,30 40,40'/></svg>" alt="Anh Minh" class="author-avatar">
+                                    <div class="author-info">
+                                        <h6>Anh Minh Quang</h6>
+                                        <small><i class="bi bi-geo-alt me-1"></i>TP.HCM</small>
+                                    </div>
+                                </div>
+                                <h5 class="story-title">Khu vườn mini trong căn hộ 45m²</h5>
+                                <p class="story-excerpt">Từ một người không biết gì về trồng cây, anh Minh đã tạo ra khu vườn mini đủ rau xanh cho gia đình 4 người trong căn hộ chung cư nhỏ...</p>
+                                <div class="story-meta">
+                                    <span class="story-date">
+                                        <i class="bi bi-calendar me-1"></i>15/12/2024
+                                    </span>
+                                    <div class="story-tags">
+                                        <a href="#" class="story-tag">Làm vườn</a>
+                                        <a href="#" class="story-tag">Chung cư</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="read-more-btn" onclick="showStoryDetail('story-1')">
+                                    <i class="bi bi-arrow-right"></i>Đọc tiếp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 story-item" data-category="personal">
+                        <div class="card story-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><rect fill='%23FFF3E0' width='400' height='280'/><circle fill='%23FF9800' opacity='0.3' cx='120' cy='120' r='40'/><circle fill='%23FF9800' opacity='0.2' cx='280' cy='160' r='35'/><text x='200' y='150' text-anchor='middle' fill='%23E65100' font-family='Arial' font-size='16' font-weight='bold'>DIY tự nhiên</text></svg>" class="card-img-top" alt="Mỹ phẩm tự làm">
+                                <div class="story-category">Cá nhân</div>
+                            </div>
+                            <div class="story-content">
+                                <div class="story-author">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><circle fill='%23FF9800' cx='25' cy='25' r='25'/><circle fill='%23ffffff' cx='25' cy='20' r='8'/><path fill='%23ffffff' d='M10,40 Q10,30 25,30 Q40,30 40,40'/></svg>" alt="Chị Hương" class="author-avatar">
+                                    <div class="author-info">
+                                        <h6>Chị Hương Trà</h6>
+                                        <small><i class="bi bi-geo-alt me-1"></i>Đà Nẵng</small>
+                                    </div>
+                                </div>
+                                <h5 class="story-title">Hành trình từ bỏ mỹ phẩm công nghiệp</h5>
+                                <p class="story-excerpt">Sau khi con gái bị dị ứng da, chị Hương quyết tâm tự làm toàn bộ mỹ phẩm gia đình từ nguyên liệu tự nhiên. Kết quả ngoài mong đợi...</p>
+                                <div class="story-meta">
+                                    <span class="story-date">
+                                        <i class="bi bi-calendar me-1"></i>10/12/2024
+                                    </span>
+                                    <div class="story-tags">
+                                        <a href="#" class="story-tag">Làm đẹp</a>
+                                        <a href="#" class="story-tag">DIY</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="read-more-btn" onclick="showStoryDetail('story-2')">
+                                    <i class="bi bi-arrow-right"></i>Đọc tiếp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Family Stories -->
+                    <div class="col-lg-4 col-md-6 story-item" data-category="family">
+                        <div class="card story-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><rect fill='%23E3F2FD' width='400' height='280'/><circle fill='%232196F3' opacity='0.3' cx='150' cy='120' r='45'/><circle fill='%232196F3' opacity='0.2' cx='250' cy='180' r='30'/><text x='200' y='150' text-anchor='middle' fill='%230D47A1' font-family='Arial' font-size='16' font-weight='bold'>Zero Waste Family</text></svg>" class="card-img-top" alt="Gia đình zero waste">
+                                <div class="story-category">Gia đình</div>
+                            </div>
+                            <div class="story-content">
+                                <div class="story-author">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><circle fill='%232196F3' cx='25' cy='25' r='25'/><circle fill='%23ffffff' cx='25' cy='20' r='8'/><path fill='%23ffffff' d='M10,40 Q10,30 25,30 Q40,30 40,40'/></svg>" alt="Gia đình Tuấn" class="author-avatar">
+                                    <div class="author-info">
+                                        <h6>Gia đình anh Tuấn</h6>
+                                        <small><i class="bi bi-geo-alt me-1"></i>Hà Nội</small>
+                                    </div>
+                                </div>
+                                <h5 class="story-title">Thử thách zero waste 365 ngày</h5>
+                                <p class="story-excerpt">Gia đình 5 người quyết tâm thực hiện lối sống zero waste trong một năm. Từ những khó khăn ban đầu đến những thành công bất ngờ...</p>
+                                <div class="story-meta">
+                                    <span class="story-date">
+                                        <i class="bi bi-calendar me-1"></i>05/12/2024
+                                    </span>
+                                    <div class="story-tags">
+                                        <a href="#" class="story-tag">Zero waste</a>
+                                        <a href="#" class="story-tag">Gia đình</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="read-more-btn" onclick="showStoryDetail('story-3')">
+                                    <i class="bi bi-arrow-right"></i>Đọc tiếp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 story-item" data-category="family">
+                        <div class="card story-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><rect fill='%23F3E5F5' width='400' height='280'/><circle fill='%239C27B0' opacity='0.3' cx='130' cy='140' r='40'/><circle fill='%239C27B0' opacity='0.2' cx='270' cy='100' r='35'/><text x='200' y='150' text-anchor='middle' fill='%234A148C' font-family='Arial' font-size='16' font-weight='bold'>Giáo dục xanh</text></svg>" class="card-img-top" alt="Giáo dục con xanh">
+                                <div class="story-category">Gia đình</div>
+                            </div>
+                            <div class="story-content">
+                                <div class="story-author">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><circle fill='%239C27B0' cx='25' cy='25' r='25'/><circle fill='%23ffffff' cx='25' cy='20' r='8'/><path fill='%23ffffff' d='M10,40 Q10,30 25,30 Q40,30 40,40'/></svg>" alt="Chị Mai" class="author-avatar">
+                                    <div class="author-info">
+                                        <h6>Chị Mai Phương</h6>
+                                        <small><i class="bi bi-geo-alt me-1"></i>Cần Thơ</small>
+                                    </div>
+                                </div>
+                                <h5 class="story-title">Nuôi dạy con theo triết lý sống xanh</h5>
+                                <p class="story-excerpt">Làm thế nào để giáo dục 2 đứa trẻ 5 và 8 tuổi hiểu và yêu thích lối sống bảo vệ môi trường? Kinh nghiệm từ một bà mẹ tận tâm...</p>
+                                <div class="story-meta">
+                                    <span class="story-date">
+                                        <i class="bi bi-calendar me-1"></i>28/11/2024
+                                    </span>
+                                    <div class="story-tags">
+                                        <a href="#" class="story-tag">Giáo dục</a>
+                                        <a href="#" class="story-tag">Trẻ em</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="read-more-btn" onclick="showStoryDetail('story-4')">
+                                    <i class="bi bi-arrow-right"></i>Đọc tiếp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Stories -->
+                    <div class="col-lg-4 col-md-6 story-item" data-category="business">
+                        <div class="card story-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><rect fill='%23E8F5E8' width='400' height='280'/><circle fill='%234CAF50' opacity='0.4' cx='160' cy='130' r='50'/><circle fill='%234CAF50' opacity='0.3' cx='240' cy='150' r='30'/><text x='200' y='150' text-anchor='middle' fill='%231B5E20' font-family='Arial' font-size='16' font-weight='bold'>Startup xanh</text></svg>" class="card-img-top" alt="Startup xanh">
+                                <div class="story-category">Doanh nghiệp</div>
+                            </div>
+                            <div class="story-content">
+                                <div class="story-author">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><circle fill='%234CAF50' cx='25' cy='25' r='25'/><circle fill='%23ffffff' cx='25' cy='20' r='8'/><path fill='%23ffffff' d='M10,40 Q10,30 25,30 Q40,30 40,40'/></svg>" alt="Anh Đức" class="author-avatar">
+                                    <div class="author-info">
+                                        <h6>Anh Đức Minh</h6>
+                                        <small><i class="bi bi-geo-alt me-1"></i>TP.HCM</small>
+                                    </div>
+                                </div>
+                                <h5 class="story-title">Từ kỹ sư IT đến founder startup xanh</h5>
+                                <p class="story-excerpt">Câu chuyện về việc từ bỏ công việc lương cao để khởi nghiệp với ý tưởng sản xuất ống hút từ cỏ bàng. Hành trình đầy thử thách nhưng ý nghĩa...</p>
+                                <div class="story-meta">
+                                    <span class="story-date">
+                                        <i class="bi bi-calendar me-1"></i>20/11/2024
+                                    </span>
+                                    <div class="story-tags">
+                                        <a href="#" class="story-tag">Startup</a>
+                                        <a href="#" class="story-tag">Đổi mới</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="read-more-btn" onclick="showStoryDetail('story-5')">
+                                    <i class="bi bi-arrow-right"></i>Đọc tiếp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Community Stories -->
+                    <div class="col-lg-4 col-md-6 story-item" data-category="community">
+                        <div class="card story-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><rect fill='%23FFF8E1' width='400' height='280'/><circle fill='%23FFC107' opacity='0.3' cx='140' cy='120' r='45'/><circle fill='%23FFC107' opacity='0.2' cx='260' cy='160' r='35'/><text x='200' y='150' text-anchor='middle' fill='%23F57F17' font-family='Arial' font-size='16' font-weight='bold'>Cộng đồng xanh</text></svg>" class="card-img-top" alt="Cộng đồng xanh">
+                                <div class="story-category">Cộng đồng</div>
+                            </div>
+                            <div class="story-content">
+                                <div class="story-author">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><circle fill='%23FFC107' cx='25' cy='25' r='25'/><circle fill='%23ffffff' cx='25' cy='20' r='8'/><path fill='%23ffffff' d='M10,40 Q10,30 25,30 Q40,30 40,40'/></svg>" alt="Chị Lan" class="author-avatar">
+                                    <div class="author-info">
+                                        <h6>Chị Lan Anh</h6>
+                                        <small><i class="bi bi-geo-alt me-1"></i>Hải Phòng</small>
+                                    </div>
+                                </div>
+                                <h5 class="story-title">Nhóm "Phụ nữ xanh" - Kết nối và lan tỏa</h5>
+                                <p class="story-excerpt">Từ một nhóm chat 20 người, "Phụ nữ xanh Hải Phòng" đã phát triển thành cộng đồng 2000 thành viên, tổ chức hàng chục hoạt động ý nghĩa...</p>
+                                <div class="story-meta">
+                                    <span class="story-date">
+                                        <i class="bi bi-calendar me-1"></i>15/11/2024
+                                    </span>
+                                    <div class="story-tags">
+                                        <a href="#" class="story-tag">Cộng đồng</a>
+                                        <a href="#" class="story-tag">Phụ nữ</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="read-more-btn" onclick="showStoryDetail('story-6')">
+                                    <i class="bi bi-arrow-right"></i>Đọc tiếp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 story-item" data-category="community">
+                        <div class="card story-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><rect fill='%23E1F5FE' width='400' height='280'/><circle fill='%2300BCD4' opacity='0.3' cx='150' cy='130' r='40'/><circle fill='%2300BCD4' opacity='0.2' cx='250' cy='150' r='30'/><text x='200' y='150' text-anchor='middle' fill='%23006064' font-family='Arial' font-size='16' font-weight='bold'>Làng xanh</text></svg>" class="card-img-top" alt="Làng xanh">
+                                <div class="story-category">Cộng đồng</div>
+                            </div>
+                            <div class="story-content">
+                                <div class="story-author">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><circle fill='%2300BCD4' cx='25' cy='25' r='25'/><circle fill='%23ffffff' cx='25' cy='20' r='8'/><path fill='%23ffffff' d='M10,40 Q10,30 25,30 Q40,30 40,40'/></svg>" alt="Ông Hiền" class="author-avatar">
+                                    <div class="author-info">
+                                        <h6>Ông Hiền Tấn</h6>
+                                        <small><i class="bi bi-geo-alt me-1"></i>An Giang</small>
+                                    </div>
+                                </div>
+                                <h5 class="story-title">Biến làng quê thành "làng xanh" đầu tiên</h5>
+                                <p class="story-excerpt">Hành trình 5 năm của một vị trưởng thôn quyết tâm biến ngôi làng của mình thành điểm đến sinh thái, zero waste đầu tiên ở ĐBSCL...</p>
+                                <div class="story-meta">
+                                    <span class="story-date">
+                                        <i class="bi bi-calendar me-1"></i>08/11/2024
+                                    </span>
+                                    <div class="story-tags">
+                                        <a href="#" class="story-tag">Nông thôn</a>
+                                        <a href="#" class="story-tag">Du lịch xanh</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="read-more-btn" onclick="showStoryDetail('story-7')">
+                                    <i class="bi bi-arrow-right"></i>Đọc tiếp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 story-item" data-category="personal">
+                        <div class="card story-card">
+                            <div class="position-relative">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><rect fill='%23FCE4EC' width='400' height='280'/><circle fill='%23E91E63' opacity='0.3' cx='160' cy='120' r='45'/><circle fill='%23E91E63' opacity='0.2' cx='240' cy='160' r='30'/><text x='200' y='150' text-anchor='middle' fill='%23880E4F' font-family='Arial' font-size='16' font-weight='bold'>Thời trang bền vững</text></svg>" class="card-img-top" alt="Thời trang bền vững">
+                                <div class="story-category">Cá nhân</div>
+                            </div>
+                            <div class="story-content">
+                                <div class="story-author">
+                                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'><circle fill='%23E91E63' cx='25' cy='25' r='25'/><circle fill='%23ffffff' cx='25' cy='20' r='8'/><path fill='%23ffffff' d='M10,40 Q10,30 25,30 Q40,30 40,40'/></svg>" alt="Chị Thúy" class="author-avatar">
+                                    <div class="author-info">
+                                        <h6>Chị Thúy Nga</h6>
+                                        <small><i class="bi bi-geo-alt me-1"></i>Hà Nội</small>
+                                    </div>
+                                </div>
+                                <h5 class="story-title">1 năm không mua quần áo mới</h5>
+                                <p class="story-excerpt">Thử thách không mua bất kỳ món đồ thời trang nào trong 365 ngày. Những khám phá bất ngờ về bản thân và thói quen tiêu dùng...</p>
+                                <div class="story-meta">
+                                    <span class="story-date">
+                                        <i class="bi bi-calendar me-1"></i>01/11/2024
+                                    </span>
+                                    <div class="story-tags">
+                                        <a href="#" class="story-tag">Thời trang</a>
+                                        <a href="#" class="story-tag">Tiết kiệm</a>
+                                    </div>
+                                </div>
+                                <a href="#" class="read-more-btn" onclick="showStoryDetail('story-8')">
+                                    <i class="bi bi-arrow-right"></i>Đọc tiếp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-5">
+                    <button class="btn btn-outline-primary btn-lg" id="loadMoreBtn">
+                        <i class="bi bi-plus-circle me-2"></i>Xem thêm câu chuyện
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Share Story Section -->
+        <section class="share-story-section">
+            <div class="container text-center">
+                <h3 class="fw-bold mb-3">Chia sẻ câu chuyện của bạn</h3>
+                <p class="lead mb-4">Bạn cũng có một câu chuyện sống xanh thú vị? Hãy chia sẻ để truyền cảm hứng cho cộng đồng ARICO!</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="mailto:story@arico.vn" class="btn btn-light btn-lg">
+                        <i class="bi bi-envelope me-2"></i>Gửi qua Email
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-lg" onclick="showShareModal()">
+                        <i class="bi bi-camera me-2"></i>Gửi với hình ảnh
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5>
+                        <i class="bi bi-leaf me-2"></i>
+                        Về ARICO
+                    </h5>
+                    <p>ARICO là thương hiệu truyền cảm hứng sống xanh cho thế hệ trẻ Việt Nam. Chúng tôi tin rằng những thay đổi nhỏ hàng ngày có thể tạo nên tác động lớn cho môi trường.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-facebook fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-instagram fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-youtube fs-4"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="bi bi-tiktok fs-4"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6">
+                    <h5>Chủ đề</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="moi-truong.html">Môi trường</a></li>
+                        <li><a href="an-uong-xanh.html">Ăn uống xanh</a></li>
+                        <li><a href="thoi-trang-ben-vung.html">Thời trang bền vững</a></li>
+                        <li><a href="lam-dep-tu-nhien.html">Làm đẹp tự nhiên</a></li>
+                        <li><a href="nha-o-xanh.html">Nhà ở xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Hữu ích</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="meo-hang-ngay.html">Mẹo hằng ngày</a></li>
+                        <li><a href="diy.html">Hướng dẫn tự làm</a></li>
+                        <li><a href="tai-lieu.html">Tài liệu miễn phí</a></li>
+                        <li><a href="cau-chuyen.html">Câu chuyện thực tế</a></li>
+                        <li><a href="gioi-thieu.html">Về sống xanh</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5>Liên hệ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="bi bi-envelope me-2"></i>
+                            hello@arico.vn
+                        </li>
+                        <li>
+                            <i class="bi bi-telephone me-2"></i>
+                            (+84) 123 456 789
+                        </li>
+                        <li>
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Hà Nội, Việt Nam
+                        </li>
+                        <li>
+                            <i class="bi bi-globe me-2"></i>
+                            www.arico.vn
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="mb-0">
+                    &copy; 2025 ARICO. Được tạo với 
+                    <i class="bi bi-heart-fill text-danger"></i> 
+                    cho một tương lai xanh hơn.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Story Detail Modal -->
+    <div class="modal fade" id="storyDetailModal" tabindex="-1" aria-labelledby="storyDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="storyDetailModalLabel">
+                        <i class="bi bi-book me-2"></i>Chi tiết câu chuyện
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="storyDetailContent">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="shareStory()">
+                        <i class="bi bi-share me-2"></i>Chia sẻ
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="likeStory()">
+                        <i class="bi bi-heart me-2"></i>Yêu thích
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Story Modal -->
+    <div class="modal fade" id="shareStoryModal" tabindex="-1" aria-labelledby="shareStoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="shareStoryModalLabel">
+                        <i class="bi bi-plus-circle me-2"></i>Chia sẻ câu chuyện của bạn
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="shareStoryForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="authorName" class="form-label">Tên của bạn *</label>
+                                <input type="text" class="form-control" id="authorName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="authorLocation" class="form-label">Địa điểm</label>
+                                <input type="text" class="form-control" id="authorLocation" placeholder="VD: Hà Nội">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="storyCategory" class="form-label">Danh mục *</label>
+                                <select class="form-select" id="storyCategory" required>
+                                    <option value="">Chọn danh mục...</option>
+                                    <option value="personal">Cá nhân</option>
+                                    <option value="family">Gia đình</option>
+                                    <option value="business">Doanh nghiệp</option>
+                                    <option value="community">Cộng đồng</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="authorEmail" class="form-label">Email liên hệ *</label>
+                                <input type="email" class="form-control" id="authorEmail" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="storyTitle" class="form-label">Tiêu đề câu chuyện *</label>
+                                <input type="text" class="form-control" id="storyTitle" placeholder="VD: Hành trình zero waste của gia đình tôi" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="storyContent" class="form-label">Nội dung câu chuyện *</label>
+                                <textarea class="form-control" id="storyContent" rows="8" placeholder="Hãy kể chi tiết về câu chuyện sống xanh của bạn..." required></textarea>
+                                <div class="form-text">Tối thiểu 200 từ. Hãy chia sẻ cụ thể về động lực, quá trình thực hiện và kết quả đạt được.</div>
+                            </div>
+                            <div class="col-12">
+                                <label for="storyImage" class="form-label">Hình ảnh minh họa</label>
+                                <input type="file" class="form-control" id="storyImage" accept="image/*">
+                                <div class="form-text">Chọn 1-3 hình ảnh liên quan đến câu chuyện của bạn</div>
+                            </div>
+                            <div class="col-12">
+                                <label for="storyTags" class="form-label">Tags (từ khóa)</label>
+                                <input type="text" class="form-control" id="storyTags" placeholder="VD: zero waste, gia đình, tiết kiệm">
+                                <div class="form-text">Các từ khóa liên quan, cách nhau bằng dấu phẩy</div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                    <label class="form-check-label" for="agreeTerms">
+                                        Tôi đồng ý cho ARICO sử dụng câu chuyện này để truyền cảm hứng cho cộng đồng *
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" form="shareStoryForm" class="btn btn-primary">
+                        <i class="bi bi-send me-2"></i>Gửi câu chuyện
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Story Data
+        const stories = {
+            'featured-story': {
+                title: 'Từ Zero Waste đến thương hiệu xanh của chị Linh Hà Nội',
+                author: 'Chị Linh Nguyễn',
+                location: 'Hà Nội',
+                date: '20/12/2024',
+                category: 'Doanh nghiệp',
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><rect fill='%23E8F5E8' width='600' height='400'/><circle fill='%234CAF50' opacity='0.4' cx='200' cy='150' r='80'/><circle fill='%234CAF50' opacity='0.3' cx='400' cy='250' r='60'/><text x='300' y='210' text-anchor='middle' fill='%231B5E20' font-family='Arial' font-size='24' font-weight='bold'>Zero Waste Journey</text></svg>",
+                content: `
+                    <p>Ba năm trước, khi con gái đầu mới chào đời, tôi bắt đầu quan tâm nhiều hơn đến vấn đề môi trường. Nhìn thùng rác nhà mình mỗi ngày đầy ắp bao bì, hộp sữa, tã giấy, tôi tự hỏi: "Liệu sau này con mình sẽ sống trong một thế giới như thế nào?"</p>
+                    
+                    <h5>Khởi đầu từ những thay đổi nhỏ</h5>
+                    <p>Tôi bắt đầu với việc từ chối túi nilon khi đi chợ, mang theo túi vải. Tiếp theo là học cách làm nước rửa chén từ xà phòng dừa, rồi tự làm kem đánh răng từ dầu dừa và baking soda. Mỗi sản phẩm tự làm đều cho tôi cảm giác hài lòng và an tâm về thành phần.</p>
+                    
+                    <h5>Từ passion thành business</h5>
+                    <p>Khi chia sẻ những sản phẩm này lên mạng xã hội, tôi bất ngờ nhận được rất nhiều tin nhắn hỏi mua. Nhiều bạn trẻ muốn sống xanh nhưng không có thời gian tự làm. Đó là lúc tôi nhận ra cơ hội kinh doanh.</p>
+                    
+                    <p>Năm 2022, tôi chính thức thành lập thương hiệu "Green Home Hanoi" chuyên sản xuất các sản phẩm zero waste cho gia đình. Từ 5 sản phẩm đầu tiên, giờ chúng tôi đã có hơn 30 mặt hàng và phục vụ hơn 5000 khách hàng.</p>
+                    
+                    <h5>Những khó khăn và bài học</h5>
+                    <p>Con đường khởi nghiệp không hề dễ dàng. Tôi phải học cách tính toán chi phí, quản lý chất lượng, xây dựng thương hiệu. Nhiều đêm thức đến 2-3h sáng để đóng gói đơn hàng. Nhưng mỗi lần nhận được feedback tích cực từ khách hàng, tôi lại thêm động lực.</p>
+                    
+                    <p>Điều tôi học được là: <strong>Sống xanh không chỉ là trách nhiệm, mà còn là cơ hội</strong>. Cơ hội để tạo ra sản phẩm tốt cho sức khỏe, cho môi trường, và cũng là cơ hội kinh doanh bền vững.</p>
+                    
+                    <h5>Thông điệp gửi đến mọi người</h5>
+                    <p>Hãy bắt đầu từ những việc nhỏ nhất. Bạn không cần phải thay đổi tất cả ngay lập tức. Mỗi lần từ chối một chiếc túi nilon, mỗi lần tự làm một sản phẩm làm sạch, bạn đã góp phần tạo nên sự thay đổi.</p>
+                    
+                    <p>Và nếu bạn có đam mê, hãy dũng cảm biến nó thành sự nghiệp. Thị trường sản phẩm xanh tại Việt Nam vẫn còn rất nhiều cơ hội!</p>
+                `,
+                tags: ['Zero waste', 'Khởi nghiệp', 'Thương hiệu xanh', 'Hà Nội']
+            },
+            'story-1': {
+                title: 'Khu vườn mini trong căn hộ 45m²',
+                author: 'Anh Minh Quang',
+                location: 'TP.HCM',
+                date: '15/12/2024',
+                category: 'Cá nhân',
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><rect fill='%23E8F5E8' width='600' height='400'/><rect fill='%234CAF50' opacity='0.3' x='100' y='100' width='80' height='60' rx='5'/><rect fill='%234CAF50' opacity='0.4' x='200' y='120' width='60' height='80' rx='5'/><rect fill='%234CAF50' opacity='0.3' x='280' y='140' width='70' height='50' rx='5'/><text x='300' y='250' text-anchor='middle' fill='%231B5E20' font-family='Arial' font-size='20' font-weight='bold'>Urban Garden</text></svg>",
+                content: `
+                    <p>Là một người làm IT, tôi dành phần lớn thời gian trước máy tính. Việc tiếp xúc với cây xanh hầu như không có. Cho đến khi vợ tôi mang thai và bác sĩ khuyên nên ăn nhiều rau xanh sạch.</p>
+                    
+                    <h5>Ý tưởng bắt đầu từ lo lắng</h5>
+                    <p>Rau ở siêu thị đắt mà không biết có sạch không. Rau ở chợ rẻ hơn nhưng tôi vẫn lo về thuốc trừ sâu. Thế là quyết định tự trồng, dù không biết gì về làm vườn.</p>
+                    
+                    <h5>Thất bại đầu tiên</h5>
+                    <p>Lần đầu mua hạt giống về gieo lung tung, không hiểu gì về ánh sáng, độ ẩm. Kết quả là 90% cây chết. Tôi suýt bỏ cuộc nhưng vợ động viên: "Anh code còn bug nhiều lần mới chạy được, trồng cây cũng vậy thôi!"</p>
+                    
+                    <h5>Học hỏi và cải tiến</h5>
+                    <p>Tôi nghiên cứu kỹ như đang học một ngôn ngữ lập trình mới. Tham gia groups trồng rau, xem YouTube, đọc sách. Rồi áp dụng tư duy IT vào làm vườn:</p>
+                    
+                    <ul>
+                        <li><strong>Lập kế hoạch:</strong> Vẽ sơ đồ bố trí chậu cây theo ánh sáng</li>
+                        <li><strong>Tối ưu không gian:</strong> Dùng giá treo đa tầng, trồng theo chiều dọc</li>
+                        <li><strong>Tự động hóa:</strong> Lắp hệ thống tưới nhỏ giọt bằng timer</li>
+                        <li><strong>Theo dõi dữ liệu:</strong> Ghi chép thời gian gieo, tưới, thu hoạch</li>
+                    </ul>
+                    
+                    <h5>Kết quả ngoài mong đợi</h5>
+                    <p>Sau 6 tháng, ban công 8m² của chúng tôi đã có đủ rau ăn cho 4 người. Rau muống, cải xoăn, húng quế, ớt... xanh tươi và ngọt tự nhiên.</p>
+                    
+                    <p>Điều đặc biệt là con gái 3 tuổi rất thích tham gia. Bé tự tưới cây, hái rau, và ăn rau nhiều hơn hẳn trước kia.</p>
+                    
+                    <h5>Những lợi ích không ngờ</h5>
+                    <p>Ngoài rau sạch, tôi còn thu được nhiều thứ khác: sở thích mới, kỹ năng kiên nhẫn, và đặc biệt là cảm giác thành tựu mỗi khi nhìn cây phát triển.</p>
+                    
+                    <p>Giờ đây, việc chăm sóc cây đã trở thành cách tôi giảm stress sau những giờ làm việc căng thẳng.</p>
+                `,
+                tags: ['Làm vườn', 'Chung cư', 'Rau sạch', 'Ban công']
+            }
+            // Add more stories as needed
+        };
+
+        // Filter functionality
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active state
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filter stories
+                const filter = this.getAttribute('data-filter');
+                const storyItems = document.querySelectorAll('.story-item');
+                
+                storyItems.forEach(story => {
+                    if (filter === 'all' || story.getAttribute('data-category') === filter) {
+                        story.style.display = 'block';
+                        story.classList.add('fade-in-up');
+                    } else {
+                        story.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Show Story Detail Modal
+        function showStoryDetail(storyId) {
+            const story = stories[storyId];
+            if (!story) {
+                console.error('Story not found:', storyId);
+                return;
+            }
+
+            const modalTitle = document.getElementById('storyDetailModalLabel');
+            const modalContent = document.getElementById('storyDetailContent');
+            
+            modalTitle.innerHTML = `<i class="bi bi-book me-2"></i>${story.title}`;
+            
+            modalContent.innerHTML = `
+                <img src="${story.image}" alt="${story.title}" class="story-modal-image">
+                
+                <div class="story-modal-author">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><circle fill='%234CAF50' cx='30' cy='30' r='30'/><circle fill='%23ffffff' cx='30' cy='24' r='10'/><path fill='%23ffffff' d='M10,50 Q10,35 30,35 Q50,35 50,50'/></svg>" alt="${story.author}" style="width: 60px; height: 60px; border-radius: 50%; margin-right: 1rem;">
+                        <div>
+                            <h5 class="mb-1">${story.author}</h5>
+                            <div class="text-muted">
+                                <i class="bi bi-geo-alt me-1"></i>${story.location} • 
+                                <i class="bi bi-calendar me-1"></i>${story.date} • 
+                                <span class="badge bg-primary">${story.category}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-modal-content">
+                    ${story.content}
+                </div>
+
+                <div class="mt-4">
+                    <h6 class="text-primary mb-2">Tags:</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        ${story.tags.map(tag => `<span class="badge bg-light text-primary">${tag}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-light rounded">
+                    <h6 class="text-primary mb-2">
+                        <i class="bi bi-lightbulb me-2"></i>Bạn có câu chuyện tương tự?
+                    </h6>
+                    <p class="mb-2">Hãy chia sẻ để truyền cảm hứng cho cộng đồng ARICO!</p>
+                    <button class="btn btn-primary btn-sm" onclick="showShareModal()">
+                        <i class="bi bi-plus me-1"></i>Chia sẻ câu chuyện
+                    </button>
+                </div>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('storyDetailModal'));
+            modal.show();
+        }
+
+        // Show Share Modal
+        function showShareModal() {
+            const modal = new bootstrap.Modal(document.getElementById('shareStoryModal'));
+            modal.show();
+        }
+
+        // Share Story function
+        function shareStory() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'ARICO - Câu chuyện sống xanh',
+                    text: 'Khám phá những câu chuyện sống xanh thú vị tại ARICO!',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Đã sao chép link chia sẻ!');
+                });
+            }
+        }
+
+        // Like Story function
+        function likeStory() {
+            const btn = event.target;
+            btn.innerHTML = '<i class="bi bi-heart-fill me-2"></i>Đã yêu thích';
+            btn.classList.remove('btn-success');
+            btn.classList.add('btn-danger');
+            btn.disabled = true;
+        }
+
+        // Handle Share Story Form
+        document.getElementById('shareStoryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const storyData = {
+                name: document.getElementById('authorName').value,
+                location: document.getElementById('authorLocation').value,
+                category: document.getElementById('storyCategory').value,
+                email: document.getElementById('authorEmail').value,
+                title: document.getElementById('storyTitle').value,
+                content: document.getElementById('storyContent').value,
+                tags: document.getElementById('storyTags').value
+            };
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Đang gửi...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="bi bi-check2 me-2"></i>Đã gửi thành công!';
+                submitBtn.classList.remove('btn-primary');
+                submitBtn.classList.add('btn-success');
+                
+                setTimeout(() => {
+                    bootstrap.Modal.getInstance(document.getElementById('shareStoryModal')).hide();
+                    this.reset();
+                    submitBtn.innerHTML = '<i class="bi bi-send me-2"></i>Gửi câu chuyện';
+                    submitBtn.classList.remove('btn-success');
+                    submitBtn.classList.add('btn-primary');
+                    submitBtn.disabled = false;
+                    
+                    // Show thank you message
+                    alert('Cảm ơn bạn đã chia sẻ! Chúng tôi sẽ xem xét và liên hệ trong vòng 3-5 ngày làm việc.');
+                }, 2000);
+            }, 1500);
+        });
+
+        // Load More functionality
+        document.getElementById('loadMoreBtn').addEventListener('click', function() {
+            this.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Đang tải...';
+            
+            // Simulate loading more stories
+            setTimeout(() => {
+                this.innerHTML = '<i class="bi bi-check2 me-2"></i>Đã tải thêm 6 câu chuyện';
+                this.classList.remove('btn-outline-primary');
+                this.classList.add('btn-success');
+                this.disabled = true;
+            }, 1500);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe story cards
+        document.querySelectorAll('.story-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Active nav link highlighting
+        const currentLocation = location.pathname.split('/').pop() || 'index.html';
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // Auto-close navbar on mobile after clicking
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarToggler = document.querySelector('.navbar-toggler');
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click();
+                }
+            });
+        });
+
+        // Character counter for story content
+        document.getElementById('storyContent').addEventListener('input', function() {
+            const minLength = 200;
+            const currentLength = this.value.length;
+            const counter = this.nextElementSibling;
+            
+            if (currentLength < minLength) {
+                counter.textContent = `Cần thêm ${minLength - currentLength} ký tự nữa. Hãy chia sẻ cụ thể về động lực, quá trình thực hiện và kết quả đạt được.`;
+                counter.style.color = '#dc3545';
+            } else {
+                counter.textContent = `Tuyệt vời! ${currentLength} ký tự. Hãy chia sẻ cụ thể về động lực, quá trình thực hiện và kết quả đạt được.`;
+                counter.style.color = '#198754';
+            }
+        });
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.3s ease';
+        });
+    </script>
+</body>
+</html>
