@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Đọc truyện online miễn phí - Kho truyện hay nhất">
+    <meta name="keywords" content="truyện online, đọc truyện, truyện hay, truyện hot">
+    <meta name="author" content="Website Truyện">
+    
+    <title>Website Đọc Truyện Online - Trang Chủ</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* ====== GENERAL STYLES ====== */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #2c3e50;
+            --bg-color: #ffffff;
+            --card-bg: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #ecf0f1;
+            --text-color: #ecf0f1;
+            --bg-color: #2c3e50;
+            --card-bg: #34495e;
+            --border-color: #4a6741;
+        }
+
+        * {
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* ====== HEADER & NAVIGATION ====== */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ====== SEARCH BAR ====== */
+        .search-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            border-radius: 25px;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-btn {
+            border-radius: 25px;
+            padding: 15px 30px;
+            background: var(--accent-color);
+            border: none;
+            font-weight: 600;
+        }
+
+        /* ====== STORY CARDS ====== */
+        .story-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .story-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .story-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .story-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .story-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .story-meta {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .chapter-count {
+            background: var(--secondary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* ====== CATEGORY FILTER ====== */
+        .category-filter {
+            margin: 2rem 0;
+        }
+
+        .category-btn {
+            margin: 5px;
+            border-radius: 25px;
+            padding: 8px 20px;
+            border: 2px solid var(--secondary-color);
+            background: transparent;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ====== READING PAGE ====== */
+        .reading-header {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .reading-content {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .reading-controls {
+            position: sticky;
+            top: 20px;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .font-size-controls button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            margin: 0 2px;
+        }
+
+        /* ====== AD SPACES ====== */
+        .ad-space {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        /* ====== SUPPORT BUTTON ====== */
+        .support-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(238, 90, 36, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .support-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.6);
+            color: white;
+        }
+
+        /* ====== THEME TOGGLE ====== */
+        .theme-toggle {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 768px) {
+            .search-container {
+                padding: 2rem 0;
+            }
+            
+            .search-box {
+                padding: 0 1rem;
+            }
+            
+            .story-image {
+                height: 200px;
+            }
+            
+            .reading-content {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .support-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+            }
+        }
+
+        /* ====== LOADING SPINNER ====== */
+        .loading {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid var(--secondary-color);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* ====== BREADCRUMB ====== */
+        .breadcrumb {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        /* ====== PAGINATION ====== */
+        .pagination {
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .page-link {
+            color: var(--secondary-color);
+            border-color: var(--border-color);
+        }
+
+        .page-link:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showHome()">
+                <i class="bi bi-book"></i> Website Truyện
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showHome()">
+                            <i class="bi bi-house"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAllStories()">
+                            <i class="bi bi-list"></i> Danh sách truyện
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-tags"></i> Thể loại
+                        </a>
+                        <ul class="dropdown-menu" id="categoryDropdown">
+                            <!-- Categories will be loaded here -->
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showNewStories()">
+                            <i class="bi bi-star"></i> Truyện mới
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showHotStories()">
+                            <i class="bi bi-fire"></i> Truyện hot
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- THEME TOGGLE BUTTON -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Chuyển đổi chế độ tối/sáng">
+        <i class="bi bi-moon-stars" id="themeIcon"></i>
+    </button>
+
+    <!-- MAIN CONTENT -->
+    <main id="mainContent">
+        <!-- HOME PAGE -->
+        <div id="homePage">
+            <!-- SEARCH SECTION -->
+            <div class="search-container">
+                <div class="container">
+                    <div class="search-box">
+                        <div class="row g-2">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control search-input" id="searchInput" 
+                                       placeholder="Tìm kiếm truyện theo tên, tác giả, thể loại...">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-primary search-btn w-100" onclick="performSearch()">
+                                    <i class="bi bi-search"></i> Tìm kiếm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AD SPACE TOP -->
+            <div class="container">
+                <div class="ad-space">
+                    <p><i class="bi bi-badge-ad"></i> Quảng cáo Banner Top - 728x90</p>
+                    <!-- Google AdSense Code Here -->
+                    <!-- 
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    -->
+                </div>
+            </div>
+
+            <!-- CATEGORY FILTER -->
+            <div class="container">
+                <div class="category-filter text-center">
+                    <button class="btn category-btn active" data-category="all" onclick="filterByCategory('all')">
+                        Tất cả
+                    </button>
+                    <button class="btn category-btn" data-category="tiên hiệp" onclick="filterByCategory('tiên hiệp')">
+                        Tiên Hiệp
+                    </button>
+                    <button class="btn category-btn" data-category="ngôn tình" onclick="filterByCategory('ngôn tình')">
+                        Ngôn Tình
+                    </button>
+                    <button class="btn category-btn" data-category="kiếm hiệp" onclick="filterByCategory('kiếm hiệp')">
+                        Kiếm Hiệp
+                    </button>
+                    <button class="btn category-btn" data-category="đô thị" onclick="filterByCategory('đô thị')">
+                        Đô Thị
+                    </button>
+                    <button class="btn category-btn" data-category="huyền huyễn" onclick="filterByCategory('huyền huyễn')">
+                        Huyền Huyễn
+                    </button>
+                </div>
+            </div>
+
+            <!-- FEATURED STORIES SECTION -->
+            <div class="container">
+                <h2 class="mb-4">
+                    <i class="bi bi-star-fill text-warning"></i> Truyện Nổi Bật
+                </h2>
+                <div class="row" id="featuredStories">
+                    <div class="col-12 text-center">
+                        <div class="loading"></div>
+                        <p>Đang tải dữ liệu...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AD SPACE MIDDLE -->
+            <div class="container mt-5">
+                <div class="ad-space">
+                    <p><i class="bi bi-badge-ad"></i> Quảng cáo Giữa Trang - 336x280</p>
+                    <!-- Ad code here -->
+                </div>
+            </div>
+
+            <!-- ALL STORIES SECTION -->
+            <div class="container mt-5">
+                <h2 class="mb-4">
+                    <i class="bi bi-book-half"></i> Tất Cả Truyện
+                </h2>
+                <div class="row" id="allStories">
+                    <!-- Stories will be loaded here -->
+                </div>
+
+                <!-- PAGINATION -->
+                <nav aria-label="Phân trang truyện">
+                    <ul class="pagination" id="pagination">
+                        <!-- Pagination will be generated here -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- STORY DETAIL PAGE -->
+        <div id="storyDetailPage" class="hidden">
+            <div class="container mt-4">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" onclick="showHome()">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" id="storyBreadcrumb">Chi tiết truyện</li>
+                    </ol>
+                </nav>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <img id="storyDetailImage" class="img-fluid rounded shadow" alt="Story Cover">
+                    </div>
+                    <div class="col-md-9">
+                        <h1 id="storyDetailTitle"></h1>
+                        <div class="story-meta mb-3">
+                            <p><strong>Tác giả:</strong> <span id="storyDetailAuthor"></span></p>
+                            <p><strong>Thể loại:</strong> <span id="storyDetailCategory"></span></p>
+                            <p><strong>Trạng thái:</strong> <span id="storyDetailStatus"></span></p>
+                            <p><strong>Số chương:</strong> <span id="storyDetailChapters"></span></p>
+                        </div>
+                        <div class="mb-3">
+                            <h5>Mô tả:</h5>
+                            <p id="storyDetailDescription"></p>
+                        </div>
+                        <button class="btn btn-primary" onclick="showChapterList()">
+                            <i class="bi bi-list-ol"></i> Danh sách chương
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHAPTER LIST PAGE -->
+        <div id="chapterListPage" class="hidden">
+            <div class="container mt-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" onclick="showHome()">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="#" onclick="showStoryDetail()">Chi tiết truyện</a></li>
+                        <li class="breadcrumb-item active">Danh sách chương</li>
+                    </ol>
+                </nav>
+
+                <h2 id="chapterListTitle">Danh sách chương</h2>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="list-group" id="chapterList">
+                            <!-- Chapters will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- READING PAGE -->
+        <div id="readingPage" class="hidden">
+            <div class="container mt-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" onclick="showHome()">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="#" onclick="showStoryDetail()">Chi tiết truyện</a></li>
+                        <li class="breadcrumb-item"><a href="#" onclick="showChapterList()">Danh sách chương</a></li>
+                        <li class="breadcrumb-item active" id="readingBreadcrumb">Đọc chương</li>
+                    </ol>
+                </nav>
+
+                <div class="row">
+                    <div class="col-lg-9">
+                        <!-- Chapter Header -->
+                        <div class="reading-header text-center">
+                            <h1 id="chapterTitle"></h1>
+                            <p class="text-muted">Truyện: <span id="storyTitle"></span></p>
+                        </div>
+
+                        <!-- Chapter Content -->
+                        <div class="reading-content" id="chapterContent">
+                            <!-- Chapter content will be loaded here -->
+                        </div>
+
+                        <!-- Ad Space in Content -->
+                        <div class="ad-space">
+                            <p><i class="bi bi-badge-ad"></i> Quảng cáo Giữa Nội Dung - 300x250</p>
+                        </div>
+
+                        <!-- Chapter Navigation -->
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <button class="btn btn-outline-primary" id="prevChapterBtn" onclick="goToPrevChapter()">
+                                <i class="bi bi-chevron-left"></i> Chương trước
+                            </button>
+                            <button class="btn btn-secondary" onclick="showChapterList()">
+                                <i class="bi bi-list-ol"></i> Danh sách chương
+                            </button>
+                            <button class="btn btn-outline-primary" id="nextChapterBtn" onclick="goToNextChapter()">
+                                Chương tiếp <i class="bi bi-chevron-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Ad Space Bottom -->
+                        <div class="ad-space">
+                            <p><i class="bi bi-badge-ad"></i> Quảng cáo Cuối Chương - 728x90</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <!-- Reading Controls -->
+                        <div class="reading-controls">
+                            <h5 class="mb-3">
+                                <i class="bi bi-gear"></i> Cài đặt đọc
+                            </h5>
+                            
+                            <!-- Font Size Control -->
+                            <div class="mb-3">
+                                <label class="form-label">Cỡ chữ:</label>
+                                <div class="font-size-controls">
+                                    <button class="btn btn-outline-secondary" onclick="changeFontSize(-1)">A-</button>
+                                    <button class="btn btn-outline-secondary" onclick="changeFontSize(0)">A</button>
+                                    <button class="btn btn-outline-secondary" onclick="changeFontSize(1)">A+</button>
+                                </div>
+                            </div>
+
+                            <!-- Theme Toggle -->
+                            <div class="mb-3">
+                                <label class="form-label">Chế độ:</label>
+                                <div>
+                                    <button class="btn btn-outline-secondary w-100" onclick="toggleTheme()">
+                                        <i class="bi bi-moon-stars"></i> Chuyển đổi sáng/tối
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Support Section -->
+                            <div class="mt-4 p-3 border rounded">
+                                <h6><i class="bi bi-heart-fill text-danger"></i> Ủng hộ tác giả</h6>
+                                <p class="small text-muted mb-2">Nếu bạn thích truyện, hãy ủng hộ để có thêm chương mới!</p>
+                                <button class="btn btn-danger btn-sm w-100 mb-2" onclick="showSupportModal()">
+                                    <i class="bi bi-wallet2"></i> Ủng hộ MoMo
+                                </button>
+                                <button class="btn btn-success btn-sm w-100" onclick="showQRCode()">
+                                    <i class="bi bi-qr-code"></i> QR Banking
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FLOATING SUPPORT BUTTON -->
+    <button class="support-btn" onclick="showSupportModal()">
+        <i class="bi bi-heart-fill"></i> Ủng hộ
+    </button>
+
+    <!-- SUPPORT MODAL -->
+    <div class="modal fade" id="supportModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-heart-fill text-danger"></i> Ủng hộ Website
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>Cảm ơn bạn đã muốn ủng hộ website!</p>
+                    
+                    <!-- MoMo Support -->
+                    <div class="mb-3">
+                        <h6><i class="bi bi-wallet2"></i> Ủng hộ qua MoMo</h6>
+                        <p class="small text-muted">Số điện thoại: <strong>0123456789</strong></p>
+                        <p class="small text-muted">Tên: <strong>Website Truyện</strong></p>
+                    </div>
+
+                    <hr>
+
+                    <!-- Banking QR -->
+                    <div class="mb-3">
+                        <h6><i class="bi bi-qr-code"></i> QR Code Banking</h6>
+                        <div class="qr-placeholder bg-light p-3 rounded">
+                            <i class="bi bi-qr-code" style="font-size: 4rem; color: #666;"></i>
+                            <p class="small mt-2">QR Code sẽ hiển thị ở đây</p>
+                        </div>
+                        <p class="small text-muted mt-2">
+                            Ngân hàng: <strong>Vietcombank</strong><br>
+                            STK: <strong>1234567890</strong><br>
+                            Chủ TK: <strong>WEBSITE TRUYEN</strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Main JavaScript -->
+    <script>
+        // ====== GLOBAL VARIABLES ======
+        let currentPage = 1;
+        let currentCategory = 'all';
+        let currentStoryId = null;
+        let currentChapterId = null;
+        let allStories = [];
+        let currentStory = null;
+        let currentChapter = null;
+        let storiesPerPage = 12;
+        let fontSize = 1.1; // Default font size in rem
+
+        // ====== SAMPLE DATA ======
+        // This would normally come from Google Sheets
+        const sampleStories = [
+            {
+                id: 1,
+                title: "Tinh Thần Biến",
+                author: "Tang Gia Tam Thiếu",
+                category: "tiên hiệp",
+                status: "Hoàn thành",
+                chapters: 338,
+                description: "Một câu chuyện về hành trình tu tiên đầy gian khó của một thiếu niên bình thường...",
+                image: "https://via.placeholder.com/300x400/3498db/ffffff?text=Tinh+Thần+Biến",
+                isHot: true,
+                isNew: false,
+                isFeatured: true,
+                lastUpdate: "2024-01-15"
+            },
+            {
+                id: 2,
+                title: "Đấu La Đại Lục",
+                author: "Đường Gia Tam Thiếu",
+                category: "huyền huyễn",
+                status: "Hoàn thành",
+                chapters: 267,
+                description: "Thế giới võ hồn, nơi mà sức mạnh được quyết định bởi võ hồn bẩm sinh...",
+                image: "https://via.placeholder.com/300x400/e74c3c/ffffff?text=Đấu+La+Đại+Lục",
+                isHot: true,
+                isNew: false,
+                isFeatured: true,
+                lastUpdate: "2024-01-10"
+            },
+            {
+                id: 3,
+                title: "Thương Khung",
+                author: "Thiên Tằm Thổ Đậu",
+                category: "huyền huyễn",
+                status: "Hoàn thành",
+                chapters: 1648,
+                description: "Đây là một thế giới thuộc về Đấu Khí, không có ma pháp hoa lệ...",
+                image: "https://via.placeholder.com/300x400/f39c12/ffffff?text=Thương+Khung",
+                isHot: false,
+                isNew: false,
+                isFeatured: true,
+                lastUpdate: "2024-01-08"
+            },
+            {
+                id: 4,
+                title: "Ngọc Sầu",
+                author: "Tô Thanh",
+                category: "ngôn tình",
+                status: "Đang ra",
+                chapters: 145,
+                description: "Chuyện tình đẹp giữa hai người trong thời loạn lạc...",
+                image: "https://via.placeholder.com/300x400/e91e63/ffffff?text=Ngọc+Sầu",
+                isHot: false,
+                isNew: true,
+                isFeatured: false,
+                lastUpdate: "2024-01-20"
+            },
+            {
+                id: 5,
+                title: "Thiên Long Bát Bộ",
+                author: "Kim Dung",
+                category: "kiếm hiệp",
+                status: "Hoàn thành",
+                chapters: 50,
+                description: "Tác phẩm kinh điển của Kim Dung về thế giới giang hồ...",
+                image: "https://via.placeholder.com/300x400/9b59b6/ffffff?text=Thiên+Long+Bát+Bộ",
+                isHot: true,
+                isNew: false,
+                isFeatured: false,
+                lastUpdate: "2024-01-05"
+            },
+            {
+                id: 6,
+                title: "Đô Thị Tu Tiên",
+                author: "Cửu Tinh Độc Phu",
+                category: "đô thị",
+                status: "Đang ra",
+                chapters: 523,
+                description: "Tu tiên trong thời đại hiện đại, giữa lòng thành phố...",
+                image: "https://via.placeholder.com/300x400/1abc9c/ffffff?text=Đô+Thị+Tu+Tiên",
+                isHot: false,
+                isNew: true,
+                isFeatured: false,
+                lastUpdate: "2024-01-22"
+            }
+        ];
+
+        // Sample chapters for each story
+        const sampleChapters = {
+            1: [
+                { id: 1, title: "Chương 1: Khởi đầu", content: "Tại một ngôi làng nhỏ ven núi, ánh bình minh đầu tiên của ngày hôm ấy đã đánh thức thế giới khỏi giấc ngủ đông. Trong căn nhà nhỏ xiêu vẹo, một thiếu niên khoảng mười lăm tuổi đang nằm trên chiếc giường cũ kỹ, đôi mắt nhắm nghiền như thể đang chìm trong giấc mộng sâu.\n\nTang San mở mắt, ánh sáng mờ nhạt từ cửa sổ chiếu vào khiến hắn phải nheo mắt lại. Ký ức về kiếp trước vẫn còn rất rõ ràng trong đầu - hắn từng là một cao thủ của môn Đường Môn, với thân thủ và nội công thâm hậu. Nhưng giờ đây, hắn chỉ là một đứa trẻ bình thường trong thế giới hoàn toàn khác biệt.\n\n\"Võ hồn...\" Tang San thầm nhẩm. Đây là một thế giới mà sức mạnh được quyết định bởi võ hồn bẩm sinh. Người có võ hồn mạnh sẽ trở thành võ hồn sư, còn những người không có võ hồn hoặc võ hồn yếu sẽ chỉ là dân thường bình thường suốt đời.\n\nHôm nay là ngày hắn tròn sáu tuổi - ngày quan trọng nhất trong đời mỗi đứa trẻ ở đại lục này. Đây là ngày giác tỉnh võ hồn, ngày quyết định vận mệnh của hắn." },
+                { id: 2, title: "Chương 2: Giác tỉnh võ hồn", content: "Tang San bước ra khỏi nhà, không khí buổi sáng mát lạnh khiến hắn cảm thấy tỉnh táo hơn. Hôm nay là ngày giác tỉnh võ hồn, một sự kiện quan trọng mà hắn đã chờ đợi từ lâu.\n\nTrong làng, các trẻ em cùng tuổi đều tụ tập tại quảng trường trung tâm. Tất cả đều có vẻ hồi hộp và lo lắng, bởi vì từ hôm nay, số phận của chúng sẽ được quyết định.\n\n\"Tang San!\" Một giọng nói vang lên từ phía sau. Hắn quay lại và thấy bạn thân của mình - Tiểu Vũ đang chạy đến.\n\n\"Hôm nay là ngày quan trọng nhỉ,\" Tiểu Vũ nói với vẻ hơi lo lắng. \"Không biết mình sẽ có võ hồn gì đây.\"\n\nTang San mỉm cười an ủi: \"Đừng lo, dù là võ hồn gì thì cũng sẽ có cách để mạnh mẽ thôi.\"\n\nLúc này, một người đàn ông cao lớn mặc áo đen xuất hiện tại quảng trường. Đây là võ hồn sư từ Võ Hồn Điện đến để thực hiện nghi lễ giác tỉnh cho các em." }
+            ],
+            2: [
+                { id: 1, title: "Chương 1: Tang Tam", content: "Đấu La đại lục, đây là một thế giới không có ma pháp, không có võ thuật, không có kiếm thuật, chỉ có võ hồn!\n\nMười vạn năm trước, đấu La đại lục xuất hiện loài vật hiểm ác gọi là hồn thú. Con người phát hiện ra việc săn giết hồn thú có thể thu được hồn hoàn, có thể khiến võ hồn tiến hóa. Từ đó, võ hồn sư trở thành nghề nghiệp cao quý nhất trong đại lục.\n\nTang Tam, một đứa trẻ mồ côi sống tại thánh hồn làng, từ nhỏ đã bị mọi người khinh thường vì võ hồn phế vật - Lam ngân thảo. Nhưng hắn không biết rằng, võ hồn này lại chứa đựng bí mật không ai có thể tưởng tượng được.\n\n\"Tang Tam! Mau dậy làm việc!\" Tiếng quát of lão trưởng làng vang lên ngoài cửa.\n\nTang Tam mở mắt, ánh sáng buổi sáng chiếu qua khe cửa sổ nhỏ. Hôm nay lại là một ngày mới, một ngày mà hắn phải chứng minh bản thân trong thế giới này." },
+                { id: 2, title: "Chương 2: Đại sư", content: "Tang Tam bước ra khỏi căn nhà nhỏ, gió buổi sáng thổi qua khiến hắn cảm thấy tỉnh táo. Trong tay cầm một bó Lam ngân thảo vừa hái, đây là võ hồn của hắn - một võ hồn mà ai cũng cho là vô dụng.\n\nNhưng hôm nay có điều gì đó khác thường. Một người đàn ông già mặc áo trắng đang đứng chờ ở cổng làng, ánh mắt nhìn thẳng vào Tang Tam với vẻ quan tâm đặc biệt.\n\n\"Ngươi chính là Tang Tam?\" Người đàn ông già hỏi với giọng điều ấm áp.\n\n\"Đúng vậy, đại nhân có việc gì với tôi?\" Tang Tam cúi đầu hỏi một cách cẩn thận.\n\n\"Ta là Đại Sư, đến từ Notting học viện. Ta muốn nhận ngươi làm đệ tử.\"\n\nCâu nói này như sét đánh khiến Tang Tam đứng sững. Notting học viện - nơi đào tạo các võ hồn sư tài năng, làm sao một người như hắn lại có thể được nhận vào đó?" }
+            ]
+        };
+
+        // ====== PAGE MANAGEMENT ======
+        function showHome() {
+            hideAllPages();
+            document.getElementById('homePage').classList.remove('hidden');
+            updateURL('home');
+            loadFeaturedStories();
+            loadAllStories();
+        }
+
+        function showAllStories() {
+            showHome();
+            // Scroll to all stories section
+            document.getElementById('allStories').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showNewStories() {
+            showHome();
+            filterByCategory('new');
+        }
+
+        function showHotStories() {
+            showHome();
+            filterByCategory('hot');
+        }
+
+        function showStoryDetail(storyId) {
+            hideAllPages();
+            currentStoryId = storyId;
+            currentStory = sampleStories.find(story => story.id == storyId);
+            
+            if (currentStory) {
+                document.getElementById('storyDetailPage').classList.remove('hidden');
+                updateStoryDetail();
+                updateURL('story', storyId);
+            }
+        }
+
+        function showChapterList() {
+            hideAllPages();
+            document.getElementById('chapterListPage').classList.remove('hidden');
+            loadChapterList();
+            updateURL('chapters', currentStoryId);
+        }
+
+        function showReading(storyId, chapterId) {
+            hideAllPages();
+            currentStoryId = storyId;
+            currentChapterId = chapterId;
+            currentStory = sampleStories.find(story => story.id == storyId);
+            
+            if (sampleChapters[storyId] && sampleChapters[storyId][chapterId - 1]) {
+                currentChapter = sampleChapters[storyId][chapterId - 1];
+                document.getElementById('readingPage').classList.remove('hidden');
+                updateReadingPage();
+                updateURL('read', storyId, chapterId);
+            }
+        }
+
+        function hideAllPages() {
+            const pages = ['homePage', 'storyDetailPage', 'chapterListPage', 'readingPage'];
+            pages.forEach(page => {
+                document.getElementById(page).classList.add('hidden');
+            });
+        }
+
+        // ====== URL MANAGEMENT ======
+        function updateURL(page, param1, param2) {
+            let url = `#${page}`;
+            if (param1) url += `/${param1}`;
+            if (param2) url += `/${param2}`;
+            window.history.pushState({}, '', url);
+        }
+
+        function handleURLChange() {
+            const hash = window.location.hash.substring(1);
+            const parts = hash.split('/');
+            
+            switch(parts[0]) {
+                case 'story':
+                    if (parts[1]) showStoryDetail(parseInt(parts[1]));
+                    break;
+                case 'chapters':
+                    if (parts[1]) {
+                        currentStoryId = parseInt(parts[1]);
+                        currentStory = sampleStories.find(story => story.id == currentStoryId);
+                        showChapterList();
+                    }
+                    break;
+                case 'read':
+                    if (parts[1] && parts[2]) {
+                        showReading(parseInt(parts[1]), parseInt(parts[2]));
+                    }
+                    break;
+                default:
+                    showHome();
+            }
+        }
+
+        // ====== STORY RENDERING ======
+        function renderStoryCard(story) {
+            const badgeClass = story.status === 'Hoàn thành' ? 'bg-success' : 'bg-warning';
+            const badge = story.isHot ? '<span class="story-badge">HOT</span>' : 
+                         story.isNew ? '<span class="story-badge bg-info">MỚI</span>' : '';
+            
+            return `
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="card story-card h-100 position-relative">
+                        ${badge}
+                        <img src="${story.image}" class="story-image" alt="${story.title}">
+                        <div class="card-body">
+                            <h5 class="story-title">${story.title}</h5>
+                            <p class="card-text text-muted small">${story.description.substring(0, 100)}...</p>
+                            <div class="story-meta">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <small><strong>Tác giả:</strong> ${story.author}</small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-primary">${story.category}</span>
+                                    <span class="chapter-count">${story.chapters} chương</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge ${badgeClass}">${story.status}</span>
+                                    <small class="text-muted">Cập nhật: ${story.lastUpdate}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <button class="btn btn-primary btn-sm w-100" onclick="showStoryDetail(${story.id})">
+                                <i class="bi bi-book-half"></i> Đọc ngay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function loadFeaturedStories() {
+            const featuredStories = sampleStories.filter(story => story.isFeatured);
+            const container = document.getElementById('featuredStories');
+            
+            if (featuredStories.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center"><p>Không có truyện nổi bật</p></div>';
+                return;
+            }
+            
+            container.innerHTML = featuredStories.map(story => renderStoryCard(story)).join('');
+        }
+
+        function loadAllStories() {
+            let filteredStories = [...sampleStories];
+            
+            // Filter by category
+            if (currentCategory !== 'all') {
+                if (currentCategory === 'hot') {
+                    filteredStories = filteredStories.filter(story => story.isHot);
+                } else if (currentCategory === 'new') {
+                    filteredStories = filteredStories.filter(story => story.isNew);
+                } else {
+                    filteredStories = filteredStories.filter(story => story.category === currentCategory);
+                }
+            }
+            
+            // Pagination
+            const startIndex = (currentPage - 1) * storiesPerPage;
+            const endIndex = startIndex + storiesPerPage;
+            const paginatedStories = filteredStories.slice(startIndex, endIndex);
+            
+            const container = document.getElementById('allStories');
+            
+            if (paginatedStories.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center"><p>Không có truyện phù hợp</p></div>';
+            } else {
+                container.innerHTML = paginatedStories.map(story => renderStoryCard(story)).join('');
+            }
+            
+            // Update pagination
+            updatePagination(filteredStories.length);
+        }
+
+        function updatePagination(totalStories) {
+            const totalPages = Math.ceil(totalStories / storiesPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = '';
+            
+            // Previous button
+            if (currentPage > 1) {
+                paginationHTML += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                `;
+            }
+            
+            // Page numbers
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+            
+            if (startPage > 1) {
+                paginationHTML += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(1)">1</a></li>`;
+                if (startPage > 2) {
+                    paginationHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                }
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                const activeClass = i === currentPage ? 'active' : '';
+                paginationHTML += `
+                    <li class="page-item ${activeClass}">
+                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                    </li>
+                `;
+            }
+            
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    paginationHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                }
+                paginationHTML += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${totalPages})">${totalPages}</a></li>`;
+            }
+            
+            // Next button
+            if (currentPage < totalPages) {
+                paginationHTML += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                `;
+            }
+            
+            pagination.innerHTML = paginationHTML;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            loadAllStories();
+        }
+
+        // ====== CATEGORY FILTER ======
+        function filterByCategory(category) {
+            currentCategory = category;
+            currentPage = 1;
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            if (category === 'all') {
+                document.querySelector('.category-btn[data-category="all"]').classList.add('active');
+            } else {
+                document.querySelector(`.category-btn[data-category="${category}"]`)?.classList.add('active');
+            }
+            
+            loadAllStories();
+        }
+
+        // ====== SEARCH FUNCTIONALITY ======
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                showHome();
+                return;
+            }
+            
+            // Filter stories by search term
+            const filteredStories = sampleStories.filter(story => 
+                story.title.toLowerCase().includes(searchTerm) ||
+                story.author.toLowerCase().includes(searchTerm) ||
+                story.category.toLowerCase().includes(searchTerm) ||
+                story.description.toLowerCase().includes(searchTerm)
+            );
+            
+            // Display search results
+            const container = document.getElementById('allStories');
+            if (filteredStories.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center">
+                        <h4>Không tìm thấy kết quả cho: "${searchTerm}"</h4>
+                        <p class="text-muted">Hãy thử tìm kiếm với từ khóa khác</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = filteredStories.map(story => renderStoryCard(story)).join('');
+            }
+            
+            // Hide pagination for search results
+            document.getElementById('pagination').innerHTML = '';
+            
+            // Update title
+            document.querySelector('#allStories').previousElementSibling.innerHTML = `
+                <i class="bi bi-search"></i> Kết quả tìm kiếm: "${searchTerm}" (${filteredStories.length} truyện)
+            `;
+        }
+
+        // Add enter key support for search
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        });
+
+        // ====== STORY DETAIL PAGE ======
+        function updateStoryDetail() {
+            if (!currentStory) return;
+            
+            document.getElementById('storyDetailTitle').textContent = currentStory.title;
+            document.getElementById('storyDetailAuthor').textContent = currentStory.author;
+            document.getElementById('storyDetailCategory').textContent = currentStory.category;
+            document.getElementById('storyDetailStatus').textContent = currentStory.status;
+            document.getElementById('storyDetailChapters').textContent = currentStory.chapters + ' chương';
+            document.getElementById('storyDetailDescription').textContent = currentStory.description;
+            document.getElementById('storyDetailImage').src = currentStory.image;
+            document.getElementById('storyDetailImage').alt = currentStory.title;
+            document.getElementById('storyBreadcrumb').textContent = currentStory.title;
+            
+            // Update page title and meta
+            document.title = `${currentStory.title} - Website Đọc Truyện Online`;
+            updateMetaTags(currentStory.title, currentStory.description);
+        }
+
+        // ====== CHAPTER LIST PAGE ======
+        function loadChapterList() {
+            if (!currentStory || !sampleChapters[currentStoryId]) return;
+            
+            document.getElementById('chapterListTitle').textContent = `${currentStory.title} - Danh sách chương`;
+            
+            const chapters = sampleChapters[currentStoryId];
+            const container = document.getElementById('chapterList');
+            
+            container.innerHTML = chapters.map((chapter, index) => `
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                   onclick="showReading(${currentStoryId}, ${chapter.id})">
+                    <div>
+                        <h6 class="mb-1">${chapter.title}</h6>
+                        <small class="text-muted">Cập nhật: ${currentStory.lastUpdate}</small>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">${index + 1}</span>
+                </a>
+            `).join('');
+        }
+
+        // ====== READING PAGE ======
+        function updateReadingPage() {
+            if (!currentStory || !currentChapter) return;
+            
+            document.getElementById('chapterTitle').textContent = currentChapter.title;
+            document.getElementById('storyTitle').textContent = currentStory.title;
+            document.getElementById('chapterContent').innerHTML = currentChapter.content.split('\n').map(p => `<p>${p}</p>`).join('');
+            document.getElementById('readingBreadcrumb').textContent = currentChapter.title;
+            
+            // Update navigation buttons
+            updateChapterNavigation();
+            
+            // Update page title
+            document.title = `${currentChapter.title} - ${currentStory.title} - Website Đọc Truyện Online`;
+            updateMetaTags(currentChapter.title, currentChapter.content.substring(0, 150));
+        }
+
+        function updateChapterNavigation() {
+            const chapters = sampleChapters[currentStoryId];
+            if (!chapters) return;
+            
+            const currentIndex = chapters.findIndex(ch => ch.id === currentChapterId);
+            
+            const prevBtn = document.getElementById('prevChapterBtn');
+            const nextBtn = document.getElementById('nextChapterBtn');
+            
+            // Previous chapter
+            if (currentIndex > 0) {
+                prevBtn.disabled = false;
+                prevBtn.onclick = () => goToPrevChapter();
+            } else {
+                prevBtn.disabled = true;
+            }
+            
+            // Next chapter
+            if (currentIndex < chapters.length - 1) {
+                nextBtn.disabled = false;
+                nextBtn.onclick = () => goToNextChapter();
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+
+        function goToPrevChapter() {
+            const chapters = sampleChapters[currentStoryId];
+            const currentIndex = chapters.findIndex(ch => ch.id === currentChapterId);
+            
+            if (currentIndex > 0) {
+                const prevChapter = chapters[currentIndex - 1];
+                showReading(currentStoryId, prevChapter.id);
+            }
+        }
+
+        function goToNextChapter() {
+            const chapters = sampleChapters[currentStoryId];
+            const currentIndex = chapters.findIndex(ch => ch.id === currentChapterId);
+            
+            if (currentIndex < chapters.length - 1) {
+                const nextChapter = chapters[currentIndex + 1];
+                showReading(currentStoryId, nextChapter.id);
+            }
+        }
+
+        // ====== READING CONTROLS ======
+        function changeFontSize(change) {
+            if (change === 0) {
+                fontSize = 1.1; // Reset to default
+            } else {
+                fontSize += change * 0.1;
+                fontSize = Math.max(0.8, Math.min(2.0, fontSize)); // Limit between 0.8rem and 2.0rem
+            }
+            
+            const content = document.getElementById('chapterContent');
+            if (content) {
+                content.style.fontSize = fontSize + 'rem';
+            }
+        }
+
+        // ====== THEME TOGGLE ======
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'bi bi-moon-stars';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'bi bi-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'bi bi-sun';
+            } else {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'bi bi-moon-stars';
+            }
+        }
+
+        // ====== SUPPORT MODAL ======
+        function showSupportModal() {
+            const modal = new bootstrap.Modal(document.getElementById('supportModal'));
+            modal.show();
+        }
+
+        function showQRCode() {
+            // This would normally generate or show a real QR code
+            alert('Tính năng QR Code đang được phát triển. Vui lòng sử dụng thông tin banking để chuyển khoản.');
+        }
+
+        // ====== META TAGS UPDATE ======
+        function updateMetaTags(title, description) {
+            document.querySelector('meta[name="description"]').setAttribute('content', description);
+            
+            // Update Open Graph tags if they exist
+            let ogTitle = document.querySelector('meta[property="og:title"]');
+            let ogDescription = document.querySelector('meta[property="og:description"]');
+            
+            if (ogTitle) ogTitle.setAttribute('content', title);
+            if (ogDescription) ogDescription.setAttribute('content', description);
+        }
+
+        // ====== INITIALIZATION ======
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved theme
+            loadSavedTheme();
+            
+            // Load category dropdown
+            loadCategoryDropdown();
+            
+            // Handle URL routing
+            handleURLChange();
+            
+            // Listen for URL changes
+            window.addEventListener('hashchange', handleURLChange);
+            
+            // Initialize with home page if no hash
+            if (!window.location.hash) {
+                showHome();
+            }
+        });
+
+        function loadCategoryDropdown() {
+            const categories = ['tiên hiệp', 'ngôn tình', 'kiếm hiệp', 'đô thị', 'huyền huyễn'];
+            const dropdown = document.getElementById('categoryDropdown');
+            
+            dropdown.innerHTML = categories.map(category => `
+                <li><a class="dropdown-item" href="#" onclick="filterByCategory('${category}')">${category}</a></li>
+            `).join('');
+        }
+
+        // ====== GOOGLE SHEETS INTEGRATION ======
+        // This would be used to load data from Google Sheets via Apps Script
+        async function loadDataFromGoogleSheets() {
+            try {
+                // Replace with your Google Apps Script Web App URL
+                const scriptUrl = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+                
+                const response = await fetch(scriptUrl);
+                const data = await response.json();
+                
+                if (data.stories) {
+                    allStories = data.stories;
+                    loadFeaturedStories();
+                    loadAllStories();
+                }
+            } catch (error) {
+                console.error('Lỗi khi tải dữ liệu từ Google Sheets:', error);
+                // Fallback to sample data
+                allStories = sampleStories;
+                loadFeaturedStories();
+                loadAllStories();
+            }
+        }
+
+        // ====== SEO FUNCTIONS ======
+        function generateSitemap() {
+            let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://yourwebsite.com/</loc>
+        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+        <priority>1.0</priority>
+    </url>`;
+
+            sampleStories.forEach(story => {
+                sitemap += `
+    <url>
+        <loc>https://yourwebsite.com/#story/${story.id}</loc>
+        <lastmod>${story.lastUpdate}</lastmod>
+        <priority>0.8</priority>
+    </url>`;
+
+                if (sampleChapters[story.id]) {
+                    sampleChapters[story.id].forEach(chapter => {
+                        sitemap += `
+    <url>
+        <loc>https://yourwebsite.com/#read/${story.id}/${chapter.id}</loc>
+        <lastmod>${story.lastUpdate}</lastmod>
+        <priority>0.6</priority>
+    </url>`;
+                    });
+                }
+            });
+
+            sitemap += `
+</urlset>`;
+            
+            return sitemap;
+        }
+
+        function generateRobotsTxt() {
+            return `User-agent: *
+Allow: /
+
+Sitemap: https://yourwebsite.com/sitemap.xml`;
+        }
+
+        // ====== ANALYTICS & MONETIZATION ======
+        // Google Analytics integration
+        function trackPageView(page) {
+            if (typeof gtag !== 'undefined') {
+                gtag('config', 'GA_TRACKING_ID', {
+                    page_path: window.location.hash || '/'
+                });
+            }
+        }
+
+        // AdSense integration
+        function loadAdSense() {
+            if (typeof adsbygoogle !== 'undefined') {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            }
+        }
+
+        // ====== UTILITY FUNCTIONS ======
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Debounced search
+        const debouncedSearch = debounce(performSearch, 300);
+
+        // ====== ERROR HANDLING ======
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript Error:', e.error);
+            // You could send this to an error tracking service
+        });
+
+        // ====== PERFORMANCE OPTIMIZATION ======
+        // Lazy loading for images
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // ====== SOCIAL SHARING ======
+        function shareStory(storyId) {
+            const story = sampleStories.find(s => s.id === storyId);
+            if (!story) return;
+
+            const url = `${window.location.origin}${window.location.pathname}#story/${storyId}`;
+            const title = `Đọc truyện: ${story.title}`;
+            const text = story.description;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: text,
+                    url: url
+                });
+            } else {
+                // Fallback to copying URL
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Đã sao chép link truyện vào clipboard!');
+                });
+            }
+        }
+
+        // ====== READING PROGRESS ======
+        function saveReadingProgress(storyId, chapterId) {
+            const progress = {
+                storyId: storyId,
+                chapterId: chapterId,
+                timestamp: Date.now()
+            };
+            
+            let readingHistory = JSON.parse(localStorage.getItem('readingHistory') || '[]');
+            
+            // Remove existing progress for this story
+            readingHistory = readingHistory.filter(p => p.storyId !== storyId);
+            
+            // Add new progress
+            readingHistory.unshift(progress);
+            
+            // Keep only last 50 items
+            readingHistory = readingHistory.slice(0, 50);
+            
+            localStorage.setItem('readingHistory', JSON.stringify(readingHistory));
+        }
+
+        function loadReadingHistory() {
+            const history = JSON.parse(localStorage.getItem('readingHistory') || '[]');
+            return history;
+        }
+
+        // ====== FAVORITES SYSTEM ======
+        function toggleFavorite(storyId) {
+            let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            
+            if (favorites.includes(storyId)) {
+                favorites = favorites.filter(id => id !== storyId);
+                alert('Đã xóa khỏi danh sách yêu thích!');
+            } else {
+                favorites.push(storyId);
+                alert('Đã thêm vào danh sách yêu thích!');
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            
+            // Update UI if needed
+            updateFavoriteButton(storyId);
+        }
+
+        function updateFavoriteButton(storyId) {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const isFavorite = favorites.includes(storyId);
+            
+            const button = document.querySelector(`[data-favorite="${storyId}"]`);
+            if (button) {
+                button.innerHTML = isFavorite ? 
+                    '<i class="bi bi-heart-fill"></i> Đã yêu thích' : 
+                    '<i class="bi bi-heart"></i> Yêu thích';
+                button.className = isFavorite ? 
+                    'btn btn-danger btn-sm' : 
+                    'btn btn-outline-danger btn-sm';
+            }
+        }
+
+        // ====== KEYBOARD SHORTCUTS ======
+        document.addEventListener('keydown', function(e) {
+            // Only on reading page
+            if (!document.getElementById('readingPage').classList.contains('hidden')) {
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        goToPrevChapter();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        goToNextChapter();
+                        break;
+                    case 'Escape':
+                        e.preventDefault();
+                        showChapterList();
+                        break;
+                    case '+':
+                        e.preventDefault();
+                        changeFontSize(1);
+                        break;
+                    case '-':
+                        e.preventDefault();
+                        changeFontSize(-1);
+                        break;
+                }
+            }
+        });
+
+        // ====== SCROLL TO TOP ======
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollToTop');
+            if (scrollBtn) {
+                if (window.pageYOffset > 300) {
+                    scrollBtn.style.display = 'block';
+                } else {
+                    scrollBtn.style.display = 'none';
+                }
+            }
+        });
+
+        // ====== FINAL INITIALIZATION ======
+        // Save reading progress when reading
+        setInterval(() => {
+            if (!document.getElementById('readingPage').classList.contains('hidden')) {
+                if (currentStoryId && currentChapterId) {
+                    saveReadingProgress(currentStoryId, currentChapterId);
+                }
+            }
+        }, 30000); // Save every 30 seconds
+
+        // Track page views
+        window.addEventListener('hashchange', function() {
+            trackPageView(window.location.hash);
+        });
+    </script>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" onclick="scrollToTop()" 
+            style="display: none; position: fixed; bottom: 100px; right: 30px; z-index: 1000; 
+                   background: var(--secondary-color); color: white; border: none; 
+                   border-radius: 50%; width: 50px; height: 50px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Google Analytics (replace with your tracking ID) -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_TRACKING_ID');
+    </script>
+    -->
+
+</body>
+</html>
