@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>ARICO — Môi trường Việt Nam | Tin tức, Câu chuyện & Tài liệu</title>
+    <meta name="description" content="ARICO - Nền tảng chia sẻ thông tin về môi trường Việt Nam, biến đổi khí hậu, bảo vệ thiên nhiên và lối sống xanh bền vững cho tương lai.">
+    <meta name="keywords" content="môi trường Việt Nam, biến đổi khí hậu Việt Nam, bảo vệ môi trường, lối sống xanh, năng lượng tái tạo, ARICO">
+    <link rel="canonical" href="https://www.aricovn.com/">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="ARICO — Môi trường Việt Nam | Tin tức, Câu chuyện & Tài liệu">
+    <meta property="og:description" content="ARICO - Nền tảng chia sẻ thông tin về môi trường Việt Nam, biến đổi khí hậu và lối sống xanh bền vững.">
+    <meta property="og:image" content="https://www.aricovn.com/assets/og-image.jpg">
+    <meta property="og:url" content="https://www.aricovn.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ARICO">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ARICO",
+        "url": "https://www.aricovn.com",
+        "logo": "https://www.aricovn.com/assets/logo.png",
+        "description": "Nền tảng chia sẻ thông tin về môi trường Việt Nam",
+        "sameAs": [
+            "https://www.facebook.com/aricovn",
+            "https://twitter.com/aricovn"
+        ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "ARICO",
+        "url": "https://www.aricovn.com",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.aricovn.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+
+    <style>
+        /* Custom CSS với palette màu đã định */
+        :root {
+            --bg-primary: #FAFBF9;
+            --text-primary: #23313F;
+            --accent-primary: #2F855A;
+            --accent-secondary: #66B48A;
+            --border-light: #E6F4EE;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            font-family: var(--font-family);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--accent-primary);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Header & Navbar Styles */
+        .navbar-custom {
+            background: rgba(250, 251, 249, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 2px 10px rgba(47, 133, 90, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--accent-primary) !important;
+        }
+
+        .nav-link {
+            color: var(--text-primary) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link:focus {
+            color: var(--accent-primary) !important;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover, .btn-primary-custom:focus {
+            background-color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-custom {
+            color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-custom:hover, .btn-outline-custom:focus {
+            background-color: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--border-light) 100%);
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://placehold.co/1920x800/E6F4EE/2F855A?text=Nature+Background');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Cards */
+        .card-custom {
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: white;
+            height: 100%;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(47, 133, 90, 0.15);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--border-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .card-icon i {
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+        }
+
+        /* Story Cards */
+        .story-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer-custom {
+            background-color: var(--text-primary);
+            color: white;
+        }
+
+        .footer-custom .text-accent {
+            color: var(--accent-secondary) !important;
+        }
+
+        /* Search Modal */
+        .search-input {
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 1.1rem;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: 60vh;
+                text-align: center;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Focus states for accessibility */
+        .btn:focus,
+        .nav-link:focus,
+        .dropdown-toggle:focus {
+            box-shadow: 0 0 0 3px rgba(47, 133, 90, 0.25);
+        }
+
+        /* Section spacing */
+        .section-spacing {
+            padding: 4rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-spacing {
+                padding: 3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Chuyển đến nội dung chính</a>
+
+    <!-- Header & Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom sticky-top" role="navigation">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="/" aria-label="ARICO - Trang chủ">
+                <i class="bi bi-leaf me-2"></i>ARICO
+            </a>
+
+            <!-- Search & Mobile Toggle -->
+            <div class="d-flex align-items-center">
+                <button class="btn btn-link p-2 me-2" type="button" data-bs-toggle="modal" data-bs-target="#searchModal" aria-label="Mở tìm kiếm">
+                    <i class="bi bi-search"></i>
+                </button>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gioi-thieu">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cau-chuyen">Câu chuyện</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tai-lieu">Tài liệu</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Chủ đề
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/bien-doi-khi-hau">Biến đổi khí hậu</a></li>
+                            <li><a class="dropdown-item" href="/o-nhiem">Ô nhiễm</a></li>
+                            <li><a class="dropdown-item" href="/loi-song-xanh">Lối sống xanh</a></li>
+                            <li><a class="dropdown-item" href="/bao-ton-thien-nhien">Bảo tồn thiên nhiên</a></li>
+                            <li><a class="dropdown-item" href="/nang-luong-tai-tao">Năng lượng tái tạo</a></li>
+                            <li><a class="dropdown-item" href="/cong-nghe-xanh">Công nghệ xanh</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lien-he">Liên hệ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 hero-content">
+                        <h1 class="display-4 fw-bold mb-4">
+                            Bảo vệ <span class="text-success">môi trường Việt Nam</span> cho tương lai bền vững
+                        </h1>
+                        <p class="lead mb-4">
+                            Khám phá thông tin về biến đổi khí hậu Việt Nam, chia sẻ câu chuyện bảo vệ môi trường 
+                            và tìm hiểu lối sống xanh cho một tương lai bền vững.
+                        </p>
+                        <div class="d-flex flex-column flex-sm-row gap-3">
+                            <a href="/bien-doi-khi-hau" class="btn btn-primary-custom btn-lg">
+                                Tìm hiểu ngay <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                            <button class="btn btn-outline-custom btn-lg" data-bs-toggle="modal" data-bs-target="#contributeModal">
+                                Đóng góp tài liệu <i class="bi bi-upload ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tổng quan Section -->
+        <section class="section-spacing bg-white">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12 text-center">
+                        <h2 class="h1 fw-bold mb-3">Khám phá các chủ đề</h2>
+                        <p class="lead text-muted">Tìm hiểu về những vấn đề môi trường quan trọng nhất</p>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card card-custom h-100 text-center p-4">
+                            <div class="card-icon">
+                                <i class="bi bi-thermometer-sun"></i>
+                            </div>
+                            <h5 class="fw-bold">Biến đổi khí hậu</h5>
+                            <p class="text-muted">Tác động và giải pháp ứng phó với biến đổi khí hậu tại Việt Nam</p>
+                            <a href="/bien-doi-khi-hau" class="btn btn-outline-custom mt-auto">Xem chi tiết</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card card-custom h-100 text-center p-4">
+                            <div class="card-icon">
+                                <i class="bi bi-cloud-haze"></i>
+                            </div>
+                            <h5 class="fw-bold">Ô nhiễm môi trường</h5>
+                            <p class="text-muted">Hiện trạng và các biện pháp giảm thiểu ô nhiễm không khí, nước</p>
+                            <a href="/o-nhiem" class="btn btn-outline-custom mt-auto">Xem chi tiết</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card card-custom h-100 text-center p-4">
+                            <div class="card-icon">
+                                <i class="bi bi-recycle"></i>
+                            </div>
+                            <h5 class="fw-bold">Lối sống xanh</h5>
+                            <p class="text-muted">Hướng dẫn thực hành lối sống thân thiện với môi trường</p>
+                            <a href="/loi-song-xanh" class="btn btn-outline-custom mt-auto">Xem chi tiết</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card card-custom h-100 text-center p-4">
+                            <div class="card-icon">
+                                <i class="bi bi-lightning-charge"></i>
+                            </div>
+                            <h5 class="fw-bold">Năng lượng tái tạo</h5>
+                            <p class="text-muted">Tiềm năng và ứng dụng năng lượng sạch tại Việt Nam</p>
+                            <a href="/nang-luong-tai-tao" class="btn btn-outline-custom mt-auto">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Câu chuyện Section -->
+        <section class="section-spacing">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <h2 class="h1 fw-bold mb-3">Câu chuyện nổi bật</h2>
+                        <p class="lead text-muted">Những câu chuyện truyền cảm hứng về bảo vệ môi trường</p>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="card story-card border-0 shadow-sm">
+                            <img src="https://placehold.co/400x250/E6F4EE/2F855A?text=Story+Image" 
+                                 class="card-img-top" alt="Câu chuyện môi trường" loading="lazy">
+                            <div class="card-body">
+                                <span class="badge bg-success mb-2">Biến đổi khí hậu</span>
+                                <h5 class="card-title fw-bold">Nông dân miền Tây thích ứng với hạn mặn</h5>
+                                <p class="card-text text-muted">Câu chuyện về cách các nông dân vùng đồng bằng sông Cửu Long 
+                                thích ứng và tìm ra giải pháp bền vững...</p>
+                                <a href="/cau-chuyen/nong-dan-mien-tay" class="btn btn-sm btn-outline-custom">Đọc tiếp</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card story-card border-0 shadow-sm">
+                            <img src="https://placehold.co/400x250/E6F4EE/2F855A?text=Green+Living" 
+                                 class="card-img-top" alt="Lối sống xanh" loading="lazy">
+                            <div class="card-body">
+                                <span class="badge bg-success mb-2">Lối sống xanh</span>
+                                <h5 class="card-title fw-bold">Zero waste - Hành trình của gia đình trẻ Hà Nội</h5>
+                                <p class="card-text text-muted">Chia sẻ kinh nghiệm thực tế về việc giảm thiểu rác thải 
+                                và sống xanh trong môi trường đô thị...</p>
+                                <a href="/cau-chuyen/zero-waste-hanoi" class="btn btn-sm btn-outline-custom">Đọc tiếp</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card story-card border-0 shadow-sm">
+                            <img src="https://placehold.co/400x250/E6F4EE/2F855A?text=Conservation" 
+                                 class="card-img-top" alt="Bảo tồn thiên nhiên" loading="lazy">
+                            <div class="card-body">
+                                <span class="badge bg-success mb-2">Bảo tồn</span>
+                                <h5 class="card-title fw-bold">Phục hồi rừng ngập mặn Cần Giờ</h5>
+                                <p class="card-text text-muted">Nỗ lực của cộng đồng trong việc bảo vệ và phục hồi 
+                                hệ sinh thái rừng ngập mặn quan trọng...</p>
+                                <a href="/cau-chuyen/rung-ngap-man-can-gio" class="btn btn-sm btn-outline-custom">Đọc tiếp</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Silo chi tiết Section -->
+        <section class="section-spacing bg-white">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12 text-center">
+                        <h2 class="h1 fw-bold mb-3">Chủ đề chính</h2>
+                        <p class="lead text-muted">Khám phá sâu các lĩnh vực môi trường quan trọng</p>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-custom">
+                            <img src="https://placehold.co/350x200/E6F4EE/2F855A?text=Climate+Change" 
+                                 class="card-img-top" alt="Biến đổi khí hậu" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Biến đổi khí hậu</h5>
+                                <p class="card-text text-muted">Tìm hiểu về tác động, xu hướng và giải pháp ứng phó</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-custom">
+                            <img src="https://placehold.co/350x200/E6F4EE/2F855A?text=Pollution" 
+                                 class="card-img-top" alt="Ô nhiễm" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Ô nhiễm môi trường</h5>
+                                <p class="card-text text-muted">Hiện trạng và giải pháp xử lý các loại ô nhiễm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-custom">
+                            <img src="https://placehold.co/350x200/E6F4EE/2F855A?text=Green+Living" 
+                                 class="card-img-top" alt="Lối sống xanh" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Lối sống xanh</h5>
+                                <p class="card-text text-muted">Hướng dẫn thực hành sống bền vững hàng ngày</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-custom">
+                            <img src="https://placehold.co/350x200/E6F4EE/2F855A?text=Conservation" 
+                                 class="card-img-top" alt="Bảo tồn" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Bảo tồn thiên nhiên</h5>
+                                <p class="card-text text-muted">Bảo vệ đa dạng sinh học và hệ sinh thái</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-custom">
+                            <img src="https://placehold.co/350x200/E6F4EE/2F855A?text=Renewable+Energy" 
+                                 class="card-img-top" alt="Năng lượng tái tạo" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Năng lượng tái tạo</h5>
+                                <p class="card-text text-muted">Tiềm năng và ứng dụng năng lượng sạch</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-custom">
+                            <img src="https://placehold.co/350x200/E6F4EE/2F855A?text=Green+Technology" 
+                                 class="card-img-top" alt="Công nghệ xanh" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Công nghệ xanh</h5>
+                                <p class="card-text text-muted">Công nghệ thân thiện với môi trường</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tài liệu Section -->
+        <section class="section-spacing">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <h2 class="h1 fw-bold mb-3">Tài liệu & Hướng dẫn</h2>
+                        <p class="lead text-muted">Thư viện tài liệu hữu ích cho việc bảo vệ môi trường</p>
+                    </div>
+                </div>
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-custom">
+                            <div class="card-body text-center">
+                                <i class="bi bi-file-pdf text-danger" style="font-size: 3rem;"></i>
+                                <h6 class="mt-3 fw-bold">Hướng dẫn Zero Waste</h6>
+                                <p class="text-muted small">Cẩm nang thực hành giảm thiểu rác thải</p>
+                                <a href="/assets/zero-waste-guide.pdf" class="btn btn-sm btn-outline-custom">
+                                    <i class="bi bi-download me-1"></i>Tải về
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-custom">
+                            <div class="card-body text-center">
+                                <i class="bi bi-file-pdf text-danger" style="font-size: 3rem;"></i>
+                                <h6 class="mt-3 fw-bold">Báo cáo Khí hậu VN 2024</h6>
+                                <p class="text-muted small">Tổng quan tình hình biến đổi khí hậu</p>
+                                <a href="/assets/climate-report-2024.pdf" class="btn btn-sm btn-outline-custom">
+                                    <i class="bi bi-download me-1"></i>Tải về
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card card-custom">
+                            <div class="card-body text-center">
+                                <i class="bi bi-file-pdf text-danger" style="font-size: 3rem;"></i>
+                                <h6 class="mt-3 fw-bold">Checklist Sống xanh</h6>
+                                <p class="text-muted small">Danh sách kiểm tra hành động hàng ngày</p>
+                                <a href="/assets/green-living-checklist.pdf" class="btn btn-sm btn-outline-custom">
+                                    <i class="bi bi-download me-1"></i>Tải về
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="/tai-lieu" class="btn btn-primary-custom">Xem tất cả tài liệu <i class="bi bi-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending & Tin mới Section -->
+        <section class="section-spacing bg-white">
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2 class="h1 fw-bold mb-3">Tin tức & Xu hướng</h2>
+                        <p class="lead text-muted">Cập nhật những thông tin mới nhất về môi trường</p>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="d-flex">
+                            <span class="badge bg-danger me-3 mt-1">Trending</span>
+                            <div>
+                                <h6 class="fw-bold mb-2">
+                                    <a href="/tin-tuc/cop28-vietnam-commitment" class="text-decoration-none">
+                                        Việt Nam cam kết net-zero 2050 tại COP28
+                                    </a>
+                                </h6>
+                                <p class="text-muted small mb-1">Những cam kết mới và kế hoạch hành động cụ thể...</p>
+                                <small class="text-muted">2 giờ trước</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex">
+                            <span class="badge bg-warning me-3 mt-1">Hot</span>
+                            <div>
+                                <h6 class="fw-bold mb-2">
+                                    <a href="/tin-tuc/renewable-energy-growth" class="text-decoration-none">
+                                        Năng lượng tái tạo tăng trưởng mạnh
+                                    </a>
+                                </h6>
+                                <p class="text-muted small mb-1">Điện mặt trời và điện gió đạt mốc kỷ lục mới...</p>
+                                <small class="text-muted">5 giờ trước</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex">
+                            <span class="badge bg-info me-3 mt-1">Mới</span>
+                            <div>
+                                <h6 class="fw-bold mb-2">
+                                    <a href="/tin-tuc/plastic-waste-solution" class="text-decoration-none">
+                                        Giải pháp mới xử lý rác thải nhựa
+                                    </a>
+                                </h6>
+                                <p class="text-muted small mb-1">Công nghệ tái chế tiên tiến từ Nhật Bản...</p>
+                                <small class="text-muted">1 ngày trước</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-custom py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold text-accent mb-3">
+                        <i class="bi bi-leaf me-2"></i>ARICO
+                    </h5>
+                    <p class="text-light">
+                        Nền tảng chia sẻ thông tin về môi trường Việt Nam, 
+                        góp phần xây dựng tương lai xanh và bền vững.
+                    </p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="https://facebook.com/aricovn" class="text-light" aria-label="Facebook">
+                            <i class="bi bi-facebook" style="font-size: 1.2rem;"></i>
+                        </a>
+                        <a href="https://twitter.com/aricovn" class="text-light" aria-label="Twitter">
+                            <i class="bi bi-twitter" style="font-size: 1.2rem;"></i>
+                        </a>
+                        <a href="https://youtube.com/aricovn" class="text-light" aria-label="YouTube">
+                            <i class="bi bi-youtube" style="font-size: 1.2rem;"></i>
+                        </a>
+                        <a href="https://instagram.com/aricovn" class="text-light" aria-label="Instagram">
+                            <i class="bi bi-instagram" style="font-size: 1.2rem;"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="fw-bold text-accent mb-3">Chủ đề</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/bien-doi-khi-hau" class="text-light text-decoration-none">Biến đổi khí hậu</a></li>
+                        <li><a href="/o-nhiem" class="text-light text-decoration-none">Ô nhiễm</a></li>
+                        <li><a href="/loi-song-xanh" class="text-light text-decoration-none">Lối sống xanh</a></li>
+                        <li><a href="/bao-ton-thien-nhien" class="text-light text-decoration-none">Bảo tồn</a></li>
+                        <li><a href="/nang-luong-tai-tao" class="text-light text-decoration-none">Năng lượng tái tạo</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="fw-bold text-accent mb-3">Nội dung</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/cau-chuyen" class="text-light text-decoration-none">Câu chuyện</a></li>
+                        <li><a href="/tai-lieu" class="text-light text-decoration-none">Tài liệu</a></li>
+                        <li><a href="/tin-tuc" class="text-light text-decoration-none">Tin tức</a></li>
+                        <li><a href="/huong-dan" class="text-light text-decoration-none">Hướng dẫn</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold text-accent mb-3">Liên hệ</h6>
+                    <p class="text-light mb-2">
+                        <i class="bi bi-envelope me-2"></i>
+                        info@aricovn.com
+                    </p>
+                    <p class="text-light mb-3">
+                        <i class="bi bi-geo-alt me-2"></i>
+                        Hà Nội, Việt Nam
+                    </p>
+                    <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#contactModal">
+                        Gửi tin nhắn <i class="bi bi-send ms-2"></i>
+                    </button>
+                </div>
+            </div>
+            <hr class="my-4 text-muted">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted mb-0">&copy; 2024 ARICO. Bảo lưu mọi quyền.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="/chinh-sach-bao-mat" class="text-muted text-decoration-none me-3">Chính sách bảo mật</a>
+                    <a href="/dieu-khoan-su-dung" class="text-muted text-decoration-none">Điều khoản sử dụng</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchModalLabel">Tìm kiếm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <input type="search" class="form-control search-input" placeholder="Nhập từ khóa tìm kiếm..." aria-label="Tìm kiếm">
+                        </div>
+                        <div class="mb-3">
+                            <small class="text-muted">Gợi ý: biến đổi khí hậu, lối sống xanh, ô nhiễm không khí...</small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary-custom">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contribute Modal -->
+    <div class="modal fade" id="contributeModal" tabindex="-1" aria-labelledby="contributeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contributeModalLabel">Đóng góp tài liệu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="contributeName" class="form-label">Họ tên *</label>
+                            <input type="text" class="form-control" id="contributeName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contributeEmail" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="contributeEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contributeTitle" class="form-label">Tiêu đề tài liệu *</label>
+                            <input type="text" class="form-control" id="contributeTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contributeCategory" class="form-label">Chủ đề *</label>
+                            <select class="form-select" id="contributeCategory" required>
+                                <option value="">Chọn chủ đề</option>
+                                <option value="climate-change">Biến đổi khí hậu</option>
+                                <option value="pollution">Ô nhiễm</option>
+                                <option value="green-living">Lối sống xanh</option>
+                                <option value="conservation">Bảo tồn thiên nhiên</option>
+                                <option value="renewable-energy">Năng lượng tái tạo</option>
+                                <option value="green-tech">Công nghệ xanh</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contributeDescription" class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="contributeDescription" rows="3" placeholder="Mô tả ngắn về tài liệu..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contributeFile" class="form-label">Tải lên file</label>
+                            <input type="file" class="form-control" id="contributeFile" accept=".pdf,.doc,.docx,.ppt,.pptx">
+                            <div class="form-text">Hỗ trợ: PDF, Word, PowerPoint (tối đa 10MB)</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary-custom">Gửi tài liệu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Liên hệ với chúng tôi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="contactName" class="form-label">Họ tên *</label>
+                            <input type="text" class="form-control" id="contactName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactEmail" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="contactEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactSubject" class="form-label">Chủ đề *</label>
+                            <input type="text" class="form-control" id="contactSubject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactMessage" class="form-label">Tin nhắn *</label>
+                            <textarea class="form-control" id="contactMessage" rows="4" required placeholder="Nội dung tin nhắn..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary-custom">Gửi tin nhắn</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Smooth scroll cho anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Auto-focus vào search input khi modal mở
+        const searchModal = document.getElementById('searchModal');
+        if (searchModal) {
+            searchModal.addEventListener('shown.bs.modal', function () {
+                const searchInput = searchModal.querySelector('input[type="search"]');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            });
+        }
+
+        // Handle search form submission
+        const searchInput = document.querySelector('#searchModal input[type="search"]');
+        const searchButton = document.querySelector('#searchModal .btn-primary-custom');
+        
+        if (searchInput && searchButton) {
+            const handleSearch = () => {
+                const query = searchInput.value.trim();
+                if (query) {
+                    // Redirect to search results page
+                    window.location.href = `/search?q=${encodeURIComponent(query)}`;
+                }
+            };
+
+            searchButton.addEventListener('click', handleSearch);
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSearch();
+                }
+            });
+        }
+
+        // Form validation và submission
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic form validation
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('is-invalid');
+                        field.classList.add('is-valid');
+                    }
+                });
+                
+                if (isValid) {
+                    // Hiển thị thông báo thành công (trong thực tế sẽ submit lên server)
+                    alert('Cảm ơn bạn đã gửi thông tin! Chúng tôi sẽ phản hồi sớm nhất.');
+                    
+                    // Đóng modal
+                    const modal = form.closest('.modal');
+                    if (modal) {
+                        const modalInstance = bootstrap.Modal.getInstance(modal);
+                        if (modalInstance) {
+                            modalInstance.hide();
+                        }
+                    }
+                    
+                    // Reset form
+                    form.reset();
+                    form.querySelectorAll('.is-valid').forEach(field => {
+                        field.classList.remove('is-valid');
+                    });
+                }
+            });
+        });
+
+        // Real-time form validation
+        document.querySelectorAll('input, textarea, select').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (this.hasAttribute('required')) {
+                    if (!this.value.trim()) {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                    } else {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    }
+                }
+                
+                // Email validation
+                if (this.type === 'email' && this.value.trim()) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(this.value)) {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                    } else {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    }
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(250, 251, 249, 0.98)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(250, 251, 249, 0.95)';
+            }
+        });
+
+        // Card hover effects enhancement
+        document.querySelectorAll('.card-custom').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Lazy loading enhancement for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('fade-in');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Console log để debug
+        console.log('ARICO Website loaded successfully!');
+        console.log('Environment: Static HTML');
+        console.log('Framework: Bootstrap 5.3.2');
+    </script>
+
+    <!-- CSS cho fade-in effect -->
+    <style>
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Loading states */
+        .is-invalid {
+            border-color: #dc3545;
+        }
+
+        .is-valid {
+            border-color: var(--accent-primary);
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Focus indicators */
+        .btn:focus-visible,
+        .form-control:focus,
+        .form-select:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .card-custom {
+                border-width: 2px;
+            }
+            
+            .btn-primary-custom {
+                border-width: 2px;
+            }
+        }
+    </style>
+
+</body>
+</html>
+
+<!-- 
+GHI CHÚ QUAN TRỌNG:
+1. Thay thế tất cả placeholder images bằng ảnh thực tế:
+   - Hero background: /assets/hero-bg.jpg
+   - Story images: /assets/stories/
+   - Topic images: /assets/topics/
+   - Logo: /assets/logo.svg hoặc /assets/logo.png
+
+2. Cập nhật đường dẫn tài liệu PDF:
+   - /assets/zero-waste-guide.pdf
+   - /assets/climate-report-2024.pdf  
+   - /assets/green-living-checklist.pdf
+
+3. Kết nối forms với backend API endpoints
+
+4. Thêm Google Analytics và các tracking tools cần thiết
+
+5. Tối ưu hóa SEO bằng cách thêm sitemap.xml và robots.txt
+
+6. Setup CDN cho assets tĩnh để tăng tốc độ tải trang
+
+7. Kiểm tra tính accessibility với các tool như axe hoặc Lighthouse
+
+8. Test responsive trên các device thực tế
+
+Trang web đã được thiết kế hoàn toàn responsive, tối ưu SEO và accessibility.
+Sử dụng palette màu xanh thiên nhiên theo yêu cầu và tuân thủ các best practices.
+-->
