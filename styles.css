@@ -1,419 +1,71 @@
-/* ====== THEME – ĐỔI MÀU THƯƠNG HIỆU TẠI ĐÂY ====== */
-:root {
-  /* 
-    ARICO Brand Colors - Palette chuyên nghiệp:
-    - Primary (Brand): #0052CC - Xanh dương tin cậy, chuyên nghiệp
-    - Secondary: #36B37E - Xanh lá thành công, tích cực  
-    - Accent: #FFAB00 - Vàng cam nổi bật, thu hút
-    - Danger: #E13D3D - Đỏ cảnh báo, lỗi
-    - Dark: #0B132B - Xám đậm sang trọng
-    - Light: #F4F6F8 - Xám nhạt tinh tế
-    
-    Hướng dẫn thay đổi:
-    1. Chọn màu chủ đạo cho thương hiệu (--brand-primary)
-    2. Chọn màu phụ hỗ trợ (--brand-secondary) 
-    3. Màu nhấn (--brand-accent) để highlight
-    4. Kiểm tra contrast tối thiểu 4.5:1 với văn bản
-    5. Test trên mobile và desktop
-  */
-  
-  --brand-primary: #0052CC;
-  --brand-secondary: #36B37E;  
-  --brand-accent: #FFAB00;
-  --brand-danger: #E13D3D;
+/* styles.css */
+
+/* ===== THEME – ĐỔI MÀU THƯƠNG HIỆU TẠI ĐÂY =====
+   Gợi ý chọn palette:
+   - Primary (Brand): tông chủ đạo cho nút/chủ đề
+   - Secondary: điểm nhấn phụ
+   - Accent: nhấn mạnh (badge, highlight)
+   - Dark/Light: nền chữ & nền sáng
+   Lưu ý: Đảm bảo độ tương phản >= 4.5:1 cho body text.
+*/
+:root{
+  --brand-primary: #0D6EFD;   /* ví dụ Bootstrap Primary mặc định */
+  --brand-secondary: #6C757D;
+  --brand-accent: #FFC107;
+  --brand-success: #198754;
+  --brand-danger: #DC3545;
   --brand-dark: #0B132B;
-  --brand-light: #F4F6F8;
-  
-  /* Map sang Bootstrap CSS Variables */
+  --brand-light: #F8F9FA;
+
+  /* Map sang biến Bootstrap để toàn site đổi theo */
   --bs-primary: var(--brand-primary);
-  --bs-primary-rgb: 0, 82, 204;
   --bs-secondary: var(--brand-secondary);
-  --bs-success: var(--brand-secondary);
   --bs-warning: var(--brand-accent);
+  --bs-success: var(--brand-success);
   --bs-danger: var(--brand-danger);
-  --bs-dark: var(--brand-dark);
-  --bs-light: var(--brand-light);
-  
-  /* Body & Typography */
-  --bs-body-color: #1F2A44;
   --bs-body-bg: #FFFFFF;
-  --bs-body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  
-  /* Border Radius */
-  --bs-border-radius: 0.5rem;
-  --bs-border-radius-lg: 0.75rem;
-  
-  /* Shadows */
-  --brand-shadow-sm: 0 2px 4px rgba(11, 19, 43, 0.08);
-  --brand-shadow: 0 4px 12px rgba(11, 19, 43, 0.15);
-  --brand-shadow-lg: 0 8px 24px rgba(11, 19, 43, 0.2);
+  --bs-body-color: #1F2A44;
 }
 
-/* ====== UTILITIES THƯƠNG HIỆU ====== */
+/* Utilities theo thương hiệu */
+.btn-brand { background: var(--brand-primary); color:#fff; border:0; }
+.btn-brand:hover { filter: brightness(0.92); }
+.text-brand { color: var(--brand-primary); }
+.bg-brand-soft { background: color-mix(in srgb, var(--brand-primary) 10%, white); }
+.badge-accent { background: var(--brand-accent); color: #111; }
 
-/* Buttons */
-.btn-brand {
-  background: var(--brand-primary);
-  border-color: var(--brand-primary);
-  color: white;
-  font-weight: 500;
-  transition: all 0.3s ease;
+/* A11y focus visible */
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand-primary) 40%, white);
+  outline-offset: 2px;
+  border-radius: .5rem;
 }
 
-.btn-brand:hover,
-.btn-brand:focus {
-  background: color-mix(in srgb, var(--brand-primary) 85%, black);
-  border-color: color-mix(in srgb, var(--brand-primary) 85%, black);
-  color: white;
-  transform: translateY(-1px);
-}
-
-.btn-brand-outline {
-  border: 2px solid var(--brand-primary);
-  color: var(--brand-primary);
-  background: transparent;
-  font-weight: 500;
-}
-
-.btn-brand-outline:hover {
-  background: var(--brand-primary);
-  color: white;
-}
-
-/* Text Colors */
-.text-brand { color: var(--brand-primary) !important; }
-.text-brand-secondary { color: var(--brand-secondary) !important; }
-.text-brand-accent { color: var(--brand-accent) !important; }
-
-/* Backgrounds */
-.bg-brand { background: var(--brand-primary) !important; }
-.bg-brand-soft { 
-  background: color-mix(in srgb, var(--brand-primary) 8%, white) !important; 
-}
-.bg-brand-gradient {
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary)) !important;
-}
-
-/* ====== COMPONENT OVERRIDES ====== */
-
-/* Navbar Enhancement */
-.navbar-brand {
-  font-weight: 700;
-  font-size: 1.5rem;
-}
-
-.navbar-nav .nav-link {
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.navbar-nav .nav-link:hover {
-  color: var(--brand-primary) !important;
-}
-
-/* Cards Enhancement */
-.card {
-  border: none;
-  box-shadow: var(--brand-shadow-sm);
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
-.card:hover {
-  box-shadow: var(--brand-shadow);
-  transform: translateY(-4px);
-}
-
+/* Card image ratio helper */
 .card-img-top {
-  transition: transform 0.3s ease;
-}
-
-.card:hover .card-img-top {
-  transform: scale(1.05);
-}
-
-/* Product Cards */
-.product-card {
-  height: 100%;
-  cursor: pointer;
-}
-
-.product-card .card-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.product-card .btn {
-  margin-top: auto;
-}
-
-.product-img-container {
-  position: relative;
-  overflow: hidden;
-  background: var(--brand-light);
-  height: 250px;
-}
-
-.product-img-container img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
+  height: 180px;
 }
 
-/* Badges */
-.badge-discount {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: var(--brand-danger);
-  color: white;
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-weight: 600;
-  z-index: 2;
+/* Banner */
+.hero {
+  background: radial-gradient(90% 90% at 20% 10%, color-mix(in srgb, var(--brand-primary) 12%, #fff) 0%, transparent 60%),
+              radial-gradient(80% 80% at 80% 20%, color-mix(in srgb, var(--brand-accent) 18%, #fff) 0%, transparent 55%);
 }
 
-/* Price Display */
-.price-original {
-  text-decoration: line-through;
-  color: var(--bs-secondary);
-  font-size: 0.9rem;
-}
+/* Small helpers */
+.price-old { text-decoration: line-through; opacity: .64; }
+.cursor-pointer { cursor: pointer; }
 
-.price-current {
-  color: var(--brand-primary);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-/* ====== CART & CHECKOUT ====== */
-
-/* Cart Button Badge */
-.cart-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: var(--brand-danger);
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 0.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-}
-
-/* Cart Items */
-.cart-item {
-  border-bottom: 1px solid var(--bs-gray-200);
-  padding: 1rem 0;
-}
-
-.cart-item:last-child {
-  border-bottom: none;
-}
-
+/* Offcanvas cart list */
 .cart-item-img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: var(--bs-border-radius);
+  width: 60px; height: 60px; object-fit: cover; border-radius: .5rem;
 }
 
-/* Quantity Controls */
-.quantity-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.badge-sku {
+  background: color-mix(in srgb, var(--brand-primary) 8%, #ddd);
+  color: #2b2b2b;
 }
 
-.quantity-btn {
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--bs-gray-300);
-  background: white;
-  color: var(--bs-dark);
-  border-radius: var(--bs-border-radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.quantity-btn:hover {
-  background: var(--brand-light);
-  border-color: var(--brand-primary);
-}
-
-.quantity-input {
-  width: 60px;
-  text-align: center;
-  border: 1px solid var(--bs-gray-300);
-  border-radius: var(--bs-border-radius);
-  padding: 0.25rem;
-}
-
-/* ====== FILTERS & SEARCH ====== */
-
-.filters-sidebar {
-  background: var(--brand-light);
-  padding: 1.5rem;
-  border-radius: var(--bs-border-radius-lg);
-  margin-bottom: 2rem;
-}
-
-.filter-group {
-  margin-bottom: 1.5rem;
-}
-
-.filter-title {
-  font-weight: 600;
-  color: var(--brand-dark);
-  margin-bottom: 0.75rem;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Range Inputs */
-.form-range {
-  --bs-form-range-track-bg: var(--brand-light);
-  --bs-form-range-thumb-bg: var(--brand-primary);
-}
-
-/* ====== HERO SECTION ====== */
-
-.hero-section {
-  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
-  color: white;
-  padding: 4rem 0;
-  margin-bottom: 3rem;
-}
-
-.hero-title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.hero-subtitle {
-  font-size: 1.25rem;
-  opacity: 0.9;
-  margin-bottom: 2rem;
-}
-
-/* ====== LOADING & ANIMATIONS ====== */
-
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ====== RESPONSIVE ====== */
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-  
-  .filters-sidebar {
-    padding: 1rem;
-  }
-  
-  .product-img-container {
-    height: 200px;
-  }
-  
-  .cart-item-img {
-    width: 60px;
-    height: 60px;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero-section {
-    padding: 2rem 0;
-  }
-  
-  .hero-title {
-    font-size: 1.75rem;
-  }
-  
-  .container {
-    padding: 0 1rem;
-  }
-}
-
-/* ====== FOCUS STATES & ACCESSIBILITY ====== */
-
-.btn:focus,
-.form-control:focus,
-.form-select:focus {
-  box-shadow: 0 0 0 0.25rem rgba(0, 82, 204, 0.25);
-  border-color: var(--brand-primary);
-}
-
-/* Skip Link for Screen Readers */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 6px;
-  background: var(--brand-primary);
-  color: white;
-  padding: 8px;
-  text-decoration: none;
-  border-radius: 4px;
-  z-index: 10000;
-}
-
-.skip-link:focus {
-  top: 6px;
-}
-
-/* High Contrast Mode Support */
-@media (prefers-contrast: high) {
-  .card {
-    border: 2px solid var(--bs-dark);
-  }
-  
-  .btn-brand {
-    border: 2px solid currentColor;
-  }
-}
-
-/* ====== PRINT STYLES ====== */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  
-  .card {
-    box-shadow: none !important;
-    border: 1px solid #ddd !important;
-  }
-}
+/* Forms */
+.form-range::-webkit-slider-thumb { cursor: pointer; }
