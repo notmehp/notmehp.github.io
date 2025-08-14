@@ -1,0 +1,58 @@
+/* css/styles.css */
+/* Mô tả: Tùy chỉnh CSS và biến thương hiệu. */
+
+:root {
+    --brand-primary: #8c1010; /* Màu đỏ đậm cho các nút chính */
+    --brand-accent: #ff4500; /* Màu cam nổi bật */
+    --brand-text: #2c3e50; /* Màu chữ chính */
+    --brand-bg: #f8f9fa; /* Màu nền nhẹ */
+    --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-size-base: 1rem;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--brand-bg);
+    color: var(--brand-text);
+}
+
+.navbar-brand img {
+    border-radius: 50%;
+}
+
+.bg-dark {
+    background-color: var(--brand-text) !important;
+}
+
+.btn-primary {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+}
+.btn-primary:hover {
+    background-color: #6a0b0b;
+    border-color: #6a0b0b;
+}
+
+.btn-outline-light {
+    border-color: var(--brand-accent) !important;
+    color: var(--brand-accent) !important;
+}
+
+/* Hero section on index.html */
+.p-5.bg-image {
+    background-position: center;
+    background-size: cover;
+}
+.p-5 .mask {
+    height: 100%;
+}
+
+/* Product card styling */
+.card-footer span {
+    color: var(--brand-primary);
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px;
+}
