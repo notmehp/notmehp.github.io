@@ -1,42 +1,23 @@
-<!DOCTYPE html>
+<!-- 404.html -->
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARICO Store</title>
-    
-    <!-- Redirect Script for SPA on GitHub Pages -->
-    <script type="text/javascript">
-        // Single Page Apps for GitHub Pages
-        // https://github.com/rafgraph/spa-github-pages
-        // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
-        
-        // This script takes the current url and converts the path and query
-        // string into just a query string, and then redirects the browser
-        // to the new url with just a query string and hash fragment,
-        // e.g. https://username.github.io/repo-name/one/two?a=b&c=d#hash
-        // becomes https://username.github.io/repo-name/?/one/two&a=b~and~c=d#hash
-        
-        var pathSegmentsToKeep = 1;
-        
-        var l = window.location;
-        l.replace(
-            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-            l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-            l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-            (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-            l.hash
-        );
-    </script>
+  <meta charset="utf-8">
+  <title>404 — Điều hướng bằng hash</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; padding:2rem;}</style>
 </head>
 <body>
-    <!-- Fallback content for browsers without JavaScript -->
-    <noscript>
-        <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
-            <h1>ARICO Store</h1>
-            <p>Đang chuyển hướng...</p>
-            <p>Nếu không được chuyển hướng tự động, <a href="./index.html">click vào đây</a></p>
-        </div>
-    </noscript>
+  <h1>404</h1>
+  <p>Ứng dụng này dùng hash routing (<code>#/...</code>) để tránh 404 trên GitHub Pages.</p>
+  <p>Chuyển về <a id="homeLink" href="index.html#/">Home</a> hoặc mở <a href="index.html#/catalog">Catalog</a>.</p>
+
+  <script>
+    // Tự động chuyển hướng về index.html giữ nguyên hash nếu có
+    (function(){
+      var hash = location.hash || '#/';
+      location.replace('index.html' + hash);
+    })();
+  </script>
 </body>
 </html>
