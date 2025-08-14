@@ -1,0 +1,10 @@
+Mô tả: File khuyến nghị theo chuẩn RFC 9116 cho báo cáo lỗ hổng bảo mật.
+Contact: mailto:security@aricovn.com
+Expires: 2026-08-14T00:00:00Z
+
+
+### Hạn chế và Lưu ý bảo mật
+
+* **Không lưu mật khẩu/token nhạy cảm trên frontend:** Token admin được xử lý phía Google Apps Script để đảm bảo không bị lộ. Tuy nhiên, việc truyền token qua URL vẫn có thể bị lộ qua nhật ký của web server hoặc proxy.
+* **GAS Web App Security:** Quyền truy cập "Anyone" cho phép mọi người gọi API. Đây là chấp nhận được cho các endpoint đọc dữ liệu công khai (`getProducts`, `getPosts`) và `createOrder`. Các endpoint admin (`getOrders`, `updateOrder`) phải luôn được bảo vệ bằng token.
+* **Khả năng nâng cấp:** Đối với một ứng dụng sản xuất (production), nên cân nhắc sử dụng các nền tảng có khả năng xác thực và quản lý server-side tốt hơn như **Firebase Auth**, **Firebase Functions**, hoặc một backend server truyền thống.
