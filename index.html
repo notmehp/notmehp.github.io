@@ -1,111 +1,1545 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cửa hàng ARICOVN - 18+</title>
-    <link rel="icon" href="assets/favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Arico E-Boutique</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #000000;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #2a2a2a;
+            --primary-text: #ffffff;
+            --secondary-text: #cccccc;
+            --accent-color: #ff006e;
+            --hover-accent: #ff3366;
+            --success-color: #00c853;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PT Sans', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: var(--primary-bg) !important;
+            border-bottom: 1px solid var(--secondary-bg);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--accent-color) !important;
+            font-size: 1.8rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--primary-text) !important;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide-1 {
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+        }
+
+        .hero-slide-2 {
+            background: linear-gradient(135deg, #1a0033 0%, var(--accent-color) 100%);
+        }
+
+        .hero-slide-3 {
+            background: linear-gradient(135deg, var(--secondary-bg) 0%, #330066 100%);
+        }
+
+        .hero-slide-4 {
+            background: linear-gradient(135deg, #000033 0%, var(--hover-accent) 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-text), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-cta {
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .slider-dot.active {
+            background-color: var(--accent-color);
+            border-color: var(--primary-text);
+            transform: scale(1.2);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--primary-text);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .slider-arrow:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-arrow.prev {
+            left: 30px;
+        }
+
+        .slider-arrow.next {
+            right: 30px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hover-accent);
+            border-color: var(--hover-accent);
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 60px 0;
+            background-color: var(--secondary-bg);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-text);
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 2rem;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background-color: var(--secondary-bg);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-text);
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: var(--primary-text);
+            transition: all 0.3s;
+        }
+
+        .wishlist-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-text);
+        }
+
+        .wishlist-btn.active {
+            background-color: var(--accent-color);
+            color: var(--primary-text);
+        }
+
+        .filters-section {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .form-select, .form-control {
+            background-color: var(--secondary-bg);
+            border-color: var(--card-bg);
+            color: var(--primary-text);
+        }
+
+        .form-select:focus, .form-control:focus {
+            background-color: var(--secondary-bg);
+            border-color: var(--accent-color);
+            color: var(--primary-text);
+            box-shadow: 0 0 0 0.25rem rgba(255, 0, 110, 0.25);
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background-color: var(--card-bg);
+            transition: right 0.3s;
+            z-index: 1050;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
+            display: none;
+        }
+
+        .cart-overlay.active {
+            display: block;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--secondary-bg);
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 1rem;
+        }
+
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            display: flex;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-color);
+            color: var(--primary-text);
+            border: none;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
+			align-items: center;
+			justify-content: center;
+        }
+
+        .floating-btn:hover {
+            background-color: var(--hover-accent);
+            transform: scale(1.1);
+            color: var(--primary-text);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            color: var(--primary-text);
+        }
+
+        .modal-header {
+            border-bottom-color: var(--secondary-bg);
+        }
+
+        .modal-footer {
+            border-top-color: var(--secondary-bg);
+        }
+
+        .admin-section {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .pagination .page-link {
+            background-color: var(--card-bg);
+            border-color: var(--secondary-bg);
+            color: var(--primary-text);
+        }
+
+        .pagination .page-link:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--primary-text);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .badge {
+            background-color: var(--accent-color) !important;
+        }
+
+        .qr-code {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-cta .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+
+            .hero-cta .btn:last-child {
+                margin-bottom: 0;
+            }
+
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .slider-arrow.prev {
+                left: 15px;
+            }
+
+            .slider-arrow.next {
+                right: 15px;
+            }
+
+            .slider-controls {
+                bottom: 20px;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .floating-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="modal fade" id="ageGateModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title">Xác nhận tuổi</h5>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container"> 
+            <a class="navbar-brand" href="#home"><i class="bi bi-apple"></i> Arico</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#admin" onclick="showAdminLogin()">Admin</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="toggleCart()">
+                            <i class="bi bi-bag"></i>
+                            <span id="cart-count" class="badge">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Slider Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-slider" id="hero-slider">
+            <!-- Slide 1 -->
+            <div class="hero-slide hero-slide-1 active">
+                <div class="hero-content">
+                    <h1 class="hero-title">Premium Fashion</h1>
+                    <p class="hero-subtitle">Discover the latest trends in luxury fashion</p>
+                    <div class="hero-cta">
+                        <a href="#products" class="btn btn-primary btn-lg me-3">Shop Now</a>
+                        <a href="#products" class="btn btn-outline-light btn-lg">View Collection</a>
+                    </div>
                 </div>
-                <div class="modal-body text-center">
-                    <p>Trang web này chứa nội dung dành cho người trên 18 tuổi. Vui lòng xác nhận tuổi của bạn để tiếp tục.</p>
-                    <form id="ageGateForm">
-                        <div class="mb-3">
-                            <label for="birthYearInput" class="form-label">Nhập năm sinh:</label>
-                            <input type="number" class="form-control" id="birthYearInput" placeholder="VD: 1990" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Xác nhận</button>
-                    </form>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="hero-slide hero-slide-2">
+                <div class="hero-content">
+                    <h1 class="hero-title">New Arrivals</h1>
+                    <p class="hero-subtitle">Fresh styles just landed - be the first to wear them</p>
+                    <div class="hero-cta">
+                        <a href="#products" class="btn btn-primary btn-lg me-3" onclick="filterByNew()">Shop New</a>
+                        <a href="#products" class="btn btn-outline-light btn-lg">Explore</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-slide hero-slide-3">
+                <div class="hero-content">
+                    <h1 class="hero-title">Summer Sale</h1>
+                    <p class="hero-subtitle">Up to 50% off on selected items - Limited time only</p>
+                    <div class="hero-cta">
+                        <a href="#products" class="btn btn-primary btn-lg me-3">Shop Sale</a>
+                        <a href="#products" class="btn btn-outline-light btn-lg">View Deals</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="hero-slide hero-slide-4">
+                <div class="hero-content">
+                    <h1 class="hero-title">Luxury Accessories</h1>
+                    <p class="hero-subtitle">Complete your look with our premium accessories collection</p>
+                    <div class="hero-cta">
+                        <a href="#products" class="btn btn-primary btn-lg me-3" onclick="filterByAccessories()">Shop Accessories</a>
+                        <a href="#products" class="btn btn-outline-light btn-lg">Browse All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Controls -->
+        <div class="slider-controls">
+            <div class="slider-dot active" onclick="goToSlide(0)"></div>
+            <div class="slider-dot" onclick="goToSlide(1)"></div>
+            <div class="slider-dot" onclick="goToSlide(2)"></div>
+            <div class="slider-dot" onclick="goToSlide(3)"></div>
+        </div>
+
+        <!-- Slider Arrows -->
+        <button class="slider-arrow prev" onclick="previousSlide()">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button class="slider-arrow next" onclick="nextSlide()">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div id="featured-products" class="row">
+                <!-- Featured products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Collection</h2>
+            
+            <!-- Filters -->
+            <div class="filters-section">
+                <div class="row align-items-center">
+                    <div class="col-md-3">
+                        <select id="category-filter" class="form-select">
+                            <option value="">All Categories</option>
+                            <option value="dresses">Dresses</option>
+                            <option value="tops">Tops</option>
+                            <option value="bottoms">Bottoms</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="sort-filter" class="form-select">
+                            <option value="name">Sort by Name</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" id="search-input" class="form-control" placeholder="Search products...">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-light w-100" onclick="clearFilters()">Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="row">
+                <!-- Products will be loaded here -->
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Products pagination">
+                <ul id="pagination" class="pagination justify-content-center">
+                    <!-- Pagination will be generated here -->
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Shopping Cart</h4>
+            <button class="btn-close btn-close-white" onclick="toggleCart()"></button>
+        </div>
+        <div id="cart-items">
+            <!-- Cart items will be displayed here -->
+        </div>
+        <div class="mt-4 pt-4 border-top">
+            <div class="d-flex justify-content-between mb-3">
+                <strong>Total: <span id="cart-total">$0.00</span></strong>
+            </div>
+            <button class="btn btn-primary w-100" onclick="proceedToCheckout()" id="checkout-btn" disabled>
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <a href="#home" class="floating-btn">
+            <i class="bi bi-arrow-up"></i>
+        </a>
+        <a href="tel:+84123456789" class="floating-btn">
+            <i class="bi bi-telephone"></i>
+        </a>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal fade" id="product-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="product-modal-title">Product Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="product-modal-body">
+                    <!-- Product details will be loaded here -->
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="mainContent" class="d-none">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container">
-                    <a class="navbar-brand" href="index.html">
-                        <img src="assets/logo.png" alt="ARICOVN Logo" height="40" class="me-2">
-                        ARICOVN
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="index.html">Trang chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="product.html">Sản phẩm</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="blog.html">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="admin.html">Admin</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" id="cart-icon">
-                                    Giỏ hàng (<span id="cart-count">0</span>)
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+    <!-- Checkout Modal -->
+    <div class="modal fade" id="checkout-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Checkout</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-            </nav>
-        </header>
-
-        <main class="container my-5">
-            <div class="p-5 text-center bg-image rounded-3" style="background-image: url('https://picsum.photos/1200/400');">
-                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-white">
-                            <h1 class="mb-3">Chào mừng đến với ARICOVN</h1>
-                            <h4 class="mb-3">Thế giới dành cho người trên 18+</h4>
-                            <a data-mdb-ripple-init class="btn btn-outline-light btn-lg" href="product.html" role="button">Khám phá ngay</a>
+                <div class="modal-body">
+                    <form id="checkout-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Customer Information</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="customer-name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="customer-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="customer-phone" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Address</label>
+                                    <textarea class="form-control" id="customer-address" rows="3" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Order Summary</h6>
+                                <div id="checkout-items">
+                                    <!-- Checkout items will be displayed here -->
+                                </div>
+                                <div class="border-top pt-3 mt-3">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>Total: <span id="checkout-total">$0.00</span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="payment-section" style="display: none;">
+                        <h6 class="mt-4">Payment</h6>
+                        <div class="qr-code">
+                            <div id="qr-placeholder" style="width: 200px; height: 200px; background: #f0f0f0; margin: 0 auto; display: flex; align-items: center; justify-content: center; color: #666;">
+                                VietQR Code<br>Will appear here
+                            </div>
+                            <p class="mt-2 text-dark">Scan to pay: <span id="payment-amount">$0.00</span></p>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <hr class="my-5">
-
-            <h2 class="text-center mb-4">Sản phẩm nổi bật</h2>
-            <div id="featured-products-list" class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="place-order-btn" onclick="placeOrder()">Place Order</button>
+                    <button type="button" class="btn btn-success" id="confirm-payment-btn" style="display: none;" onclick="confirmPayment()">Confirm Payment</button>
                 </div>
-
-            <hr class="my-5">
-
-            <div class="text-center">
-                <h2>Khám phá Blog của chúng tôi</h2>
-                <p class="lead">Nơi chia sẻ những câu chuyện và trải nghiệm thú vị.</p>
-                <a href="blog.html" class="btn btn-secondary btn-lg">Đọc thêm</a>
             </div>
-        </main>
-
-        <footer class="bg-dark text-white text-center py-4 mt-5">
-            <div class="container">
-                <p>&copy; 2025 ARICOVN. Tất cả quyền được bảo lưu.</p>
-                <p>
-                    <a href="mailto:contact@aricovn.com" class="text-white me-3">Liên hệ</a>
-                    <a href="#" class="text-white">Chính sách bảo mật</a>
-                </p>
-            </div>
-        </footer>
+        </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="app.js" type="module"></script>
-    <script src="cart.js" type="module"></script>
+
+    <!-- Admin Login Modal -->
+    <div class="modal fade" id="admin-login-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Admin Login</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="admin-password" placeholder="Enter admin password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" style="display: none;">
+        <div class="container mt-5 pt-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Admin Panel</h2>
+                <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+            </div>
+            
+            <div class="admin-section">
+                <h4>Products Management</h4>
+                <p class="text-muted">This is a demo interface. In a real application, this would connect to a backend API.</p>
+                <button class="btn btn-primary" onclick="alert('This would add a new product in a real implementation')">Add New Product</button>
+            </div>
+
+            <div class="admin-section">
+                <h4>Orders</h4>
+                <div id="orders-list">
+                    <!-- Orders will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sample product data (simulating JSON files)
+        const products = [
+            {
+                id: 1,
+                name: "Elegant Evening Dress",
+                category: "dresses",
+                price: 299.99,
+                description: "A stunning evening dress perfect for special occasions.",
+                image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzMzMzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0IiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5FdmVuaW5nIERyZXNzPC90ZXh0Pjwvc3ZnPg==",
+                variants: ["S", "M", "L", "XL"],
+                colors: ["Black", "Navy", "Burgundy"],
+                featured: true
+            },
+            {
+                id: 2,
+                name: "Casual Summer Top",
+                category: "tops",
+                price: 79.99,
+                description: "Light and comfortable top for summer days.",
+                image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzMzMzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0IiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TdW1tZXIgVG9wPC90ZXh0Pjwvc3ZnPg==",
+                variants: ["XS", "S", "M", "L"],
+                colors: ["White", "Pink", "Blue"],
+                featured: true
+            },
+            {
+                id: 3,
+                name: "Designer Handbag",
+                category: "accessories",
+                price: 199.99,
+                description: "Luxury handbag with premium leather finish.",
+                image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzMzMzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0IiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5IYW5kYmFnPC90ZXh0Pjwvc3ZnPg==",
+                variants: ["One Size"],
+                colors: ["Black", "Brown", "Tan"],
+                featured: true
+            },
+            {
+                id: 4,
+                name: "High-Waisted Jeans",
+                category: "bottoms",
+                price: 129.99,
+                description: "Classic high-waisted jeans with a modern fit.",
+                image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzMzMzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0IiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5IaWdoLVdhaXN0ZWQgSmVhbnM8L3RleHQ+PC9zdmc+",
+                variants: ["24", "26", "28", "30", "32"],
+                colors: ["Dark Blue", "Light Blue", "Black"],
+                featured: false
+            },
+            {
+                id: 5,
+                name: "Silk Scarf",
+                category: "accessories",
+                price: 89.99,
+                description: "Luxurious silk scarf with artistic print.",
+                image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzMzMzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0IiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TaWxrIFNjYXJmPC90ZXh0Pjwvc3ZnPg==",
+                variants: ["One Size"],
+                colors: ["Floral", "Abstract", "Geometric"],
+                featured: false
+            },
+            {
+                id: 6,
+                name: "Blazer Jacket",
+                category: "tops",
+                price: 179.99,
+                description: "Professional blazer for business occasions.",
+                image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iIzMzMzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0IiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CbGF6ZXIgSmFja2V0PC90ZXh0Pjwvc3ZnPg==",
+                variants: ["XS", "S", "M", "L", "XL"],
+                colors: ["Black", "Navy", "Gray"],
+                featured: false
+            }
+        ];
+
+        // App state
+        let cart = [];
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        let filteredProducts = [...products];
+        let wishlist = [];
+        let orders = [];
+        let isAdmin = false;
+        let currentSlide = 0;
+        let sliderInterval;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+            loadWishlist();
+            loadOrders();
+            displayFeaturedProducts();
+            displayProducts();
+            updateCartUI();
+            initializeSlider();
+        });
+
+        // Hero Slider Functions
+        function initializeSlider() {
+            // Start auto-play
+            startSlider();
+            
+            // Pause on hover
+            const heroSection = document.getElementById('home');
+            heroSection.addEventListener('mouseenter', stopSlider);
+            heroSection.addEventListener('mouseleave', startSlider);
+        }
+
+        function startSlider() {
+            sliderInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+
+        function stopSlider() {
+            if (sliderInterval) {
+                clearInterval(sliderInterval);
+            }
+        }
+
+        function goToSlide(slideIndex) {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            
+            // Remove active class from all slides and dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Add active class to current slide and dot
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+            
+            currentSlide = slideIndex;
+            
+            // Reset auto-play
+            stopSlider();
+            startSlider();
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % 4;
+            goToSlide(nextIndex);
+        }
+
+        function previousSlide() {
+            const prevIndex = (currentSlide - 1 + 4) % 4;
+            goToSlide(prevIndex);
+        }
+
+        // Filter functions for hero CTAs
+        function filterByNew() {
+            // Simulate filtering by new arrivals (you can modify this logic)
+            document.getElementById('search-input').value = '';
+            document.getElementById('category-filter').value = '';
+            document.getElementById('sort-filter').value = 'name';
+            applyFilters();
+        }
+
+        function filterByAccessories() {
+            document.getElementById('category-filter').value = 'accessories';
+            document.getElementById('search-input').value = '';
+            document.getElementById('sort-filter').value = 'name';
+            applyFilters();
+            // Scroll to products section
+            setTimeout(() => {
+                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        // Load data from memory (simulating localStorage)
+        function loadCart() {
+            const savedCart = getFromStorage('cart');
+            if (savedCart) {
+                cart = savedCart;
+            }
+        }
+
+        function loadWishlist() {
+            const savedWishlist = getFromStorage('wishlist');
+            if (savedWishlist) {
+                wishlist = savedWishlist;
+            }
+        }
+
+        function loadOrders() {
+            const savedOrders = getFromStorage('orders');
+            if (savedOrders) {
+                orders = savedOrders;
+            }
+        }
+
+        // Memory storage simulation
+        const storage = {};
+        
+        function saveToStorage(key, data) {
+            storage[key] = JSON.stringify(data);
+        }
+
+        function getFromStorage(key) {
+            const data = storage[key];
+            return data ? JSON.parse(data) : null;
+        }
+
+        // Display featured products
+        function displayFeaturedProducts() {
+            const featuredContainer = document.getElementById('featured-products');
+            const featured = products.filter(p => p.featured);
+            
+            featuredContainer.innerHTML = featured.map(product => `
+                <div class="col-lg-4 col-md-6">
+                    <div class="card product-card position-relative">
+                        <button class="wishlist-btn ${wishlist.includes(product.id) ? 'active' : ''}" 
+                                onclick="toggleWishlist(${product.id})">
+                            <i class="bi ${wishlist.includes(product.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                        </button>
+                        <img src="${product.image}" class="product-image" alt="${product.name}">
+                        <div class="product-info">
+                            <h5 class="product-title">${product.name}</h5>
+                            <p class="product-price">${product.price}</p>
+                            <p class="product-description">${product.description}</p>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-light btn-sm" onclick="showProductDetails(${product.id})">
+                                    View Details
+                                </button>
+                                <button class="btn btn-primary btn-sm" onclick="addToCart(${product.id})">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Display products with pagination
+        function displayProducts() {
+            const productsContainer = document.getElementById('products-grid');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+
+            productsContainer.innerHTML = paginatedProducts.map(product => `
+                <div class="col-lg-4 col-md-6">
+                    <div class="card product-card position-relative">
+                        <button class="wishlist-btn ${wishlist.includes(product.id) ? 'active' : ''}" 
+                                onclick="toggleWishlist(${product.id})">
+                            <i class="bi ${wishlist.includes(product.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                        </button>
+                        <img src="${product.image}" class="product-image" alt="${product.name}">
+                        <div class="product-info">
+                            <h5 class="product-title">${product.name}</h5>
+                            <p class="product-price">${product.price}</p>
+                            <p class="product-description">${product.description}</p>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-light btn-sm" onclick="showProductDetails(${product.id})">
+                                    View Details
+                                </button>
+                                <button class="btn btn-primary btn-sm" onclick="addToCart(${product.id})">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            updatePagination();
+        }
+
+        // Update pagination
+        function updatePagination() {
+            const pagination = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let paginationHTML = '';
+            
+            // Previous button
+            paginationHTML += `
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>
+                </li>
+            `;
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+                    <li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                    </li>
+                `;
+            }
+
+            // Next button
+            paginationHTML += `
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>
+                </li>
+            `;
+
+            pagination.innerHTML = paginationHTML;
+        }
+
+        // Change page
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            displayProducts();
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show product details
+        function showProductDetails(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const modal = document.getElementById('product-modal');
+            const title = document.getElementById('product-modal-title');
+            const body = document.getElementById('product-modal-body');
+
+            title.textContent = product.name;
+            body.innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="${product.image}" class="img-fluid rounded" alt="${product.name}">
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-primary">${product.price}</h4>
+                        <p class="mb-3">${product.description}</p>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Size:</label>
+                            <select class="form-select" id="product-size">
+                                ${product.variants.map(variant => `<option value="${variant}">${variant}</option>`).join('')}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Color:</label>
+                            <select class="form-select" id="product-color">
+                                ${product.colors.map(color => `<option value="${color}">${color}</option>`).join('')}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Quantity:</label>
+                            <input type="number" class="form-control" id="product-quantity" value="1" min="1" max="10">
+                        </div>
+                        
+                        <button class="btn btn-primary w-100" onclick="addToCartFromModal(${product.id})">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            new bootstrap.Modal(modal).show();
+        }
+
+        // Add to cart from modal
+        function addToCartFromModal(productId) {
+            const size = document.getElementById('product-size').value;
+            const color = document.getElementById('product-color').value;
+            const quantity = parseInt(document.getElementById('product-quantity').value);
+            
+            addToCart(productId, { size, color, quantity });
+            bootstrap.Modal.getInstance(document.getElementById('product-modal')).hide();
+        }
+
+        // Add to cart
+        function addToCart(productId, options = {}) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const cartItem = {
+                id: productId,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                size: options.size || product.variants[0],
+                color: options.color || product.colors[0],
+                quantity: options.quantity || 1
+            };
+
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => 
+                item.id === productId && 
+                item.size === cartItem.size && 
+                item.color === cartItem.color
+            );
+
+            if (existingItem) {
+                existingItem.quantity += cartItem.quantity;
+            } else {
+                cart.push(cartItem);
+            }
+
+            saveToStorage('cart', cart);
+            updateCartUI();
+            showToast('Item added to cart!');
+        }
+
+        // Remove from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveToStorage('cart', cart);
+            updateCartUI();
+        }
+
+        // Update cart quantity
+        function updateCartQuantity(index, quantity) {
+            if (quantity <= 0) {
+                removeFromCart(index);
+                return;
+            }
+            cart[index].quantity = quantity;
+            saveToStorage('cart', cart);
+            updateCartUI();
+        }
+
+        // Update cart UI
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            // Update cart items
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-muted">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <img src="${item.image}" class="cart-item-image" alt="${item.name}">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1">${item.name}</h6>
+                        <small class="text-muted">${item.size} • ${item.color}</small>
+                        <div class="d-flex align-items-center mt-1">
+                            <button class="btn btn-sm btn-outline-light" onclick="updateCartQuantity(${index}, ${item.quantity - 1})">-</button>
+                            <span class="mx-2">${item.quantity}</span>
+                            <button class="btn btn-sm btn-outline-light" onclick="updateCartQuantity(${index}, ${item.quantity + 1})">+</button>
+                            <button class="btn btn-sm btn-outline-danger ms-auto" onclick="removeFromCart(${index})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <strong>${(item.price * item.quantity).toFixed(2)}</strong>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `${total.toFixed(2)}`;
+            checkoutBtn.disabled = false;
+        }
+
+        // Toggle cart
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cart-sidebar');
+            const cartOverlay = document.getElementById('cart-overlay');
+            
+            cartSidebar.classList.toggle('active');
+            cartOverlay.classList.toggle('active');
+        }
+
+        // Toggle wishlist
+        function toggleWishlist(productId) {
+            const index = wishlist.indexOf(productId);
+            if (index > -1) {
+                wishlist.splice(index, 1);
+                showToast('Removed from wishlist');
+            } else {
+                wishlist.push(productId);
+                showToast('Added to wishlist');
+            }
+            
+            saveToStorage('wishlist', wishlist);
+            
+            // Update wishlist buttons
+            const buttons = document.querySelectorAll(`[onclick="toggleWishlist(${productId})"]`);
+            buttons.forEach(btn => {
+                const icon = btn.querySelector('i');
+                if (wishlist.includes(productId)) {
+                    btn.classList.add('active');
+                    icon.classList.remove('bi-heart');
+                    icon.classList.add('bi-heart-fill');
+                } else {
+                    btn.classList.remove('active');
+                    icon.classList.remove('bi-heart-fill');
+                    icon.classList.add('bi-heart');
+                }
+            });
+        }
+
+        // Filter and search functions
+        function applyFilters() {
+            const categoryFilter = document.getElementById('category-filter').value;
+            const sortFilter = document.getElementById('sort-filter').value;
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+
+            // Filter by category
+            filteredProducts = products.filter(product => {
+                if (categoryFilter && product.category !== categoryFilter) return false;
+                if (searchInput && !product.name.toLowerCase().includes(searchInput) && 
+                    !product.description.toLowerCase().includes(searchInput)) return false;
+                return true;
+            });
+
+            // Sort products
+            switch (sortFilter) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name':
+                default:
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+            }
+
+            currentPage = 1;
+            displayProducts();
+        }
+
+        // Clear filters
+        function clearFilters() {
+            document.getElementById('category-filter').value = '';
+            document.getElementById('sort-filter').value = 'name';
+            document.getElementById('search-input').value = '';
+            filteredProducts = [...products];
+            currentPage = 1;
+            displayProducts();
+        }
+
+        // Event listeners for filters
+        document.getElementById('category-filter').addEventListener('change', applyFilters);
+        document.getElementById('sort-filter').addEventListener('change', applyFilters);
+        document.getElementById('search-input').addEventListener('input', applyFilters);
+
+        // Checkout functions
+        function proceedToCheckout() {
+            const checkoutModal = new bootstrap.Modal(document.getElementById('checkout-modal'));
+            updateCheckoutSummary();
+            checkoutModal.show();
+        }
+
+        function updateCheckoutSummary() {
+            const checkoutItems = document.getElementById('checkout-items');
+            const checkoutTotal = document.getElementById('checkout-total');
+            
+            checkoutItems.innerHTML = cart.map(item => `
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <small>${item.name} (${item.size}, ${item.color})</small>
+                        <br>
+                        <small class="text-muted">Qty: ${item.quantity}</small>
+                    </div>
+                    <small>${(item.price * item.quantity).toFixed(2)}</small>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            checkoutTotal.textContent = `${total.toFixed(2)}`;
+            document.getElementById('payment-amount').textContent = `${total.toFixed(2)}`;
+        }
+
+        function placeOrder() {
+            const form = document.getElementById('checkout-form');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // Hide order button and show payment section
+            document.getElementById('place-order-btn').style.display = 'none';
+            document.getElementById('payment-section').style.display = 'block';
+            document.getElementById('confirm-payment-btn').style.display = 'inline-block';
+            
+            showToast('Order placed! Please complete payment.');
+        }
+
+        function confirmPayment() {
+            const customerName = document.getElementById('customer-name').value;
+            const customerEmail = document.getElementById('customer-email').value;
+            const customerPhone = document.getElementById('customer-phone').value;
+            const customerAddress = document.getElementById('customer-address').value;
+
+            const order = {
+                id: Date.now(),
+                date: new Date().toLocaleString(),
+                customer: {
+                    name: customerName,
+                    email: customerEmail,
+                    phone: customerPhone,
+                    address: customerAddress
+                },
+                items: [...cart],
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                status: 'Completed'
+            };
+
+            orders.push(order);
+            saveToStorage('orders', orders);
+
+            // Clear cart
+            cart = [];
+            saveToStorage('cart', cart);
+            updateCartUI();
+
+            // Close modal
+            bootstrap.Modal.getInstance(document.getElementById('checkout-modal')).hide();
+            
+            // Reset form
+            document.getElementById('checkout-form').reset();
+            document.getElementById('place-order-btn').style.display = 'inline-block';
+            document.getElementById('payment-section').style.display = 'none';
+            document.getElementById('confirm-payment-btn').style.display = 'none';
+
+            showToast('Payment confirmed! Thank you for your order.');
+        }
+
+        // Admin functions
+        function showAdminLogin() {
+            if (isAdmin) {
+                showAdminPanel();
+            } else {
+                new bootstrap.Modal(document.getElementById('admin-login-modal')).show();
+            }
+        }
+
+        function login() {
+            const password = document.getElementById('admin-password').value;
+            if (password === 'admin123') {
+                isAdmin = true;
+                bootstrap.Modal.getInstance(document.getElementById('admin-login-modal')).hide();
+                showAdminPanel();
+                document.getElementById('admin-password').value = '';
+            } else {
+                showToast('Invalid password!', 'error');
+            }
+        }
+
+        function logout() {
+            isAdmin = false;
+            document.getElementById('admin-panel').style.display = 'none';
+            document.querySelector('main').style.display = 'block';
+        }
+
+        function showAdminPanel() {
+            document.querySelector('main').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            displayOrders();
+        }
+
+        function displayOrders() {
+            const ordersList = document.getElementById('orders-list');
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = '<p class="text-muted">No orders yet.</p>';
+                return;
+            }
+
+            ordersList.innerHTML = orders.map(order => `
+                <div class="card mb-3" style="background-color: var(--secondary-bg);">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h6>Order #${order.id}</h6>
+                                <small class="text-muted">${order.date}</small>
+                            </div>
+                            <span class="badge bg-success">${order.status}</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Customer:</h6>
+                                <p class="mb-1">${order.customer.name}</p>
+                                <p class="mb-1">${order.customer.email}</p>
+                                <p class="mb-1">${order.customer.phone}</p>
+                                <p class="mb-0">${order.customer.address}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Items:</h6>
+                                ${order.items.map(item => `
+                                    <p class="mb-1">${item.name} (${item.size}, ${item.color}) x${item.quantity}</p>
+                                `).join('')}
+                                <hr>
+                                <strong>Total: ${order.total.toFixed(2)}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).reverse().join('');
+        }
+
+        // Utility functions
+        function showToast(message, type = 'success') {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast show position-fixed bottom-0 end-0 m-3`;
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <div class="toast-body d-flex align-items-center" style="background-color: ${type === 'error' ? '#dc3545' : 'var(--success-color)'}; color: white;">
+                    <i class="bi ${type === 'error' ? 'bi-exclamation-triangle' : 'bi-check-circle'} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close btn-close-white ms-auto" onclick="this.parentElement.parentElement.remove()"></button>
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, 3000);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
