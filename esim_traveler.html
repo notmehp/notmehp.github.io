@@ -289,7 +289,7 @@
         
         let products = [];
         let currentCurrency = 'USD';
-        let exchangeRate = 24500;
+        let exchangeRate = 27500;
         
         // ===== UTILITY FUNCTIONS =====
         function formatPrice(price, currency) {
@@ -330,7 +330,7 @@
                 
                 if (data.success) {
                     products = data.products;
-                    exchangeRate = data.exchangeRate || 24500;
+                    exchangeRate = data.exchangeRate || 27500;
                     renderProducts();
                 } else {
                     showNotification('Không thể tải sản phẩm. Vui lòng thử lại!', 'error');
