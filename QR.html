@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator với Tracking</title>
+    
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">
+                <i class="fas fa-qrcode me-2"></i>
+                QR Tracker Pro
+            </span>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                
+                <!-- Generator Card -->
+                <div class="card shadow-lg border-0 mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-link me-2"></i>
+                            Tạo QR Code với Tracking
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        
+                        <!-- Alert Container -->
+                        <div id="alertContainer"></div>
+
+                        <!-- Input Form -->
+                        <form id="qrForm">
+                            <div class="mb-3">
+                                <label for="urlInput" class="form-label fw-bold">
+                                    Nhập URL của bạn:
+                                </label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-globe"></i>
+                                    </span>
+                                    <input 
+                                        type="url" 
+                                        class="form-control" 
+                                        id="urlInput" 
+                                        placeholder="https://example.com"
+                                        required
+                                    >
+                                </div>
+                                <div class="form-text">
+                                    Ví dụ: https://www.google.com hoặc https://facebook.com
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg" id="generateBtn">
+                                    <i class="fas fa-magic me-2"></i>
+                                    Tạo QR Code
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Result Card (Hidden initially) -->
+                <div class="card shadow-lg border-0" id="resultCard" style="display: none;">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-check-circle me-2"></i>
+                            QR Code đã tạo thành công!
+                        </h5>
+                    </div>
+                    <div class="card-body p-4">
+                        
+                        <!-- QR Code Display -->
+                        <div class="text-center mb-4">
+                            <div id="qrcodeContainer" class="d-inline-block p-3 bg-white border rounded shadow-sm"></div>
+                        </div>
+
+                        <!-- Info Section -->
+                        <div class="info-section mb-3">
+                            <h6 class="text-muted mb-2">
+                                <i class="fas fa-link me-2"></i>
+                                URL gốc:
+                            </h6>
+                            <div class="input-group">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="originalUrl" 
+                                    readonly
+                                >
+                                <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard('originalUrl')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="info-section mb-3">
+                            <h6 class="text-muted mb-2">
+                                <i class="fas fa-chart-line me-2"></i>
+                                Link tracking (có đếm clicks):
+                            </h6>
+                            <div class="input-group">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="trackingUrl" 
+                                    readonly
+                                >
+                                <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard('trackingUrl')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="info-section mb-4">
+                            <h6 class="text-muted mb-2">
+                                <i class="fas fa-fingerprint me-2"></i>
+                                Tracking ID:
+                            </h6>
+                            <code class="bg-light p-2 d-block rounded" id="trackingId"></code>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                            <button class="btn btn-success btn-lg" onclick="downloadQR()">
+                                <i class="fas fa-download me-2"></i>
+                                Tải QR Code (PNG)
+                            </button>
+                            <button class="btn btn-outline-primary btn-lg" onclick="resetForm()">
+                                <i class="fas fa-plus me-2"></i>
+                                Tạo QR mới
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card border-info mt-4">
+                    <div class="card-body">
+                        <h6 class="text-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Hướng dẫn sử dụng:
+                        </h6>
+                        <ol class="mb-0 small">
+                            <li>Nhập URL bạn muốn chia sẻ</li>
+                            <li>Nhấn "Tạo QR Code"</li>
+                            <li>Tải xuống QR hoặc copy link tracking</li>
+                            <li>Mỗi lần có người quét QR, hệ thống sẽ ghi nhận và chuyển hướng</li>
+                            <li>Xem thống kê trong Google Sheet của bạn</li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center py-3 mt-5">
+        <div class="container">
+            <p class="text-muted mb-0">
+                <i class="fas fa-code me-1"></i>
+                QR Tracker Pro - Powered by Google Apps Script
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
