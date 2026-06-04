@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Tương Tác: Tổng Quan & Phân Loại VPN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fcfbf9; color: #2d3748; }
+        .chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 320px; max-height: 380px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .interactive-card { transition: all 0.3s ease; cursor: pointer; }
+        .interactive-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .active-card { border-left: 4px solid #0d9488; background-color: #f0fdfa; }
+        .glass-panel { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- Chosen Palette: Warm Neutral & Teal (Nền trắng ngà #fcfbf9, chữ xám đậm #2d3748, điểm nhấn xanh ngọc #0d9488 và cam nhạt #f59e0b để tạo sự tin cậy, công nghệ nhưng vẫn thân thiện, dễ đọc). -->
+
+<!-- Application Structure Plan: Cấu trúc ứng dụng được chia thành 3 phần chính logic: (1) Header & Giới thiệu tổng quan giúp người dùng hiểu bối cảnh và lý do sử dụng VPN qua biểu đồ; (2) Trình khám phá Phân loại VPN (Interactive Explorer) sử dụng layout Grid chia hai cột (Menu bên trái, Chi tiết bên phải) giúp người dùng dễ dàng so sánh và tìm hiểu sâu từng loại VPN mà không bị quá tải thông tin; (3) So sánh Giao thức bảo mật hiển thị hiệu suất qua biểu đồ Radar, cung cấp góc nhìn kỹ thuật hơn. Cấu trúc này đi từ tổng quan đến chi tiết, tối ưu hóa cho việc tiếp thu thông tin. -->
+
+<!-- Visualization & Content Choices: 
+1. Biểu đồ Doughnut (Chart.js): Hiển thị "Lý do sử dụng VPN" (Mục tiêu: Inform). Trực quan hóa tỷ lệ phần trăm người dùng, giúp nắm bắt động lực thị trường.
+2. Bộ chọn tương tác (Interactive Tabs/Cards): Cho "Các loại VPN" (Mục tiêu: Organize/Compare). Tránh việc cuộn trang dài, người dùng chủ động chọn loại muốn đọc, thông tin động cập nhật ngay lập tức.
+3. Biểu đồ Radar (Chart.js): So sánh "Giao thức VPN" (Mục tiêu: Compare/Relationships). So sánh đa chiều (Tốc độ, Bảo mật, Ổn định, Pin) giữa OpenVPN, WireGuard, IPsec rất trực quan và dễ hiểu hơn bảng chữ.
+-->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    
+    <header class="mb-12 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">Báo Cáo Chuyên Sâu: <span class="text-teal-600">Tổng Quan Các Loại VPN</span></h1>
+        <p class="text-lg text-slate-600 max-w-3xl mx-auto">Nghiên cứu tương tác về Mạng riêng ảo (Virtual Private Network) - Kiến trúc, phân loại, và cách chúng bảo vệ dữ liệu trong kỷ nguyên số.</p>
+    </header>
+
+    <section class="mb-16 glass-panel rounded-2xl shadow-sm p-6 md:p-10">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2 border-b-2 border-teal-100 pb-2 inline-block">1. VPN Là Gì & Tại Sao Cần Thiết?</h2>
+            <p class="text-slate-600 mt-2">Phần này cung cấp định nghĩa cơ bản về VPN và biểu đồ phân tích động lực chính thúc đẩy người dùng và doanh nghiệp áp dụng công nghệ này trên toàn cầu.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+                <p class="text-lg mb-4 leading-relaxed">
+                    <strong class="text-teal-700">VPN (Virtual Private Network)</strong> tạo ra một kết nối mạng riêng tư và mã hóa qua một mạng công cộng (như Internet). Nó che giấu địa chỉ IP thực của bạn, làm cho các hoạt động trực tuyến của bạn gần như không thể bị theo dõi.
+                </p>
+                <p class="mb-4 text-slate-600 leading-relaxed">
+                    Ban đầu được phát triển để cho phép các nhân viên làm việc từ xa kết nối an toàn với mạng công ty, VPN ngày nay đã trở thành công cụ thiết yếu cho cả cá nhân và tổ chức nhằm bảo vệ quyền riêng tư, chống lại sự giám sát và vượt qua các rào cản địa lý.
+                </p>
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg mt-6">
+                    <p class="text-sm text-amber-800">
+                        <span class="font-bold">Điểm cốt lõi:</span> Mọi dữ liệu truyền qua VPN đều được đóng gói và mã hóa (gọi là "đường hầm" - tunneling), ngăn chặn tin tặc, ISP hoặc các bên thứ ba đánh cắp thông tin nhạy cảm.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-inner border border-slate-100">
+                <h3 class="text-center font-semibold text-slate-700 mb-4">Động lực sử dụng VPN toàn cầu (Thống kê)</h3>
+                <div class="chart-container">
+                    <canvas id="usageChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-16">
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2 border-b-2 border-teal-100 pb-2 inline-block">2. Phân Loại VPN Chuyên Sâu</h2>
+            <p class="text-slate-600 mt-2">Tương tác với menu bên dưới để khám phá chi tiết từng kiến trúc VPN. Ứng dụng sẽ động cập nhật thông tin về định nghĩa, ưu/nhược điểm và trường hợp sử dụng cụ thể.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-4 flex flex-col gap-3">
+                <div class="interactive-card active-card bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3" onclick="updateVpnDetail('remote')">
+                    <span class="text-2xl">💻</span>
+                    <div>
+                        <h4 class="font-bold text-slate-800">Remote Access VPN</h4>
+                        <p class="text-xs text-slate-500">Truy cập từ xa cho nhân viên</p>
+                    </div>
+                </div>
+                <div class="interactive-card bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3" onclick="updateVpnDetail('site')">
+                    <span class="text-2xl">🏢</span>
+                    <div>
+                        <h4 class="font-bold text-slate-800">Site-to-Site VPN</h4>
+                        <p class="text-xs text-slate-500">Kết nối các chi nhánh, trụ sở</p>
+                    </div>
+                </div>
+                <div class="interactive-card bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3" onclick="updateVpnDetail('personal')">
+                    <span class="text-2xl">🛡️</span>
+                    <div>
+                        <h4 class="font-bold text-slate-800">Personal VPN (B2C)</h4>
+                        <p class="text-xs text-slate-500">Dành cho cá nhân, ẩn danh</p>
+                    </div>
+                </div>
+                <div class="interactive-card bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3" onclick="updateVpnDetail('mobile')">
+                    <span class="text-2xl">📱</span>
+                    <div>
+                        <h4 class="font-bold text-slate-800">Mobile VPN</h4>
+                        <p class="text-xs text-slate-500">Đảm bảo kết nối khi di chuyển</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 glass-panel p-8 rounded-2xl shadow-md border border-slate-200 transition-all duration-300" id="vpn-detail-panel">
+                <div class="flex items-center gap-4 mb-6">
+                    <span id="detail-icon" class="text-4xl bg-teal-100 p-3 rounded-full">💻</span>
+                    <h3 id="detail-title" class="text-3xl font-bold text-teal-800">Remote Access VPN</h3>
+                </div>
+                
+                <p id="detail-desc" class="text-lg text-slate-700 mb-6 leading-relaxed">
+                    Cho phép người dùng cá nhân thiết lập các kết nối an toàn với mạng máy tính từ xa. Người dùng có thể truy cập các tài nguyên an toàn trên mạng đó như thể họ đang cắm trực tiếp vào máy chủ của mạng.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-emerald-50 p-5 rounded-xl border border-emerald-100">
+                        <h4 class="font-bold text-emerald-800 mb-3 flex items-center gap-2"><span>✅</span> Ưu điểm</h4>
+                        <ul id="detail-pros" class="space-y-2 text-sm text-slate-700 list-disc list-inside">
+                            <li>Thiết lập nhanh chóng cho nhân viên.</li>
+                            <li>Bảo mật cao cho dữ liệu truyền tải.</li>
+                            <li>Linh hoạt cho mô hình làm việc Work-From-Home.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-rose-50 p-5 rounded-xl border border-rose-100">
+                        <h4 class="font-bold text-rose-800 mb-3 flex items-center gap-2"><span>⚠️</span> Hạn chế</h4>
+                        <ul id="detail-cons" class="space-y-2 text-sm text-slate-700 list-disc list-inside">
+                            <li>Phụ thuộc vào phần mềm client trên thiết bị.</li>
+                            <li>Có thể gây nghẽn cổ chai tại máy chủ VPN.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <span class="font-bold text-slate-800">Trường hợp sử dụng điển hình: </span>
+                    <span id="detail-usecase" class="text-slate-600">Nhân viên văn phòng truy cập vào hệ thống ERP hoặc File Server nội bộ của công ty khi đang ngồi tại quán cà phê hoặc ở nhà.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="glass-panel rounded-2xl shadow-sm p-6 md:p-10 mb-10">
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2 border-b-2 border-teal-100 pb-2 inline-block">3. Đánh Giá Các Giao Thức VPN Phổ Biến</h2>
+            <p class="text-slate-600 mt-2">Biểu đồ Radar so sánh sức mạnh của 3 giao thức cốt lõi. Một VPN tốt phụ thuộc rất lớn vào giao thức (Protocol) mà nó sử dụng để tạo đường hầm mã hóa.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="chart-container">
+                <canvas id="protocolChart"></canvas>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-[#ff6384]">
+                    <h4 class="font-bold text-slate-800">OpenVPN</h4>
+                    <p class="text-sm text-slate-600 mt-1">Giao thức mã nguồn mở, tiêu chuẩn vàng hiện tại. Vô cùng bảo mật, tương thích cao nhưng tốc độ và tiêu thụ pin ở mức trung bình do mã nguồn đồ sộ.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-[#36a2eb]">
+                    <h4 class="font-bold text-slate-800">WireGuard</h4>
+                    <p class="text-sm text-slate-600 mt-1">Thế hệ mới nhất. Mã nguồn siêu nhẹ (chỉ khoảng 4000 dòng code so với hàng trăm ngàn của OpenVPN). Mang lại tốc độ tối đa, kết nối tức thì và bảo mật hiện đại.</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-[#ffce56]">
+                    <h4 class="font-bold text-slate-800">IKEv2 / IPsec</h4>
+                    <p class="text-sm text-slate-600 mt-1">Rất ổn định, đặc biệt xuất sắc trong việc tự động kết nối lại khi tín hiệu mạng thay đổi (ví dụ: chuyển từ Wi-Fi sang 4G). Lựa chọn hàng đầu cho Mobile VPN.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="text-center text-slate-500 text-sm pb-8">
+        <p>Báo cáo phân tích kiến trúc Mạng Riêng Ảo. Cập nhật dữ liệu mới nhất hỗ trợ ra quyết định công nghệ.</p>
+    </footer>
+
+</div>
+
+<script>
+    const ctxUsage = document.getElementById('usageChart').getContext('2d');
+    new Chart(ctxUsage, {
+        type: 'doughnut',
+        data: {
+            labels: ['Bảo mật trên Wi-Fi công cộng', 'Truy cập nội dung khu vực (Streaming)', 'Làm việc từ xa (Doanh nghiệp)', 'Bảo vệ quyền riêng tư & Ẩn danh', 'Khác'],
+            datasets: [{
+                data: [35, 25, 18, 15, 7],
+                backgroundColor: ['#0d9488', '#3b82f6', '#f59e0b', '#8b5cf6', '#94a3b8'],
+                borderWidth: 2,
+                borderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } },
+                tooltip: { callbacks: { label: function(context) { return ' ' + context.label + ': ' + context.raw + '%'; } } }
+            },
+            cutout: '65%'
+        }
+    });
+
+    const ctxProtocol = document.getElementById('protocolChart').getContext('2d');
+    new Chart(ctxProtocol, {
+        type: 'radar',
+        data: {
+            labels: ['Tốc độ truyền tải', 'Mức độ bảo mật', 'Độ ổn định', 'Tiết kiệm pin (Mobile)', 'Dễ thiết lập', 'Vượt tường lửa'],
+            datasets: [
+                {
+                    label: 'OpenVPN',
+                    data: [6, 9, 8, 5, 6, 9],
+                    fill: true,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    pointBackgroundColor: 'rgb(255, 99, 132)',
+                    pointBorderColor: '#fff',
+                },
+                {
+                    label: 'WireGuard',
+                    data: [10, 9, 9, 9, 8, 5],
+                    fill: true,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    pointBackgroundColor: 'rgb(54, 162, 235)',
+                    pointBorderColor: '#fff',
+                },
+                {
+                    label: 'IKEv2/IPsec',
+                    data: [8, 8, 10, 8, 7, 6],
+                    fill: true,
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgb(255, 206, 86)',
+                    pointBackgroundColor: 'rgb(255, 206, 86)',
+                    pointBorderColor: '#fff',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { r: { angleLines: { color: 'rgba(0, 0, 0, 0.1)' }, grid: { color: 'rgba(0, 0, 0, 0.1)' }, pointLabels: { font: { size: 11 }, color: '#475569' }, suggestedMin: 0, suggestedMax: 10 } },
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+
+    const vpnData = {
+        'remote': {
+            icon: '💻', title: 'Remote Access VPN',
+            desc: 'Cho phép người dùng cá nhân thiết lập các kết nối an toàn với mạng máy tính từ xa qua Internet. Thiết bị của người dùng hoạt động như thể nó đang nằm trực tiếp trong mạng nội bộ.',
+            pros: ['Thiết lập nhanh chóng cho từng nhân viên.', 'Bảo mật cao cho dữ liệu truyền tải Endpoint-to-Server.', 'Linh hoạt tối đa cho mô hình Work-From-Home (WFH).'],
+            cons: ['Phụ thuộc vào việc cài đặt phần mềm client trên từng thiết bị.', 'Có thể gây nghẽn cổ chai tại máy chủ VPN nếu quá nhiều kết nối.'],
+            usecase: 'Nhân viên kế toán làm việc tại nhà truy cập an toàn vào phần mềm kế toán và máy chủ lưu trữ dữ liệu nội bộ tại trụ sở công ty.'
+        },
+        'site': {
+            icon: '🏢', title: 'Site-to-Site VPN',
+            desc: 'Được sử dụng chủ yếu trong doanh nghiệp, loại hình này kết nối toàn bộ mạng của một địa điểm (ví dụ: văn phòng chi nhánh) với mạng của một địa điểm khác (ví dụ: trụ sở chính).',
+            pros: ['Người dùng cuối không cần cài đặt phần mềm VPN client.', 'Hoạt động mượt mà ở chế độ nền (định tuyến qua Router/Gateway).', 'Thích hợp cho quy mô lớn, liên kết nhiều trụ sở.'],
+            cons: ['Thiết lập phức tạp, đòi hỏi thiết bị phần cứng chuyên dụng (VPN Gateway).', 'Chi phí triển khai ban đầu cao hơn.'],
+            usecase: 'Một tập đoàn có văn phòng ở Hà Nội và TP.HCM sử dụng Site-to-Site VPN để gộp chung hai mạng LAN cục bộ thành một mạng diện rộng (WAN) an toàn.'
+        },
+        'personal': {
+            icon: '🛡️', title: 'Personal VPN (Consumer)',
+            desc: 'Dịch vụ VPN thương mại (như NordVPN, ExpressVPN) kết nối người dùng cá nhân tới một máy chủ của nhà cung cấp. Nó không kết nối bạn vào mạng công ty, mà dùng để ẩn danh và mã hóa lưu lượng Internet.',
+            pros: ['Ẩn địa chỉ IP thực, bảo vệ quyền riêng tư cá nhân.', 'Vượt qua các hệ thống kiểm duyệt và tường lửa địa lý.', 'Bảo vệ dữ liệu khi dùng mạng Wi-Fi công cộng không an toàn.'],
+            cons: ['Tốc độ internet có thể giảm nhẹ.', 'Dữ liệu vẫn phải đi qua máy chủ của nhà cung cấp VPN (cần chọn nhà cung cấp uy tín, chính sách No-Log).'],
+            usecase: 'Một người dùng đang ngồi tại quán cà phê dùng Wi-Fi công cộng để thanh toán ngân hàng trực tuyến và muốn mã hóa mọi luồng dữ liệu.'
+        },
+        'mobile': {
+            icon: '📱', title: 'Mobile VPN',
+            desc: 'Được thiết kế đặc biệt cho các thiết bị di động. Khác với VPN thông thường sẽ ngắt kết nối nếu mạng thay đổi, Mobile VPN duy trì kết nối (persistence) khi người dùng di chuyển giữa các trạm phát sóng hoặc mạng Wi-Fi khác nhau.',
+            pros: ['Duy trì phiên làm việc liên tục không bị gián đoạn.', 'Tối ưu hóa băng thông và tiết kiệm pin cho thiết bị di động.', 'Lý tưởng cho lực lượng lao động di chuyển liên tục.'],
+            cons: ['Ít lựa chọn nhà cung cấp chuyên biệt hơn.', 'Cấu hình phức tạp hơn đối với quản trị viên IT.'],
+            usecase: 'Cảnh sát, nhân viên y tế cấp cứu, hoặc tài xế giao hàng cần truy cập cơ sở dữ liệu liên tục ngay cả khi họ di chuyển qua các vùng phủ sóng mạng khác nhau.'
+        }
+    };
+
+    function updateVpnDetail(type) {
+        document.querySelectorAll('.interactive-card').forEach(card => card.classList.remove('active-card'));
+        event.currentTarget.classList.add('active-card');
+
+        const data = vpnData[type];
+        const panel = document.getElementById('vpn-detail-panel');
+        
+        panel.style.opacity = '0.5';
+        
+        setTimeout(() => {
+            document.getElementById('detail-icon').textContent = data.icon;
+            document.getElementById('detail-title').textContent = data.title;
+            document.getElementById('detail-desc').textContent = data.desc;
+            
+            document.getElementById('detail-pros').innerHTML = data.pros.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('detail-cons').innerHTML = data.cons.map(item => `<li>${item}</li>`).join('');
+            
+            document.getElementById('detail-usecase').textContent = data.usecase;
+            
+            panel.style.opacity = '1';
+        }, 150);
+    }
+</script>
+</body>
+</html>
