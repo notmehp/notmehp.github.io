@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Điện Nước - 271 Lê Thánh Tông, Hải Phòng</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- SheetJS for Excel Reading/Writing -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-page {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 flex flex-col">
+
+    <!-- TOP HEADER -->
+    <header class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white shadow-lg shrink-0 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-amber-400 p-2.5 rounded-xl shadow-inner text-slate-900 animate-pulse">
+                        <i class="fa-solid fa-bolt-lightning text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold tracking-tight">HỆ THỐNG GIÁM SÁT ĐIỆN NƯỚC (BM.02)</h1>
+                        <p class="text-xs md:text-sm text-indigo-200 flex items-center gap-1.5 mt-0.5">
+                            <i class="fa-solid fa-hotel text-amber-400"></i>
+                            271 Lê Thánh Tông, P. Máy Tơ, Q. Ngô Quyền, Hải Phòng
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Quick File Actions -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <label for="excel-upload" class="cursor-pointer bg-white/10 hover:bg-white/20 text-white font-medium text-sm px-4 py-2 rounded-xl border border-white/20 transition-all duration-200 flex items-center gap-2">
+                        <i class="fa-solid fa-file-import text-green-400"></i>
+                        <span>Nhập Excel (BM.02)</span>
+                        <input type="file" id="excel-upload" accept=".xlsx, .xls" class="hidden" onchange="importExcel(event)">
+                    </label>
+                    <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm px-4 py-2 rounded-xl transition-all duration-200 shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-file-excel"></i>
+                        <span>Xuất Excel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
+        
+        <!-- NAVIGATION TABS -->
+        <div class="flex border-b border-slate-200 no-print overflow-x-auto whitespace-nowrap">
+            <button onclick="switchTab('dashboard')" id="tab-dashboard" class="py-3 px-6 font-semibold text-sm border-b-2 border-indigo-600 text-indigo-600 flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-chart-line text-lg"></i> Dashboard Tổng Quan
+            </button>
+            <button onclick="switchTab('data-manager')" id="tab-data-manager" class="py-3 px-6 font-medium text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-square-plus text-lg"></i> Quản Lý & Nhập Số Đọc
+            </button>
+            <button onclick="switchTab('minutes-generator')" id="tab-minutes-generator" class="py-3 px-6 font-medium text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-file-signature text-lg"></i> Biên Bản Xác Nhận (BM.02)
+            </button>
+            <button onclick="switchTab('pricing-rules')" id="tab-pricing-rules" class="py-3 px-6 font-medium text-sm border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-sliders text-lg"></i> Đơn Giá & Thiết Lập Tỉ Lệ
+            </button>
+        </div>
+
+        <!-- ==================== TAB 1: DASHBOARD ==================== -->
+        <section id="panel-dashboard" class="space-y-6 no-print">
+            
+            <!-- KPI CARDS GRID -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- KPI 1: Elec total this period -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <p class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Sản lượng Điện (Tháng)</p>
+                        <h3 class="text-2xl font-bold text-slate-800" id="kpi-total-elec">0 kWh</h3>
+                        <p class="text-xs text-blue-600 flex items-center gap-1">
+                            <i class="fa-solid fa-clock"></i> Chia 3 khung giờ
+                        </p>
+                    </div>
+                    <div class="bg-blue-50 text-blue-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-bolt text-2xl"></i>
+                    </div>
+                </div>
+
+                <!-- KPI 2: Water total this period -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <p class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Sản lượng Nước (Tháng)</p>
+                        <h3 class="text-2xl font-bold text-slate-800" id="kpi-total-water">0 m³</h3>
+                        <p class="text-xs text-cyan-600 flex items-center gap-1">
+                            <i class="fa-solid fa-droplet"></i> + Dịch vụ thoát nước
+                        </p>
+                    </div>
+                    <div class="bg-cyan-50 text-cyan-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-water text-2xl"></i>
+                    </div>
+                </div>
+
+                <!-- KPI 3: Total Cost (Entire Building) -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <p class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Tổng thanh toán tòa nhà</p>
+                        <h3 class="text-2xl font-bold text-slate-900" id="kpi-building-cost">0 đ</h3>
+                        <p class="text-xs text-indigo-500 font-medium" id="kpi-building-tax">Đã bao gồm thuế GTGT</p>
+                    </div>
+                    <div class="bg-purple-50 text-purple-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-building text-2xl"></i>
+                    </div>
+                </div>
+
+                <!-- KPI 4: Bên B (School) actual cost share -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between ring-2 ring-indigo-500/30">
+                    <div class="space-y-1">
+                        <p class="text-xs font-bold text-indigo-600 tracking-wider uppercase">Bên B thanh toán (Nguyễn Tất Thành)</p>
+                        <h3 class="text-2xl font-extrabold text-indigo-700" id="kpi-b-cost">0 đ</h3>
+                        <p class="text-xs text-emerald-600 flex items-center gap-1 font-medium" id="kpi-b-ratio">
+                            <i class="fa-solid fa-divide"></i> Đang áp tỉ lệ: 2/3 tổng điện
+                        </p>
+                    </div>
+                    <div class="bg-indigo-50 text-indigo-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHARTS GRID -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Cost & Consumption charts -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 lg:col-span-2 flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-base">Diễn Biến Sản Lượng Điện & Chi Phí Bên B</h3>
+                            <p class="text-xs text-slate-500">Đối chiếu sản lượng tổng (kWh) & nghĩa vụ thanh toán của trường Nguyễn Tất Thành</p>
+                        </div>
+                    </div>
+                    <div class="relative flex-1 min-h-[300px] h-[350px]">
+                        <canvas id="elecChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Water & Wastewater Chart -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-base">Thống Kê Tiêu Thụ Nước</h3>
+                            <p class="text-xs text-slate-500">Sản lượng nước sạch tiêu thụ vs Dịch vụ thoát nước (m³)</p>
+                        </div>
+                    </div>
+                    <div class="relative flex-1 min-h-[300px] h-[350px]">
+                        <canvas id="waterChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organization details row -->
+            <div class="bg-slate-900 text-slate-100 p-6 rounded-2xl shadow-md grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-1">
+                    <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Bên A (Đơn vị quản lý bàn giao)</span>
+                    <h4 class="text-lg font-bold">CÔNG TY CỔ PHẦN VẬN TẢI 1 TRACO</h4>
+                    <p class="text-xs text-slate-300">Địa chỉ: Số 45 Đinh Tiên Hoàng, Phường Hồng Bàng, Hải Phòng</p>
+                    <p class="text-xs text-slate-400">Mã số thuế: 0200380768</p>
+                </div>
+                <div class="space-y-1 border-t md:border-t-0 md:border-l border-slate-700 pt-4 md:pt-0 md:pl-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Bên B (Đơn vị sử dụng)</span>
+                    <h4 class="text-lg font-bold">TRƯỜNG TH, THCS VÀ THPT NGUYỄN TẤT THÀNH</h4>
+                    <p class="text-xs text-slate-300">Địa chỉ: 184 đường 5 Mới, Phường Hồng Bàng, Hải Phòng</p>
+                    <p class="text-xs text-slate-400">Mã số thuế: 0202176398</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: DATA MANAGER ==================== -->
+        <section id="panel-data-manager" class="hidden space-y-6 no-print">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Multi-tier entry form -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col h-fit">
+                    <div class="border-b border-slate-100 pb-3 mb-4">
+                        <h3 class="font-bold text-slate-800 text-base" id="form-title">
+                            <i class="fa-solid fa-file-circle-plus text-indigo-600 mr-1.5"></i>Ghi Chỉ Số Kỳ Mới
+                        </h3>
+                        <p class="text-xs text-slate-500">Điền chính xác số đọc trên công tơ</p>
+                    </div>
+
+                    <form id="billing-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <input type="hidden" id="edit-index" value="">
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Kỳ Tháng</label>
+                                <input type="month" id="input-month" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Mô tả kỳ ghi</label>
+                                <input type="text" id="input-period-desc" placeholder="Ví dụ: 1/6 - 30/6" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                        </div>
+
+                        <!-- SECTION: ELECTRICITY READINGS (3 TOU) -->
+                        <div class="bg-blue-50/50 p-3 rounded-xl border border-blue-100/50 space-y-3">
+                            <h4 class="text-xs font-bold text-blue-800 uppercase flex items-center gap-1.5">
+                                <i class="fa-solid fa-bolt"></i> CHỈ SỐ ĐIỆN (Hệ số nhân x800)
+                            </h4>
+                            
+                            <!-- Normal Hours (Giờ bình thường) -->
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-500 uppercase">Giờ Bình Thường - Đầu</label>
+                                    <input type="number" id="elec-norm-start" min="0" required oninput="calculateLiveBill()" class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-500 uppercase">Giờ Bình Thường - Cuối</label>
+                                    <input type="number" id="elec-norm-end" min="0" required oninput="calculateLiveBill()" class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                            </div>
+
+                            <!-- Peak Hours (Giờ cao điểm) -->
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-500 uppercase">Giờ Cao Điểm - Đầu</label>
+                                    <input type="number" id="elec-peak-start" min="0" required oninput="calculateLiveBill()" class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-500 uppercase">Giờ Cao Điểm - Cuối</label>
+                                    <input type="number" id="elec-peak-end" min="0" required oninput="calculateLiveBill()" class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                            </div>
+
+                            <!-- Off-peak Hours (Giờ thấp điểm) -->
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-500 uppercase">Giờ Thấp Điểm - Đầu</label>
+                                    <input type="number" id="elec-off-start" min="0" required oninput="calculateLiveBill()" class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-500 uppercase">Giờ Thấp Điểm - Cuối</label>
+                                    <input type="number" id="elec-off-end" min="0" required oninput="calculateLiveBill()" class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION: WATER READINGS -->
+                        <div class="bg-cyan-50/50 p-3 rounded-xl border border-cyan-100/50 space-y-3">
+                            <h4 class="text-xs font-bold text-cyan-800 uppercase flex items-center gap-1.5">
+                                <i class="fa-solid fa-water"></i> CHỈ SỐ NƯỚC (Hệ số nhân x1, Thoát x0.8)
+                            </h4>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-500 uppercase">Đầu Kỳ Nước</label>
+                                    <input type="number" id="water-start" min="0" required oninput="calculateLiveBill()" class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-semibold text-slate-500 uppercase">Cuối Kỳ Nước</label>
+                                    <input type="number" id="water-end" min="0" required oninput="calculateLiveBill()" class="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LIVE PREVIEW CALCULATION -->
+                        <div class="bg-indigo-900 text-indigo-100 p-3.5 rounded-xl text-xs space-y-2">
+                            <span class="font-bold text-amber-400 block uppercase tracking-wider text-[10px]">TÍNH TOÁN NHANH TRÊN FORM</span>
+                            <div class="flex justify-between border-b border-indigo-800 pb-1.5">
+                                <span>Lượng điện tổng: <b id="live-elec-kwh" class="text-white font-mono">0</b> kWh</span>
+                                <span>Lượng nước tổng: <b id="live-water-m3" class="text-white font-mono">0</b> m³</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-0.5">
+                                <span>Thanh toán tòa nhà:</span>
+                                <span id="live-total-building" class="font-bold text-white font-mono">0 đ</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="font-bold text-amber-300">Bên B phải trả:</span>
+                                <span id="live-total-b" class="font-extrabold text-amber-400 font-mono text-base">0 đ</span>
+                            </div>
+                        </div>
+
+                        <!-- ACTIONS -->
+                        <div class="flex gap-2">
+                            <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm py-2.5 rounded-xl transition duration-200 shadow-md">
+                                <i class="fa-solid fa-save mr-1.5"></i>Lưu Dữ Liệu
+                            </button>
+                            <button type="button" onclick="resetForm()" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium text-xs px-3 rounded-xl transition">
+                                Xóa Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- DATABASE LIST TABLE -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 lg:col-span-2 flex flex-col overflow-hidden">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100 pb-3 mb-4">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-base">Nhật Ký Chỉ Số Điện Nước & Thanh Toán</h3>
+                            <p class="text-xs text-slate-500">Danh sách dữ liệu đối chiếu theo biểu mẫu BM.02</p>
+                        </div>
+                        <button onclick="clearAllData()" class="text-red-500 hover:text-red-700 text-xs font-semibold flex items-center gap-1.5">
+                            <i class="fa-solid fa-trash-can"></i> Xóa toàn bộ
+                        </button>
+                    </div>
+
+                    <!-- Table element -->
+                    <div class="overflow-x-auto flex-1">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-500 font-bold border-b border-slate-100 tracking-wider uppercase text-[10px]">
+                                    <th class="py-3 px-3">Kỳ ghi</th>
+                                    <th class="py-3 px-2 text-right">Điện (kWh)</th>
+                                    <th class="py-3 px-2 text-right">Nước (m³)</th>
+                                    <th class="py-3 px-2 text-right">Tổng Tòa Nhà (đ)</th>
+                                    <th class="py-3 px-2 text-right text-indigo-700">Bên B Trả (đ)</th>
+                                    <th class="py-3 px-3 text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data-table-body" class="divide-y divide-slate-100">
+                                <!-- JS Inject items here -->
+                            </tbody>
+                        </table>
+                        <div id="no-data-placeholder" class="hidden text-center py-12 text-slate-400">
+                            <i class="fa-solid fa-database text-4xl mb-3 text-slate-300"></i>
+                            <p class="text-sm font-medium">Chưa có dữ liệu nào trong lịch sử.</p>
+                            <p class="text-xs text-slate-400 mt-0.5">Nhập tay từ biểu mẫu bên trái hoặc tải file excel lên để khôi phục.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: MINUTES GENERATOR (BM.02) ==================== -->
+        <section id="panel-minutes-generator" class="hidden space-y-6">
+            
+            <!-- Controls block for document picker -->
+            <div class="bg-white p-4 rounded-xl border border-slate-150 flex flex-wrap gap-4 items-center justify-between no-print">
+                <div class="flex items-center gap-3">
+                    <label class="text-sm font-semibold text-slate-700">Chọn Kỳ Bản Ghi:</label>
+                    <select id="minutes-month-selector" onchange="loadMinutesRecord()" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <!-- Filled by JS -->
+                    </select>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm px-4 py-2 rounded-xl transition shadow flex items-center gap-1.5">
+                        <i class="fa-solid fa-print"></i>
+                        <span>In Biên Bản (BM.02)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- THE DOCUMENT PREVIEW (BM.02 TEMPLATE) -->
+            <div class="bg-white border border-slate-200 shadow-xl max-w-[800px] mx-auto p-8 sm:p-12 text-slate-900 rounded-xl print-page relative" id="minutes-document-container">
+                
+                <!-- TOP DECORATOR ON SCREEN -->
+                <div class="absolute top-0 left-0 right-0 h-1.5 bg-indigo-600 rounded-t-xl no-print"></div>
+
+                <!-- HEADING -->
+                <div class="text-center font-bold space-y-1 mb-8">
+                    <p class="text-xs uppercase tracking-wider text-slate-400 text-right font-semibold no-print pb-4">BM.02</p>
+                    <h3 class="text-sm tracking-wide uppercase">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h3>
+                    <h4 class="text-xs tracking-wider uppercase font-bold">Độc lập - Tự do - Hạnh phúc</h4>
+                    <div class="w-32 h-[1px] bg-slate-800 mx-auto mt-1"></div>
+                    
+                    <h2 class="text-lg uppercase pt-6 font-extrabold text-slate-900">BIÊN BẢN XÁC NHẬN</h2>
+                    <h3 class="text-sm uppercase font-bold pb-2">CHỈ SỐ CÔNG TƠ, SẢN LƯỢNG ĐIỆN NƯỚC GIAO NHẬN VÀ THANH TOÁN</h3>
+                    <p class="text-xs font-normal italic text-slate-600">Kỳ thanh toán: <span id="doc-period" class="font-semibold text-slate-800">1/06/2025 đến 8/7/2026</span></p>
+                </div>
+
+                <!-- CONTRACT PARTIES -->
+                <div class="space-y-3 text-xs leading-relaxed border-t border-b border-slate-200 py-4 mb-6">
+                    <div>
+                        <p class="font-bold uppercase text-slate-800">Bên A: CÔNG TY CỔ PHẦN VẬN TẢI 1 TRACO</p>
+                        <p>Địa chỉ: Số 45 Đinh Tiên Hoàng, Phường Hồng Bàng, Thành phố Hải Phòng, Việt Nam</p>
+                        <p class="font-mono">MST: 0200380768</p>
+                    </div>
+                    <div>
+                        <p class="font-bold uppercase text-slate-800">Bên B: TRƯỜNG TH, THCS VÀ THPT NGUYỄN TẤT THÀNH</p>
+                        <p>Địa chỉ: 184 đường 5 Mới, Phường Hồng Bàng, Thành phố Hải Phòng, Việt Nam</p>
+                        <p class="font-mono">MST: 0202176398</p>
+                    </div>
+                    <p class="italic text-slate-600 mt-2">Hai bên cùng nhau xác nhận chỉ số công tơ, sản lượng giao nhận và tiền thanh toán giữa hai bên như sau:</p>
+                </div>
+
+                <!-- SECTION 1: ELECTRICITY TABLE -->
+                <div class="space-y-2 mb-6">
+                    <h4 class="text-xs font-bold uppercase text-slate-800 flex items-center justify-between">
+                        <span>I. Chỉ số công tơ, sản lượng điện giao nhận và tiền điện thanh toán:</span>
+                    </h4>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-[11px] text-left border-collapse border border-slate-300">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 font-bold border-b border-slate-300">
+                                    <th class="border border-slate-300 py-2 px-2 text-[10px]" rowspan="2">Hạng mục chi tiết</th>
+                                    <th class="border border-slate-300 text-center py-1 px-1 text-[10px]" colspan="3">Chỉ số công tơ điện</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Sản lượng (kWh)</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Đơn giá (đ/kWh)</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Giá trị chưa thuế (đ)</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Thuế GTGT (8%)</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Tổng tiền thanh toán (đ)</th>
+                                </tr>
+                                <tr class="bg-slate-150 text-slate-700">
+                                    <th class="border border-slate-300 text-center py-1 px-1">Đầu kỳ</th>
+                                    <th class="border border-slate-300 text-center py-1 px-1">Cuối kỳ</th>
+                                    <th class="border border-slate-300 text-center py-1 px-1">Hệ số</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-300">
+                                <tr>
+                                    <td class="border border-slate-300 p-2 font-medium">Giờ Bình thường</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-elec-norm-start">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-elec-norm-end">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1">800</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-elec-norm-vol">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-norm-rate">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-norm-net">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-norm-tax">-</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-elec-norm-total">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-300 p-2 font-medium">Giờ Cao điểm</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-elec-peak-start">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-elec-peak-end">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1">800</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-elec-peak-vol">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-peak-rate">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-peak-net">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-peak-tax">-</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-elec-peak-total">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-300 p-2 font-medium">Giờ Thấp điểm</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-elec-off-start">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-elec-off-end">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1">800</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-elec-off-vol">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-off-rate">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-off-net">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-off-tax">-</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-elec-off-total">-</td>
+                                </tr>
+                                <tr class="bg-slate-50 font-bold">
+                                    <td class="border border-slate-300 p-2">Tổng cộng</td>
+                                    <td class="border border-slate-300 text-center" colspan="3">---</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-total-vol">-</td>
+                                    <td class="border border-slate-300 text-right">---</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-total-net">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-elec-total-tax">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2 text-indigo-700" id="doc-elec-total-gross">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- School share clause -->
+                    <div class="bg-indigo-50/50 p-3 rounded border border-indigo-100 text-[11px] leading-relaxed mt-2">
+                        <p>Căn cứ theo biên bản bàn giao tòa nhà ngày 08/6/2026 của 2 bên, chốt số công tơ điện chia tỉ lệ thanh toán cho Bên B:</p>
+                        <p class="font-bold text-indigo-800 text-xs mt-1">
+                            Số tiền điện Bên B phải thanh toán cho Bên A (Áp dụng hệ số tỉ lệ <span id="doc-share-ratio">2/3</span>): <span id="doc-final-b-elec">0 VNĐ</span>.
+                        </p>
+                        <p class="italic text-slate-700 mt-1">Bằng chữ: <span id="doc-final-b-elec-text" class="font-semibold text-slate-800">Không đồng chẵn./.</span></p>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: WATER TABLE -->
+                <div class="space-y-2 mb-8">
+                    <h4 class="text-xs font-bold uppercase text-slate-800">II. Chỉ số công tơ, sản lượng nước giao nhận và tiền nước thanh toán:</h4>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-[11px] text-left border-collapse border border-slate-300">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-800 font-bold border-b border-slate-300">
+                                    <th class="border border-slate-300 py-2 px-2 text-[10px]" rowspan="2">Hạng mục chi tiết nước</th>
+                                    <th class="border border-slate-300 text-center py-1 px-1 text-[10px]" colspan="3">Chỉ số công tơ nước</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Sản lượng (m³)</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Đơn giá (đ/m³)</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Giá trị chưa thuế (đ)</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Thuế GTGT (đ)</th>
+                                    <th class="border border-slate-300 text-right py-2 px-2 text-[10px]" rowspan="2">Tổng tiền thanh toán (đ)</th>
+                                </tr>
+                                <tr class="bg-slate-150 text-slate-700">
+                                    <th class="border border-slate-300 text-center py-1 px-1">Đầu kỳ</th>
+                                    <th class="border border-slate-300 text-center py-1 px-1">Cuối kỳ</th>
+                                    <th class="border border-slate-300 text-center py-1 px-1">Hệ số</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-300">
+                                <tr>
+                                    <td class="border border-slate-300 p-2 font-medium">Nước tiêu thụ (Thuế 5%)</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-water-start">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-water-end">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1">1</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-water-vol">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-water-rate">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-water-net">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-water-tax">-</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-water-total">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-slate-300 p-2 font-medium">Dịch vụ thoát nước (Thuế 8%)</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-sewer-start">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1" id="doc-sewer-end">-</td>
+                                    <td class="border border-slate-300 text-center font-mono p-1">0.8</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-sewer-vol">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-sewer-rate">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-sewer-net">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-sewer-tax">-</td>
+                                    <td class="border border-slate-300 text-right font-bold font-mono p-2" id="doc-sewer-total">-</td>
+                                </tr>
+                                <tr class="bg-slate-50 font-bold">
+                                    <td class="border border-slate-300 p-2">Tổng cộng nước</td>
+                                    <td class="border border-slate-300 text-center" colspan="3">---</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-water-total-vol">-</td>
+                                    <td class="border border-slate-300 text-right">---</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-water-total-net">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2" id="doc-water-total-tax">-</td>
+                                    <td class="border border-slate-300 text-right font-mono p-2 text-indigo-700" id="doc-water-total-gross">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Water share display -->
+                    <div class="bg-cyan-50/50 p-3 rounded border border-cyan-100 text-[11px] leading-relaxed mt-2">
+                        <p class="font-bold text-cyan-800 text-xs">
+                            Số tiền nước Bên B phải thanh toán cho Bên A: <span id="doc-final-b-water">0 VNĐ</span>.
+                        </p>
+                        <p class="italic text-slate-700 mt-1">Bằng chữ: <span id="doc-final-b-water-text" class="font-semibold text-slate-800">Không đồng chẵn./.</span></p>
+                    </div>
+                </div>
+
+                <!-- SIGNATURES BLOCK -->
+                <div class="grid grid-cols-2 text-center text-xs font-bold pt-10">
+                    <div>
+                        <p class="uppercase text-slate-800">ĐẠI DIỆN BÊN A</p>
+                        <p class="font-normal text-slate-500 pt-1 text-[10px] italic">(Ký, ghi rõ họ tên và đóng dấu)</p>
+                    </div>
+                    <div>
+                        <p class="uppercase text-slate-800">ĐẠI DIỆN BÊN B</p>
+                        <p class="font-normal text-slate-500 pt-1 text-[10px] italic">(Ký, ghi rõ họ tên và đóng dấu)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: CONFIGURATION ==================== -->
+        <section id="panel-pricing-rules" class="hidden space-y-6 no-print">
+            
+            <!-- Controls layout for prices -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- Rates Config Card -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <h3 class="font-bold text-slate-800 text-base border-b border-slate-100 pb-2">
+                        <i class="fa-solid fa-tags text-indigo-600 mr-1.5"></i>Biểu Giá Thực Tế (Bên A áp dụng)
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <!-- Normal Rate -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Đơn Giá Điện Giờ Bình Thường (đ/kWh)</label>
+                            <input type="number" id="cfg-rate-elec-norm" value="2887" onchange="updateSettings()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono">
+                        </div>
+                        <!-- Peak Rate -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Đơn Giá Điện Giờ Cao Điểm (đ/kWh)</label>
+                            <input type="number" id="cfg-rate-elec-peak" value="5025" onchange="updateSettings()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono">
+                        </div>
+                        <!-- Off-peak Rate -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Đơn Giá Điện Giờ Thấp Điểm (đ/kWh)</label>
+                            <input type="number" id="cfg-rate-elec-off" value="1609" onchange="updateSettings()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono">
+                        </div>
+                        <!-- Water Rate -->
+                        <div class="border-t border-slate-100 pt-3">
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Đơn Giá Nước Sạch Tiêu Thụ (đ/m³)</label>
+                            <input type="number" id="cfg-rate-water" value="21800" onchange="updateSettings()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono">
+                        </div>
+                        <!-- Sewer Rate -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Đơn Giá Dịch Vụ Thoát Nước (đ/m³)</label>
+                            <input type="number" id="cfg-rate-sewer" value="4360" onchange="updateSettings()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono font-mono">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parameters Config Card -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <h3 class="font-bold text-slate-800 text-base border-b border-slate-100 pb-2">
+                        <i class="fa-solid fa-percent text-indigo-600 mr-1.5"></i>Tỷ Lệ Phân Chia & Thuế GTGT
+                    </h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Hệ Số Phân Chia Bên B (Điện)</label>
+                            <select id="cfg-share-ratio" onchange="updateSettings()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option value="0.666667">Hệ số 2/3 (Bàn giao nhà - Chia 3 lấy 2)</option>
+                                <option value="0.333333">Hệ số 1/3 (Chia 3 lấy 1)</option>
+                                <option value="1.0">Hệ số 1/1 (Bên B trả toàn bộ 100%)</option>
+                                <option value="0.5">Hệ số 1/2 (Chia đôi 50%)</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Thuế điện (%)</label>
+                                <input type="number" id="cfg-tax-elec" value="8" onchange="updateSettings()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Thuế nước sạch (%)</label>
+                                <input type="number" id="cfg-tax-water" value="5" onchange="updateSettings()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Thuế thoát nước (%)</label>
+                            <input type="number" id="cfg-tax-sewer" value="8" onchange="updateSettings()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono">
+                        </div>
+
+                        <div class="p-3 bg-indigo-50 rounded-xl text-xs text-indigo-900 border border-indigo-100">
+                            <h4 class="font-bold mb-1"><i class="fa-solid fa-circle-info mr-1"></i>Chế độ cập nhật tức thì</h4>
+                            <p class="leading-relaxed">Thay đổi cấu hình tại đây sẽ tính toán lại ngay lập tức toàn bộ lịch sử dữ liệu và các biểu mẫu xuất ra BM.02 của bạn.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-400 shrink-0 no-print">
+        <p>© 2026 - Đơn vị đối tác phân tích số liệu TRACO & Trường Nguyễn Tất Thành tại 271 Lê Thánh Tông, Hải Phòng.</p>
+    </footer>
+
+    <!-- STATS AND CALCULATIONS LOGIC -->
+    <script>
+        // Global State
+        let appState = {
+            records: [],
+            // Rates
+            rateElecNorm: 2887,
+            rateElecPeak: 5025,
+            rateElecOff: 1609,
+            rateWater: 21800,
+            rateSewer: 4360,
+            // Factors
+            factorSewer: 0.8,
+            factorElecMultiplier: 800,
+            shareRatio: 0.666667, // 2/3 ratio
+            // Taxes
+            taxElec: 8,
+            taxWater: 5,
+            taxSewer: 8
+        };
+
+        let elecChartInstance = null;
+        let waterChartInstance = null;
+
+        // Perfect Match Template for Month 6 (1/6 - 30/6) & (8/6 - 8/7)
+        const defaultMockData = [
+            {
+                month: "2025-06",
+                periodDesc: "1/06/2025 đến 8/7/2026",
+                // Electricity index
+                elecNormStart: 213, elecNormEnd: 219,
+                elecPeakStart: 72, elecPeakEnd: 74,
+                elecOffStart: 27, elecOffEnd: 28,
+                // Water Index
+                waterStart: 4167, waterEnd: 4214
+            }
+        ];
+
+        // Format helpers
+        const formatVND = (v) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(v).replace('₫', 'VNĐ');
+        const formatNum = (v) => new Intl.NumberFormat('vi-VN').format(v);
+
+        // App Entry Point
+        window.onload = function() {
+            const saved = localStorage.getItem('haiphong_bm02_data');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    // Merge saved states to preserve structure
+                    appState = { ...appState, ...parsed };
+                } catch (e) {
+                    appState.records = defaultMockData;
+                }
+            } else {
+                appState.records = defaultMockData;
+            }
+
+            // Sync Inputs with values
+            document.getElementById('cfg-rate-elec-norm').value = appState.rateElecNorm;
+            document.getElementById('cfg-rate-elec-peak').value = appState.rateElecPeak;
+            document.getElementById('cfg-rate-elec-off').value = appState.rateElecOff;
+            document.getElementById('cfg-rate-water').value = appState.rateWater;
+            document.getElementById('cfg-rate-sewer').value = appState.rateSewer;
+            document.getElementById('cfg-share-ratio').value = appState.shareRatio.toFixed(6);
+            document.getElementById('cfg-tax-elec').value = appState.taxElec;
+            document.getElementById('cfg-tax-water').value = appState.taxWater;
+            document.getElementById('cfg-tax-sewer').value = appState.taxSewer;
+
+            // Form Month prefill
+            const t = new Date();
+            const year = t.getFullYear();
+            const month = String(t.getMonth() + 1).padStart(2, '0');
+            document.getElementById('input-month').value = `${year}-${month}`;
+            document.getElementById('input-period-desc').value = `1/${t.getMonth() + 1} - 30/${t.getMonth() + 1}`;
+
+            refreshAll();
+        };
+
+        // Comprehensive utility math calculator
+        function computeBillDetails(rec) {
+            // ELECTRICITY
+            const elecNormVol = (rec.elecNormEnd - rec.elecNormStart) * appState.factorElecMultiplier;
+            const elecPeakVol = (rec.elecPeakEnd - rec.elecPeakStart) * appState.factorElecMultiplier;
+            const elecOffVol = (rec.elecOffEnd - rec.elecOffStart) * appState.factorElecMultiplier;
+
+            const elecNormNet = elecNormVol * appState.rateElecNorm;
+            const elecPeakNet = elecPeakVol * appState.rateElecPeak;
+            const elecOffNet = elecOffVol * appState.rateElecOff;
+
+            const elecNormTax = Math.round(elecNormNet * (appState.taxElec / 100));
+            const elecPeakTax = Math.round(elecPeakNet * (appState.taxElec / 100));
+            const elecOffTax = Math.round(elecOffNet * (appState.taxElec / 100));
+
+            const elecNormGross = elecNormNet + elecNormTax;
+            const elecPeakGross = elecPeakNet + elecPeakTax;
+            const elecOffGross = elecOffNet + elecOffTax;
+
+            const totalElecVol = elecNormVol + elecPeakVol + elecOffVol;
+            const totalElecNet = elecNormNet + elecPeakNet + elecOffNet;
+            const totalElecTax = elecNormTax + elecPeakTax + elecOffTax;
+            const totalElecGross = elecNormGross + elecPeakGross + elecOffGross;
+
+            // Share amount for Bên B
+            const bElecGross = Math.round(totalElecGross * appState.shareRatio);
+
+            // WATER
+            const waterRawVol = rec.waterEnd - rec.waterStart;
+            const waterVol = waterRawVol * 1; // Factor 1
+            const sewerVol = parseFloat((waterRawVol * appState.factorSewer).toFixed(1));
+
+            const waterNet = waterVol * appState.rateWater;
+            const sewerNet = Math.round(sewerVol * appState.rateSewer);
+
+            const waterTax = Math.round(waterNet * (appState.taxWater / 100));
+            const sewerTax = Math.round(sewerNet * (appState.taxSewer / 100));
+
+            const waterGross = waterNet + waterTax;
+            const sewerGross = sewerNet + sewerTax;
+
+            const totalWaterVol = waterVol + sewerVol;
+            const totalWaterNet = waterNet + sewerNet;
+            const totalWaterTax = waterTax + sewerTax;
+            const totalWaterGross = waterGross + sewerGross;
+
+            // Grand Total (Building & B share)
+            const totalBuildingGross = totalElecGross + totalWaterGross;
+            const totalBGrossShare = bElecGross + totalWaterGross; // Bên B pays full water + 2/3 elec
+
+            return {
+                elecNormVol, elecPeakVol, elecOffVol,
+                elecNormNet, elecPeakNet, elecOffNet,
+                elecNormTax, elecPeakTax, elecOffTax,
+                elecNormGross, elecPeakGross, elecOffGross,
+                totalElecVol, totalElecNet, totalElecTax, totalElecGross,
+                bElecGross,
+                
+                waterVol, sewerVol,
+                waterNet, sewerNet,
+                waterTax, sewerTax,
+                waterGross, sewerGross,
+                totalWaterVol, totalWaterNet, totalWaterTax, totalWaterGross,
+                
+                totalBuildingGross,
+                totalBGrossShare
+            };
+        }
+
+        // Live update values inside data entry form
+        function calculateLiveBill() {
+            const rawRec = {
+                elecNormStart: parseFloat(document.getElementById('elec-norm-start').value) || 0,
+                elecNormEnd: parseFloat(document.getElementById('elec-norm-end').value) || 0,
+                elecPeakStart: parseFloat(document.getElementById('elec-peak-start').value) || 0,
+                elecPeakEnd: parseFloat(document.getElementById('elec-peak-end').value) || 0,
+                elecOffStart: parseFloat(document.getElementById('elec-off-start').value) || 0,
+                elecOffEnd: parseFloat(document.getElementById('elec-off-end').value) || 0,
+                waterStart: parseFloat(document.getElementById('water-start').value) || 0,
+                waterEnd: parseFloat(document.getElementById('water-end').value) || 0,
+            };
+
+            const computed = computeBillDetails(rawRec);
+
+            document.getElementById('live-elec-kwh').innerText = formatNum(computed.totalElecVol);
+            document.getElementById('live-water-m3').innerText = formatNum(computed.waterVol);
+            document.getElementById('live-total-building').innerText = formatVND(computed.totalBuildingGross);
+            document.getElementById('live-total-b').innerText = formatVND(computed.totalBGrossShare);
+        }
+
+        // Tab manager
+        function switchTab(tabId) {
+            const panels = ['dashboard', 'data-manager', 'minutes-generator', 'pricing-rules'];
+            panels.forEach(p => {
+                document.getElementById(`panel-${p}`).classList.add('hidden');
+                
+                const btn = document.getElementById(`tab-${p}`);
+                if (p === tabId) {
+                    btn.classList.add('border-indigo-600', 'text-indigo-600');
+                    btn.classList.remove('border-transparent', 'text-slate-500');
+                } else {
+                    btn.classList.remove('border-indigo-600', 'text-indigo-600');
+                    btn.classList.add('border-transparent', 'text-slate-500');
+                }
+            });
+
+            document.getElementById(`panel-${tabId}`).classList.remove('hidden');
+
+            if (tabId === 'dashboard') {
+                setTimeout(renderCharts, 50);
+            }
+            if (tabId === 'minutes-generator') {
+                loadMinutesSelector();
+            }
+        }
+
+        // Sync application state
+        function refreshAll() {
+            localStorage.setItem('haiphong_bm02_data', JSON.stringify(appState));
+            renderTable();
+            renderCharts();
+            updateKPIs();
+        }
+
+        // Update indicators
+        function updateKPIs() {
+            if (appState.records.length === 0) {
+                document.getElementById('kpi-total-elec').innerText = '0 kWh';
+                document.getElementById('kpi-total-water').innerText = '0 m³';
+                document.getElementById('kpi-building-cost').innerText = '0 đ';
+                document.getElementById('kpi-b-cost').innerText = '0 đ';
+                return;
+            }
+
+            // Target last records
+            const sorted = [...appState.records].sort((a,b) => b.month.localeCompare(a.month));
+            const latest = sorted[0];
+            const comp = computeBillDetails(latest);
+
+            document.getElementById('kpi-total-elec').innerText = `${formatNum(comp.totalElecVol)} kWh`;
+            document.getElementById('kpi-total-water').innerText = `${formatNum(comp.waterVol)} m³`;
+            document.getElementById('kpi-building-cost').innerText = formatVND(comp.totalBuildingGross);
+            document.getElementById('kpi-b-cost').innerText = formatVND(comp.totalBGrossShare);
+            
+            const bPercent = (appState.shareRatio * 100).toFixed(0);
+            document.getElementById('kpi-b-ratio').innerText = `Tỉ lệ Bên B: ${bPercent}% điện + 100% nước`;
+        }
+
+        // Display rows
+        function renderTable() {
+            const tbody = document.getElementById('data-table-body');
+            const placeholder = document.getElementById('no-data-placeholder');
+            tbody.innerHTML = '';
+
+            if (appState.records.length === 0) {
+                placeholder.classList.remove('hidden');
+                return;
+            } else {
+                placeholder.classList.add('hidden');
+            }
+
+            const sorted = [...appState.records].sort((a,b) => b.month.localeCompare(a.month));
+
+            sorted.forEach((rec, idx) => {
+                const originalIdx = appState.records.findIndex(r => r.month === rec.month);
+                const comp = computeBillDetails(rec);
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-indigo-50/40 transition-colors duration-150 text-slate-700";
+                
+                tr.innerHTML = `
+                    <td class="py-3.5 px-3">
+                        <span class="font-bold text-slate-800 text-sm block">${rec.month}</span>
+                        <span class="text-[10px] text-slate-400 font-medium">${rec.periodDesc}</span>
+                    </td>
+                    <td class="py-3.5 px-2 text-right font-mono font-bold">${formatNum(comp.totalElecVol)}</td>
+                    <td class="py-3.5 px-2 text-right font-mono font-bold text-cyan-600">${formatNum(comp.waterVol)}</td>
+                    <td class="py-3.5 px-2 text-right font-mono text-slate-600">${formatVND(comp.totalBuildingGross)}</td>
+                    <td class="py-3.5 px-2 text-right font-mono font-bold text-indigo-700 text-sm">${formatVND(comp.totalBGrossShare)}</td>
+                    <td class="py-3.5 px-3 text-center">
+                        <div class="flex items-center justify-center gap-1.5">
+                            <button onclick="editRecord(${originalIdx})" class="px-2 py-1 text-[10px] font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded transition">
+                                <i class="fa-solid fa-pen"></i> Sửa
+                            </button>
+                            <button onclick="deleteRecord(${originalIdx})" class="px-2 py-1 text-[10px] font-bold bg-rose-50 hover:bg-rose-100 text-rose-600 rounded transition">
+                                <i class="fa-solid fa-trash"></i> Xóa
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Chart graphics implementation
+        function renderCharts() {
+            const sortedChronologically = [...appState.records].sort((a,b) => a.month.localeCompare(b.month));
+            const months = sortedChronologically.map(r => r.month);
+            
+            const listElecVol = [];
+            const listBShareCost = [];
+            const listWaterVol = [];
+            const listSewerVol = [];
+
+            sortedChronologically.forEach(r => {
+                const comp = computeBillDetails(r);
+                listElecVol.push(comp.totalElecVol);
+                listBShareCost.push(comp.totalBGrossShare);
+                listWaterVol.push(comp.waterVol);
+                listSewerVol.push(comp.sewerVol);
+            });
+
+            // 1. ELEC CHART
+            if (elecChartInstance) elecChartInstance.destroy();
+            const ctxElec = document.getElementById('elecChart').getContext('2d');
+            elecChartInstance = new Chart(ctxElec, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [
+                        {
+                            label: 'Sản lượng Điện tổng (kWh)',
+                            data: listElecVol,
+                            backgroundColor: 'rgba(79, 70, 229, 0.85)',
+                            borderColor: 'rgb(79, 70, 229)',
+                            borderWidth: 1.5,
+                            borderRadius: 6,
+                            yAxisID: 'yVol'
+                        },
+                        {
+                            label: 'Bên B Thanh Toán (đ)',
+                            data: listBShareCost,
+                            type: 'line',
+                            borderColor: 'rgb(16, 185, 129)',
+                            backgroundColor: 'transparent',
+                            borderWidth: 3,
+                            pointBackgroundColor: 'rgb(16, 185, 129)',
+                            pointRadius: 4,
+                            yAxisID: 'yCost',
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { font: { family: 'Inter', size: 10 } } }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        yVol: {
+                            type: 'linear',
+                            position: 'left',
+                            title: { display: true, text: 'Lượng điện tiêu thụ (kWh)', font: { size: 10, weight: 'bold' } }
+                        },
+                        yCost: {
+                            type: 'linear',
+                            position: 'right',
+                            title: { display: true, text: 'Số tiền Bên B thanh toán (VND)', font: { size: 10, weight: 'bold' } },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // 2. WATER CHART
+            if (waterChartInstance) waterChartInstance.destroy();
+            const ctxWater = document.getElementById('waterChart').getContext('2d');
+            waterChartInstance = new Chart(ctxWater, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [
+                        {
+                            label: 'Nước tiêu thụ (m³)',
+                            data: listWaterVol,
+                            backgroundColor: 'rgba(6, 182, 212, 0.85)',
+                            borderColor: 'rgb(6, 182, 212)',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Dịch vụ thoát nước (m³)',
+                            data: listSewerVol,
+                            backgroundColor: 'rgba(148, 163, 184, 0.8)',
+                            borderColor: 'rgb(148, 163, 184)',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { font: { family: 'Inter', size: 10 } } }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: {
+                            title: { display: true, text: 'Thể tích tiêu dùng (m³)', font: { size: 10, weight: 'bold' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Process Save action
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const month = document.getElementById('input-month').value;
+            const periodDesc = document.getElementById('input-period-desc').value;
+            const editIdxStr = document.getElementById('edit-index').value;
+
+            const rec = {
+                month,
+                periodDesc,
+                elecNormStart: parseFloat(document.getElementById('elec-norm-start').value),
+                elecNormEnd: parseFloat(document.getElementById('elec-norm-end').value),
+                elecPeakStart: parseFloat(document.getElementById('elec-peak-start').value),
+                elecPeakEnd: parseFloat(document.getElementById('elec-peak-end').value),
+                elecOffStart: parseFloat(document.getElementById('elec-off-start').value),
+                elecOffEnd: parseFloat(document.getElementById('elec-off-end').value),
+                waterStart: parseFloat(document.getElementById('water-start').value),
+                waterEnd: parseFloat(document.getElementById('water-end').value),
+            };
+
+            // Validation index checks
+            if (rec.elecNormEnd < rec.elecNormStart || rec.elecPeakEnd < rec.elecPeakStart || rec.elecOffEnd < rec.elecOffStart || rec.waterEnd < rec.waterStart) {
+                showFeedback("Lỗi số liệu", "Chỉ số cuối không được phép nhỏ hơn chỉ số đầu!", "error");
+                return;
+            }
+
+            if (editIdxStr !== "") {
+                const idx = parseInt(editIdxStr);
+                appState.records[idx] = rec;
+                showFeedback("Đã cập nhật", `Ghi nhận thay đổi thành công cho kỳ tháng ${month}`, "success");
+            } else {
+                // Prevent duplicate months
+                if (appState.records.some(r => r.month === month)) {
+                    showFeedback("Trùng kỳ hạn", `Kỳ tháng ${month} đã có trong dữ liệu!`, "error");
+                    return;
+                }
+                appState.records.push(rec);
+                showFeedback("Thành công", `Đã lưu thêm số đọc mới kỳ tháng ${month}`, "success");
+            }
+
+            resetForm();
+            refreshAll();
+        }
+
+        // Fill Form for editing
+        function editRecord(idx) {
+            const r = appState.records[idx];
+            document.getElementById('edit-index').value = idx;
+            document.getElementById('input-month').value = r.month;
+            document.getElementById('input-period-desc').value = r.periodDesc;
+
+            document.getElementById('elec-norm-start').value = r.elecNormStart;
+            document.getElementById('elec-norm-end').value = r.elecNormEnd;
+            document.getElementById('elec-peak-start').value = r.elecPeakStart;
+            document.getElementById('elec-peak-end').value = r.elecPeakEnd;
+            document.getElementById('elec-off-start').value = r.elecOffStart;
+            document.getElementById('elec-off-end').value = r.elecOffEnd;
+            
+            document.getElementById('water-start').value = r.waterStart;
+            document.getElementById('water-end').value = r.waterEnd;
+
+            document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-pen-to-square text-amber-500 mr-1.5"></i>Chỉnh Sửa Kỳ ${r.month}`;
+            calculateLiveBill();
+
+            document.getElementById('billing-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Delete record
+        function deleteRecord(idx) {
+            const r = appState.records[idx];
+            if (confirm(`Bạn chắc chắn muốn xóa dữ liệu kỳ tháng ${r.month}?`)) {
+                appState.records.splice(idx, 1);
+                refreshAll();
+                showFeedback("Đã xóa", "Dữ liệu kỳ được chọn đã bị loại bỏ.", "info");
+            }
+        }
+
+        // Clear All
+        function clearAllData() {
+            if (confirm("CẢNH BÁO: Thao tác này sẽ xóa sạch toàn bộ lịch sử đo đạc! Bạn có muốn tiếp tục?")) {
+                appState.records = [];
+                refreshAll();
+                showFeedback("Đã dọn dẹp", "Hệ thống đã trống hoàn toàn.", "info");
+            }
+        }
+
+        // Form cleaner reset
+        function resetForm() {
+            document.getElementById('edit-index').value = "";
+            document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-file-circle-plus text-indigo-600 mr-1.5"></i>Ghi Chỉ Số Kỳ Mới`;
+            
+            document.getElementById('elec-norm-start').value = "";
+            document.getElementById('elec-norm-end').value = "";
+            document.getElementById('elec-peak-start').value = "";
+            document.getElementById('elec-peak-end').value = "";
+            document.getElementById('elec-off-start').value = "";
+            document.getElementById('elec-off-end').value = "";
+            
+            document.getElementById('water-start').value = "";
+            document.getElementById('water-end').value = "";
+
+            const t = new Date();
+            const year = t.getFullYear();
+            const month = String(t.getMonth() + 1).padStart(2, '0');
+            document.getElementById('input-month').value = `${year}-${month}`;
+            document.getElementById('input-period-desc').value = `1/${t.getMonth() + 1} - 30/${t.getMonth() + 1}`;
+
+            calculateLiveBill();
+        }
+
+        // Apply Config updates
+        function updateSettings() {
+            appState.rateElecNorm = parseFloat(document.getElementById('cfg-rate-elec-norm').value) || 0;
+            appState.rateElecPeak = parseFloat(document.getElementById('cfg-rate-elec-peak').value) || 0;
+            appState.rateElecOff = parseFloat(document.getElementById('cfg-rate-elec-off').value) || 0;
+            appState.rateWater = parseFloat(document.getElementById('cfg-rate-water').value) || 0;
+            appState.rateSewer = parseFloat(document.getElementById('cfg-rate-sewer').value) || 0;
+            
+            appState.shareRatio = parseFloat(document.getElementById('cfg-share-ratio').value) || 1.0;
+            appState.taxElec = parseFloat(document.getElementById('cfg-tax-elec').value) || 0;
+            appState.taxWater = parseFloat(document.getElementById('cfg-tax-water').value) || 0;
+            appState.taxSewer = parseFloat(document.getElementById('cfg-tax-sewer').value) || 0;
+
+            refreshAll();
+        }
+
+        // Load selector inside official template tab
+        function loadMinutesSelector() {
+            const select = document.getElementById('minutes-month-selector');
+            select.innerHTML = '';
+
+            if (appState.records.length === 0) {
+                const opt = document.createElement('option');
+                opt.text = "Không có dữ liệu khả dụng";
+                select.add(opt);
+                return;
+            }
+
+            const sorted = [...appState.records].sort((a,b) => b.month.localeCompare(a.month));
+            sorted.forEach(rec => {
+                const opt = document.createElement('option');
+                opt.value = rec.month;
+                opt.text = `Kỳ Tháng ${rec.month} (${rec.periodDesc})`;
+                select.add(opt);
+            });
+
+            loadMinutesRecord();
+        }
+
+        // Spells Vietnamese currency
+        function translateNumberToWords(numberStr) {
+            let number = Math.round(parseFloat(numberStr));
+            if (isNaN(number) || number === 0) return "Không đồng chẵn";
+
+            const units = ["", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"];
+            const tiers = ["", "nghìn", "triệu", "tỷ", "nghìn tỷ", "triệu tỷ"];
+
+            function parseGroup(n) {
+                let s = "";
+                let hundreds = Math.floor(n / 100);
+                let tens = Math.floor((n % 100) / 10);
+                let single = n % 10;
+
+                if (hundreds > 0) {
+                    s += units[hundreds] + " trăm ";
+                } else if (tens > 0 || single > 0) {
+                    // s += "không trăm "; // skip zero hundred for simplicity unless middle group
+                }
+
+                if (tens > 1) {
+                    s += units[tens] + " mươi ";
+                } else if (tens === 1) {
+                    s += "mười ";
+                } else if (tens === 0 && single > 0 && hundreds > 0) {
+                    s += "linh ";
+                }
+
+                if (single === 5 && tens > 0) {
+                    s += "lăm";
+                } else if (single === 1 && tens > 1) {
+                    s += "mốt";
+                } else if (single > 0) {
+                    s += units[single];
+                }
+
+                return s.trim();
+            }
+
+            let result = "";
+            let tierIndex = 0;
+
+            while (number > 0) {
+                let group = number % 1000;
+                if (group > 0) {
+                    let groupStr = parseGroup(group);
+                    if (groupStr !== "") {
+                        result = groupStr + " " + tiers[tierIndex] + " " + result;
+                    }
+                }
+                number = Math.floor(number / 1000);
+                tierIndex++;
+            }
+
+            result = result.trim().replace(/\s+/g, ' ');
+            // Capitalize first character
+            result = result.charAt(0).toUpperCase() + result.slice(1);
+            return result + " đồng chẵn./.";
+        }
+
+        // Read selected monthly record and populate HTML printable minutes
+        function loadMinutesRecord() {
+            const select = document.getElementById('minutes-month-selector');
+            const targetMonth = select.value;
+            const rec = appState.records.find(r => r.month === targetMonth);
+
+            if (!rec) return;
+
+            const comp = computeBillDetails(rec);
+
+            // Period Title
+            document.getElementById('doc-period').innerText = `Từ ${rec.periodDesc}`;
+            
+            // Share ratio tag
+            const numB = (appState.shareRatio === 0.666667) ? "2/3" : (appState.shareRatio === 0.333333) ? "1/3" : (appState.shareRatio === 0.5) ? "1/2" : appState.shareRatio.toFixed(2);
+            document.getElementById('doc-share-ratio').innerText = numB;
+
+            // ELEC INDEX
+            document.getElementById('doc-elec-norm-start').innerText = formatNum(rec.elecNormStart);
+            document.getElementById('doc-elec-norm-end').innerText = formatNum(rec.elecNormEnd);
+            document.getElementById('doc-elec-norm-vol').innerText = formatNum(comp.elecNormVol);
+            document.getElementById('doc-elec-norm-rate').innerText = formatNum(appState.rateElecNorm);
+            document.getElementById('doc-elec-norm-net').innerText = formatNum(comp.elecNormNet);
+            document.getElementById('doc-elec-norm-tax').innerText = formatNum(comp.elecNormTax);
+            document.getElementById('doc-elec-norm-total').innerText = formatNum(comp.elecNormGross);
+
+            document.getElementById('doc-elec-peak-start').innerText = formatNum(rec.elecPeakStart);
+            document.getElementById('doc-elec-peak-end').innerText = formatNum(rec.elecPeakEnd);
+            document.getElementById('doc-elec-peak-vol').innerText = formatNum(comp.elecPeakVol);
+            document.getElementById('doc-elec-peak-rate').innerText = formatNum(appState.rateElecPeak);
+            document.getElementById('doc-elec-peak-net').innerText = formatNum(comp.elecPeakNet);
+            document.getElementById('doc-elec-peak-tax').innerText = formatNum(comp.elecPeakTax);
+            document.getElementById('doc-elec-peak-total').innerText = formatNum(comp.elecPeakGross);
+
+            document.getElementById('doc-elec-off-start').innerText = formatNum(rec.elecOffStart);
+            document.getElementById('doc-elec-off-end').innerText = formatNum(rec.elecOffEnd);
+            document.getElementById('doc-elec-off-vol').innerText = formatNum(comp.elecOffVol);
+            document.getElementById('doc-elec-off-rate').innerText = formatNum(appState.rateElecOff);
+            document.getElementById('doc-elec-off-net').innerText = formatNum(comp.elecOffNet);
+            document.getElementById('doc-elec-off-tax').innerText = formatNum(comp.elecOffTax);
+            document.getElementById('doc-elec-off-total').innerText = formatNum(comp.elecOffGross);
+
+            document.getElementById('doc-elec-total-vol').innerText = formatNum(comp.totalElecVol);
+            document.getElementById('doc-elec-total-net').innerText = formatNum(comp.totalElecNet);
+            document.getElementById('doc-elec-total-tax').innerText = formatNum(comp.totalElecTax);
+            document.getElementById('doc-elec-total-gross').innerText = formatNum(comp.totalElecGross);
+
+            // B Share final Elec
+            document.getElementById('doc-final-b-elec').innerText = `${formatNum(comp.bElecGross)} VNĐ`;
+            document.getElementById('doc-final-b-elec-text').innerText = translateNumberToWords(comp.bElecGross);
+
+            // WATER INDEX
+            document.getElementById('doc-water-start').innerText = formatNum(rec.waterStart);
+            document.getElementById('doc-water-end').innerText = formatNum(rec.waterEnd);
+            document.getElementById('doc-water-vol').innerText = formatNum(comp.waterVol);
+            document.getElementById('doc-water-rate').innerText = formatNum(appState.rateWater);
+            document.getElementById('doc-water-net').innerText = formatNum(comp.waterNet);
+            document.getElementById('doc-water-tax').innerText = formatNum(comp.waterTax);
+            document.getElementById('doc-water-total').innerText = formatNum(comp.waterGross);
+
+            document.getElementById('doc-sewer-start').innerText = formatNum(rec.waterStart);
+            document.getElementById('doc-sewer-end').innerText = formatNum(rec.waterEnd);
+            document.getElementById('doc-sewer-vol').innerText = formatNum(comp.sewerVol);
+            document.getElementById('doc-sewer-rate').innerText = formatNum(appState.rateSewer);
+            document.getElementById('doc-sewer-net').innerText = formatNum(comp.sewerNet);
+            document.getElementById('doc-sewer-tax').innerText = formatNum(comp.sewerTax);
+            document.getElementById('doc-sewer-total').innerText = formatNum(comp.sewerGross);
+
+            document.getElementById('doc-water-total-vol').innerText = formatNum(comp.totalWaterVol);
+            document.getElementById('doc-water-total-net').innerText = formatNum(comp.totalWaterNet);
+            document.getElementById('doc-water-total-tax').innerText = formatNum(comp.totalWaterTax);
+            document.getElementById('doc-water-total-gross').innerText = formatNum(comp.totalWaterGross);
+
+            // B Share final Water (B pays 100% water bills)
+            document.getElementById('doc-final-b-water').innerText = `${formatNum(comp.totalWaterGross)} VNĐ`;
+            document.getElementById('doc-final-b-water-text').innerText = translateNumberToWords(comp.totalWaterGross);
+        }
+
+        // EXCEL IMPORT: Process "Thong ke dien nang tieu thu.xlsx"
+        function importExcel(evt) {
+            const files = evt.target.files;
+            if (files.length === 0) return;
+
+            const file = files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+                    if (jsonData.length === 0) {
+                        showFeedback("Rỗng", "File Excel tải lên không chứa dữ liệu.", "warning");
+                        return;
+                    }
+
+                    let importCount = 0;
+
+                    jsonData.forEach(row => {
+                        const norm = {};
+                        Object.keys(row).forEach(k => {
+                            norm[k.toLowerCase().trim()] = row[k];
+                        });
+
+                        // Resolve month and index values
+                        const month = norm['tháng'] || norm['ky'] || norm['kỳ'] || norm['month'];
+                        const desc = norm['chu kỳ'] || norm['khoảng thời gian'] || norm['ghi chú'] || "1/6 - 30/6";
+
+                        if (month) {
+                            const rec = {
+                                month: String(month).trim(),
+                                periodDesc: String(desc).trim(),
+                                elecNormStart: parseFloat(norm['bình thường đầu'] || norm['norm_start'] || 0),
+                                elecNormEnd: parseFloat(norm['bình thường cuối'] || norm['norm_end'] || 0),
+                                elecPeakStart: parseFloat(norm['cao điểm đầu'] || norm['peak_start'] || 0),
+                                elecPeakEnd: parseFloat(norm['cao điểm cuối'] || norm['peak_end'] || 0),
+                                elecOffStart: parseFloat(norm['thấp điểm đầu'] || norm['off_start'] || 0),
+                                elecOffEnd: parseFloat(norm['thấp điểm cuối'] || norm['off_end'] || 0),
+                                waterStart: parseFloat(norm['nước đầu'] || norm['water_start'] || 0),
+                                waterEnd: parseFloat(norm['nước cuối'] || norm['water_end'] || 0)
+                            };
+
+                            const existIdx = appState.records.findIndex(r => r.month === rec.month);
+                            if (existIdx >= 0) {
+                                appState.records[existIdx] = rec;
+                            } else {
+                                appState.records.push(rec);
+                            }
+                            importCount++;
+                        }
+                    });
+
+                    if (importCount > 0) {
+                        refreshAll();
+                        showFeedback("Nhập Excel thành công", `Đã nhập và tính toán đồng bộ ${importCount} dòng số liệu!`, "success");
+                    } else {
+                        showFeedback("Không hỗ trợ", "Định dạng Excel không khớp với cấu trúc BM.02.", "warning");
+                    }
+                } catch(err) {
+                    showFeedback("Lỗi", "Không thể phân tích dữ liệu tệp Excel tải lên.", "error");
+                }
+            };
+
+            reader.readAsArrayBuffer(file);
+            evt.target.value = ""; // clear selector
+        }
+
+        // EXCEL EXPORT: Package local records database into "Thong ke dien nang tieu thu.xlsx"
+        function exportToExcel() {
+            if (appState.records.length === 0) {
+                showFeedback("Không có dữ liệu", "Danh sách rỗng, vui lòng nhập dữ liệu trước khi xuất.", "info");
+                return;
+            }
+
+            const payload = appState.records.map(r => {
+                const comp = computeBillDetails(r);
+                return {
+                    "Kỳ Tháng": r.month,
+                    "Chu kỳ chi tiết": r.periodDesc,
+                    "Điện BT - Đầu": r.elecNormStart,
+                    "Điện BT - Cuối": r.elecNormEnd,
+                    "Điện CD - Đầu": r.elecPeakStart,
+                    "Điện CD - Cuối": r.elecPeakEnd,
+                    "Điện TD - Đầu": r.elecOffStart,
+                    "Điện TD - Cuối": r.elecOffEnd,
+                    "Tổng Điện (kWh)": comp.totalElecVol,
+                    "Nước - Đầu": r.waterStart,
+                    "Nước - Cuối": r.waterEnd,
+                    "Nước Tiêu Thụ (m3)": comp.waterVol,
+                    "Thanh toán tòa nhà (VND)": comp.totalBuildingGross,
+                    "Bên B chi trả (VND)": comp.totalBGrossShare
+                };
+            });
+
+            // Sort dates
+            payload.sort((a,b) => a["Kỳ Tháng"].localeCompare(b["Kỳ Tháng"]));
+
+            const ws = XLSX.utils.json_to_sheet(payload);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "BM.02 Điện Nước");
+
+            // Save
+            XLSX.writeFile(wb, "Thong ke dien nang tieu thu.xlsx");
+            showFeedback("Thành công", "Đã tải xuống file 'Thong ke dien nang tieu thu.xlsx'", "success");
+        }
+
+        // Custom notification widget to replace window.alert
+        function showFeedback(title, msg, type = 'info') {
+            const host = document.querySelector('body');
+            const box = document.createElement('div');
+            box.className = "fixed bottom-5 right-5 max-w-sm w-full bg-white rounded-2xl shadow-2xl border border-slate-150 p-4 flex items-start space-x-3 z-[9999] transition-all transform translate-y-12 opacity-0 duration-300 no-print";
+            
+            let icon = '<i class="fa-solid fa-circle-info text-blue-500 text-lg"></i>';
+            if (type === 'success') {
+                icon = '<i class="fa-solid fa-circle-check text-emerald-500 text-lg"></i>';
+            } else if (type === 'error') {
+                icon = '<i class="fa-solid fa-circle-exclamation text-rose-500 text-lg"></i>';
+            } else if (type === 'warning') {
+                icon = '<i class="fa-solid fa-triangle-exclamation text-amber-500 text-lg"></i>';
+            }
+
+            box.innerHTML = `
+                <div class="mt-0.5">${icon}</div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-slate-800 text-xs">${title}</h4>
+                    <p class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">${msg}</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-[10px]"></i>
+                </button>
+            `;
+            host.appendChild(box);
+
+            setTimeout(() => {
+                box.classList.remove('translate-y-12', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                box.classList.add('translate-y-12', 'opacity-0');
+                setTimeout(() => box.remove(), 300);
+            }, 4500);
+        }
+    </script>
+</body>
+</html>
+```
+eof
